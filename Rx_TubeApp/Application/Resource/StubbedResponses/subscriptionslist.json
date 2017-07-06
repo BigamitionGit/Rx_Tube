@@ -1,0 +1,142 @@
+{
+ "kind": "youtube#subscriptionListResponse",
+ "etag": "\"m2yskBQFythfE4irbTIeOgYYfBU/-PdYUwTRS2yad8TffENCfoOCRdE\"",
+ "nextPageToken": "CAUQAA",
+ "pageInfo": {
+  "totalResults": 37,
+  "resultsPerPage": 5
+ },
+ "items": [
+  {
+   "kind": "youtube#subscription",
+   "etag": "\"m2yskBQFythfE4irbTIeOgYYfBU/4gYVcHiXlKPglomcCm4gPmNqV8M\"",
+   "id": "zu2JK5gQJtmxS0JIaTV0C3CTIxYG500UbvyFI5Ym1i8",
+   "snippet": {
+    "publishedAt": "2017-07-05T01:13:27.000Z",
+    "title": "DingusBringus",
+    "description": "Here you will find a Dingus trying to be good at Star Wars Battlefront but it will never happen. I also cover everything that has to do with the greatest movie saga ever, Star Wars. Morning live streams start at 8:00am - 9:00am EST every morning and night streams start at 7:00pm - 8:00pm EST. Between the live streams will be a Star Wars Analyzed video, Star Wars Theory video, Star Wars Vs. video, or a Star Wars News video. For business inquiries email dingusbringus05@gmail.com",
+    "resourceId": {
+     "kind": "youtube#channel",
+     "channelId": "UCrgs6qqpNQYFtBSYuQP9D_Q"
+    },
+    "channelId": "UCTU8pjqN6C654i1_xFe_TYQ",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/-Z0iVNh0yjMQ/AAAAAAAAAAI/AAAAAAAAAAA/WNRfGzqqyQw/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/-Z0iVNh0yjMQ/AAAAAAAAAAI/AAAAAAAAAAA/WNRfGzqqyQw/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/-Z0iVNh0yjMQ/AAAAAAAAAAI/AAAAAAAAAAA/WNRfGzqqyQw/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     }
+    }
+   }
+  },
+  {
+   "kind": "youtube#subscription",
+   "etag": "\"m2yskBQFythfE4irbTIeOgYYfBU/OvI8IrMs7f-vyWY2jzEeOmp40hY\"",
+   "id": "zu2JK5gQJtnHMO3yjwpD9Tz78u46mACqveVZj3NhmVE",
+   "snippet": {
+    "publishedAt": "2017-06-25T17:57:15.000Z",
+    "title": "1 Step to Better Golf",
+    "description": "1 Step to Better Golf provides golf instruction books and videos to help golfers improve their game. Our award-winning titles include 1 Step to Better Golf, 1 Step to Perfect Putting, 1 Step to Hitting it Long, and 1 Step to Swinging Like Tiger. Our mission is help golfers across the world enjoy greater satisfaction with this great game.",
+    "resourceId": {
+     "kind": "youtube#channel",
+     "channelId": "UCz90vlXFrz12GN2Ps9BFlSw"
+    },
+    "channelId": "UCTU8pjqN6C654i1_xFe_TYQ",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/-JA6JHPIHNoA/AAAAAAAAAAI/AAAAAAAAAAA/7wHZp6Pvg0o/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/-JA6JHPIHNoA/AAAAAAAAAAI/AAAAAAAAAAA/7wHZp6Pvg0o/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/-JA6JHPIHNoA/AAAAAAAAAAI/AAAAAAAAAAA/7wHZp6Pvg0o/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     }
+    }
+   }
+  },
+  {
+   "kind": "youtube#subscription",
+   "etag": "\"m2yskBQFythfE4irbTIeOgYYfBU/7EJEw_xuIEn8pHTge5JTrbSp2F8\"",
+   "id": "zu2JK5gQJtmxS0JIaTV0C2wazBrcgFGDTzeujSoFKJw",
+   "snippet": {
+    "publishedAt": "2017-06-23T15:44:42.000Z",
+    "title": "Jack Doherty",
+    "description": "Just a kid who loves YouTube :)\nFollow me on social media down below :)",
+    "resourceId": {
+     "kind": "youtube#channel",
+     "channelId": "UCkj8f9sqSKuzn-NyP7Os1ZQ"
+    },
+    "channelId": "UCTU8pjqN6C654i1_xFe_TYQ",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/-uFdVoXxm0ww/AAAAAAAAAAI/AAAAAAAAAAA/8BeFwsV7CA8/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/-uFdVoXxm0ww/AAAAAAAAAAI/AAAAAAAAAAA/8BeFwsV7CA8/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/-uFdVoXxm0ww/AAAAAAAAAAI/AAAAAAAAAAA/8BeFwsV7CA8/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     }
+    }
+   }
+  },
+  {
+   "kind": "youtube#subscription",
+   "etag": "\"m2yskBQFythfE4irbTIeOgYYfBU/YBp1MOPwUEqaseIy_U4nF9N8VK8\"",
+   "id": "zu2JK5gQJtnHMO3yjwpD9WTMEWCezcaJAYEnPPV8rnA",
+   "snippet": {
+    "publishedAt": "2017-06-17T00:32:43.000Z",
+    "title": "Erika Costell",
+    "description": "",
+    "resourceId": {
+     "kind": "youtube#channel",
+     "channelId": "UCrCkLipGria4UloMpvNil5g"
+    },
+    "channelId": "UCTU8pjqN6C654i1_xFe_TYQ",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/-24cJdLzATIE/AAAAAAAAAAI/AAAAAAAAAAA/MM5P-ZzRH3Y/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/-24cJdLzATIE/AAAAAAAAAAI/AAAAAAAAAAA/MM5P-ZzRH3Y/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/-24cJdLzATIE/AAAAAAAAAAI/AAAAAAAAAAA/MM5P-ZzRH3Y/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     }
+    }
+   }
+  },
+  {
+   "kind": "youtube#subscription",
+   "etag": "\"m2yskBQFythfE4irbTIeOgYYfBU/0G7umx6iSKuPCaYIIb3qPf3xqns\"",
+   "id": "zu2JK5gQJtnHMO3yjwpD9Qc8d9AQU-UuJLMJ8oaMldg",
+   "snippet": {
+    "publishedAt": "2017-06-15T19:51:14.000Z",
+    "title": "Nick Smith",
+    "description": "I post weekly NBA videos, including NBA History, current NBA topics (Free Agent news/ Trade talk etc), we talk about NBA conspiracies, we post NBA What If scenarios and so much more! If YOU want anything NBA related, be sure to hit me up! Leave me Feedback of any kind! Messages, Comments, and Everyone who supports me by doing these and checking out my videos is very much appreciated!\n\nI'll always respond over there to any questions, concerns, or anyone wanting to chat, just remember to follow me!\n\nhttps://twitter.com/nicksmith71218 \n\nPartnered With Machinima.",
+    "resourceId": {
+     "kind": "youtube#channel",
+     "channelId": "UCpIMjK2bf5CBxIMHli-FhpA"
+    },
+    "channelId": "UCTU8pjqN6C654i1_xFe_TYQ",
+    "thumbnails": {
+     "default": {
+      "url": "https://yt3.ggpht.com/-U7OkbrZNY1E/AAAAAAAAAAI/AAAAAAAAAAA/m0TMysF5d2c/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     },
+     "medium": {
+      "url": "https://yt3.ggpht.com/-U7OkbrZNY1E/AAAAAAAAAAI/AAAAAAAAAAA/m0TMysF5d2c/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     },
+     "high": {
+      "url": "https://yt3.ggpht.com/-U7OkbrZNY1E/AAAAAAAAAAI/AAAAAAAAAAA/m0TMysF5d2c/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+     }
+    }
+   }
+  }
+ ]
+}
+

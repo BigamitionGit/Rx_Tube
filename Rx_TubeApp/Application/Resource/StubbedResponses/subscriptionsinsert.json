@@ -1,0 +1,27 @@
+{
+ "kind": "youtube#subscription",
+ "etag": "\"m2yskBQFythfE4irbTIeOgYYfBU/Tfr5A0lS7xnGMYfLKgdmzsoQ_EA\"",
+ "id": "Dfr69w7u1-N8QY0nKPzyI5rpexkcplPQRrhK0qzqnco",
+ "snippet": {
+  "publishedAt": "2017-07-05T14:30:23.000Z",
+  "title": "Trash Dude",
+  "description": "",
+  "resourceId": {
+   "kind": "youtube#channel",
+   "channelId": "UCTU8pjqN6C654i1_xFe_TYQ"
+  },
+  "channelId": "UCJCMoyKBgNnXDSggO8vE4Rw",
+  "thumbnails": {
+   "default": {
+    "url": "https://yt3.ggpht.com/-2C_gHM7deqo/AAAAAAAAAAI/AAAAAAAAAAA/tNj-uUVV8os/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
+   },
+   "medium": {
+    "url": "https://yt3.ggpht.com/-2C_gHM7deqo/AAAAAAAAAAI/AAAAAAAAAAA/tNj-uUVV8os/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+   },
+   "high": {
+    "url": "https://yt3.ggpht.com/-2C_gHM7deqo/AAAAAAAAAAI/AAAAAAAAAAA/tNj-uUVV8os/s240-c-k-no-mo-rj-c0xffffff/photo.jpg"
+   }
+  }
+ }
+}
+

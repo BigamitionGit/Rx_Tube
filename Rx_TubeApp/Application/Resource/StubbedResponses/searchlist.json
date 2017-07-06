@@ -1,0 +1,177 @@
+{
+ "kind": "youtube#searchListResponse",
+ "etag": "\"m2yskBQFythfE4irbTIeOgYYfBU/n3IsfYiHOsKhDG6z667g4Sy_fLA\"",
+ "nextPageToken": "CAUQAA",
+ "regionCode": "JP",
+ "pageInfo": {
+  "totalResults": 1000000,
+  "resultsPerPage": 5
+ },
+ "items": [
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"m2yskBQFythfE4irbTIeOgYYfBU/MMzRgk0I4RHyLq_4niRESMHcm7Q\"",
+   "id": {
+    "kind": "youtube#video",
+    "videoId": "nfs8NYg7yQM"
+   },
+   "snippet": {
+    "publishedAt": "2017-04-24T17:00:05.000Z",
+    "channelId": "UCwppdrjsBPAZg5_cUwQjfMQ",
+    "title": "Charlie Puth - Attention [Official Video]",
+    "description": "Download and Stream \"Attention\": https://Atlantic.lnk.to/AttentionID Video Directed by Emil Nava Written By: Charlie Puth and Jacob Kasher Produced By: ...",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/nfs8NYg7yQM/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/nfs8NYg7yQM/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/nfs8NYg7yQM/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "Charlie Puth",
+    "liveBroadcastContent": "none"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"m2yskBQFythfE4irbTIeOgYYfBU/hPeH_Azu_aaKSTxzNIG-gosL560\"",
+   "id": {
+    "kind": "youtube#video",
+    "videoId": "m2ua3O_fdCY"
+   },
+   "snippet": {
+    "publishedAt": "2015-05-15T13:00:05.000Z",
+    "channelId": "UCdI8evszfZvyAl2UVCypkTA",
+    "title": "Happy Hippie Presents: Don't Dream It's Over (Performed by Miley Cyrus & Ariana Grande)",
+    "description": "Happy Hippie Presents: Backyard Sessions - Don't Dream It's Over performed by Miley Cyrus and Ariana Grande Click here to donate: ...",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/m2ua3O_fdCY/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/m2ua3O_fdCY/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/m2ua3O_fdCY/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "MileyCyrusVEVO",
+    "liveBroadcastContent": "none"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"m2yskBQFythfE4irbTIeOgYYfBU/UapgvLP147XoQQjIGJxkugyp2RQ\"",
+   "id": {
+    "kind": "youtube#video",
+    "videoId": "nSDgHBxUbVQ"
+   },
+   "snippet": {
+    "publishedAt": "2015-05-10T00:40:11.000Z",
+    "channelId": "UC0C-w0YjGpqDXGB8IHb662A",
+    "title": "Ed Sheeran - Photograph (Official Music Video)",
+    "description": "Download on iTunes: http://smarturl.it/x-itunesdlx Listen on Spotify: http://smarturl.it/stream.photograph Directed by Emil Nava Subscribe to Ed's channel: ...",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/nSDgHBxUbVQ/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/nSDgHBxUbVQ/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/nSDgHBxUbVQ/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "Ed Sheeran",
+    "liveBroadcastContent": "none"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"m2yskBQFythfE4irbTIeOgYYfBU/mW9OlbJ1-GIHMEgzyrnGz6nVCls\"",
+   "id": {
+    "kind": "youtube#video",
+    "videoId": "S9bCLPwzSC0"
+   },
+   "snippet": {
+    "publishedAt": "2009-12-25T04:20:46.000Z",
+    "channelId": "UC20vb-R_px4CguHzzBPhoyQ",
+    "title": "Eminem - Mockingbird",
+    "description": "Music video by Eminem performing Mockingbird. YouTube view counts pre-VEVO: 14297644. (C) 2004 Aftermath Entertainment/Interscope Records.",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/S9bCLPwzSC0/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/S9bCLPwzSC0/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/S9bCLPwzSC0/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "EminemVEVO",
+    "liveBroadcastContent": "none"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"m2yskBQFythfE4irbTIeOgYYfBU/sgIDfXml1uxLCMMugn9Khkpwdss\"",
+   "id": {
+    "kind": "youtube#video",
+    "videoId": "dT2owtxkU8k"
+   },
+   "snippet": {
+    "publishedAt": "2017-06-21T04:00:01.000Z",
+    "channelId": "UC4-TgOSMJHn-LtY4zCzbQhw",
+    "title": "Shawn Mendes - There's Nothing Holdin' Me Back",
+    "description": "Shawn Mendes' new single “There's Nothing Holdin' Me Back” is out now. Get it off Illuminate: iTunes: https://lnk.to/IlluminateDeluxeDL/itunes Apple Music: ...",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/dT2owtxkU8k/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/dT2owtxkU8k/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/dT2owtxkU8k/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "ShawnMendesVEVO",
+    "liveBroadcastContent": "none"
+   }
+  }
+ ]
+}
