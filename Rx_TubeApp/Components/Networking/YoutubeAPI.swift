@@ -34,7 +34,25 @@ enum YoutubeAPI {
     case subscriptionsDelete(parameter:SubscriptionsDeleteParameter)
     case channels(parameter:ChannelsParameter)
     case videos(parameter:VideosParameter)
+    case videoCategories(parameter:RegionCode)
     
+    
+    enum RegionCode: String {
+        case JP
+        case US
+        case CN
+        case FR
+        case GB
+        case IN
+        case KR
+        case TW
+        case CA
+        case HK
+        case RU
+        
+        static let key = "regionCode"
+        
+    }
     
     struct SubscriptionsListParameter {
         let value:String
@@ -93,11 +111,14 @@ enum YoutubeAPI {
     
     enum SearchParameter:ParameterType {
         case channelId(id:String)
+        case eventType(event:Event)
         case maxResults(max:Int)
         case order(order:Order)
+        case publishedAfter(time:Date)
+        case publishedBefore(time:Date)
         case datetime(time:Date)
         case q(keyword:String)
-        case regionCode(code:String)
+        case regionCode(code:RegionCode)
         case type(type:SearchType)
         case videoCaption(caption:Caption)
         case videoCategoryId(id:String)
@@ -108,16 +129,22 @@ enum YoutubeAPI {
             switch self {
             case .channelId(let id):
                 return id
+            case .eventType(let event):
+                return event.rawValue
             case .maxResults(let max):
                 return max
             case .order(let order):
                 return order.rawValue
+            case .publishedAfter(let time):
+                return time
+            case .publishedBefore(let time):
+                return time
             case .datetime(let time):
                 return time
             case .q(let keyword):
                 return keyword
             case .regionCode(let code):
-                return code
+                return code.rawValue
             case .type(let type):
                 return type.rawValue
             case .videoCaption(let caption):
@@ -129,6 +156,12 @@ enum YoutubeAPI {
             case .videoDuration(let duration):
                 return duration.rawValue
             }
+        }
+        
+        enum Event: String {
+            case completed
+            case live
+            case upcoming
         }
         
         enum Order: String {
@@ -185,6 +218,8 @@ extension YoutubeAPI:TargetType {
             return "/youtube/v3/channels"
         case .videos:
             return "/youtube/v3/videos"
+        case .videoCategories:
+            return "/youtube/v3/videoCategories"
         }
     }
     
@@ -206,6 +241,8 @@ extension YoutubeAPI:TargetType {
             return [parameter.key:parameter.value]
         case .videos(let parameter):
             return [parameter.key:parameter.value]
+        case .videoCategories(let parameter):
+            return [RegionCode.key:parameter.rawValue]
         }
     }
     
@@ -223,7 +260,10 @@ extension YoutubeAPI:TargetType {
             return stubbedResponse("subscriptionsinsert")
         case .subscriptionsDelete:
             return stubbedResponse("subscriptionsdelete")
+        case .videoCategories:
+            return stubbedResponse("videoCategories")
         }
+        
     }
     
     var method: Moya.Method {

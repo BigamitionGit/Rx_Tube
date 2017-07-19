@@ -1,16 +1,16 @@
 //
-//  VideoListViewController.swift
+//  ItemListViewController.swift
 //  Rx_TubeApp
 //
-//  Created by Hiroshi Hosoda on 2017/06/15.
-//  Copyright © 2017年 HIroshi Hosoda. All rights reserved.
+//  Created by 細田　大志 on 2017/07/11.
+//  Copyright © 2017 HIroshi Hosoda. All rights reserved.
 //
 
 import UIKit
 import SnapKit
 
-class VideoListViewController: UIViewController {
-    
+final class ItemListViewController: UIViewController {
+
     private let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: nil)
     private lazy var videoListView: UITableView = {
         let tableView = UITableView()
@@ -18,10 +18,10 @@ class VideoListViewController: UIViewController {
     }()
     
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.navigationItem.rightBarButtonItem = searchButton
         self.view.addSubview(videoListView)
         setupConstraint()
@@ -30,7 +30,7 @@ class VideoListViewController: UIViewController {
     private func setupConstraint() {
         self.videoListView.snp.makeConstraints({ make in
             make.top.equalTo(self.topLayoutGuide.snp.bottom).offset(0)
-//            make.left.equalTo			
+            //            make.left.equalTo
         })
         
     }
