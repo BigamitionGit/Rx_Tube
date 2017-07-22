@@ -10,7 +10,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		tNkapdCRpPgyaKEQy/+T41PRc0c=
+		dJ5pCNwb8J15kdkzvD0v1v7C1Es=
 		</data>
 		<key>Modules/RxTest.swiftmodule/x86_64.swiftdoc</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Modules/RxTest.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		OY1ZAC7FFeITHZ7kADlXPIAxzNg=
+		TFpOoVPl0AHgpJ02c+aP0+RhZbI=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -53,11 +53,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			OY1ZAC7FFeITHZ7kADlXPIAxzNg=
+			TFpOoVPl0AHgpJ02c+aP0+RhZbI=
 			</data>
 			<key>hash2</key>
 			<data>
-			IDnjg+FNFFhvD4qr7O2ttncjG1+AK59zWSMmqrXm9nw=
+			lMiyAMHltozpTZFjAE8KEZ0q6auk7h+gN8LbHw3We7M=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -28,6 +28,7 @@
 		A38A2FAD1F1840B9006715A0 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38A2FAC1F1840B9006715A0 /* PlayerView.swift */; };
 		A38A2FAF1F1840D0006715A0 /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38A2FAE1F1840D0006715A0 /* PlayerViewModel.swift */; };
 		A3A9134E1F16EF8100047649 /* ItemCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A9134D1F16EF8100047649 /* ItemCellViewModel.swift */; };
+		A3AD33DE1F1FA00E006A1D2E /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3AD33DD1F1FA00E006A1D2E /* Kingfisher.framework */; };
 		A3B0B00C1F05CBC300E053D1 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00B1F05CBC300E053D1 /* Moya.framework */; };
 		A3B0B00E1F05CBD900E053D1 /* RxMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */; };
 		A3C7BC0D1F150BF0003AF320 /* SearchItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C7BC0C1F150BF0003AF320 /* SearchItems.swift */; };
@@ -79,6 +80,7 @@
 		A38A2FAC1F1840B9006715A0 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerView.swift; path = UI/Views/PlayerView.swift; sourceTree = "<group>"; };
 		A38A2FAE1F1840D0006715A0 /* PlayerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerViewModel.swift; path = UI/Views/PlayerViewModel.swift; sourceTree = "<group>"; };
 		A3A9134D1F16EF8100047649 /* ItemCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemCellViewModel.swift; path = UI/ViewControllers/ItemCellViewModel.swift; sourceTree = "<group>"; };
+		A3AD33DD1F1FA00E006A1D2E /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		A3B0B00B1F05CBC300E053D1 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
 		A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxMoya.framework; path = Carthage/Build/iOS/RxMoya.framework; sourceTree = "<group>"; };
 		A3C7BC0C1F150BF0003AF320 /* SearchItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchItems.swift; path = Components/Models/SearchItems.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3AD33DE1F1FA00E006A1D2E /* Kingfisher.framework in Frameworks */,
 				A3B0B00E1F05CBD900E053D1 /* RxMoya.framework in Frameworks */,
 				A3B0B00C1F05CBC300E053D1 /* Moya.framework in Frameworks */,
 				1CEF645B1EA581D90072C43F /* SnapKit.framework in Frameworks */,
@@ -168,6 +171,7 @@
 		1CEF64551EA581BC0072C43F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A3AD33DD1F1FA00E006A1D2E /* Kingfisher.framework */,
 				A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */,
 				A3B0B00B1F05CBC300E053D1 /* Moya.framework */,
 				1CEF645A1EA581D90072C43F /* SnapKit.framework */,
