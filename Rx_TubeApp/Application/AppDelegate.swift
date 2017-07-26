@@ -16,9 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        let viewModel = ItemListViewModel(provider: YoutubeProvider, type: ItemListViewType.HD)
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
-        window?.rootViewController = UINavigationController(rootViewController: ItemListViewController())
+        window?.rootViewController = UINavigationController(rootViewController: ItemListViewController(viewModel: viewModel))
         window?.makeKeyAndVisible()
         
         return true

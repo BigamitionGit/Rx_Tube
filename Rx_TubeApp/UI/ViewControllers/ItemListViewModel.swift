@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxMoya
+import Moya
 
 typealias Search = YoutubeAPI.SearchParameter
 
@@ -65,25 +66,31 @@ final class ItemListViewModel {
     var selectedItem = PublishSubject<IndexPath>()
     
     // Output
-    let itemDataSource: Driver<ItemListViewModel>
-    let presentPlayerViewModel: Observable<PlayerViewModel>
+//    let presentPlayerViewModel: Observable<PlayerViewModel>
+//    let itemDataSource: Driver<[SearchItemCellModel]>
     
-    private let parameters:Variable<[Search]>
+    // MARK: Initializing
     
     init(provider: RxMoyaProvider<YoutubeAPI>, type: ItemListViewType) {
         
-        let items: Observable<SearchItems> = Observable
-            .of(searchKeyDidTap, videoCategory, selectedTab, refresh, horizontalSwipe)
+        let items = Observable
+            .of(searchKeyDidTap, selectedTab, refresh, horizontalSwipe)
             .merge()
             .withLatestFrom(searchText.asObservable())
-            .withLatestFrom(videoCategory) { ($0, $1) }
-            .flatMapLatest { text, category in
+            .withLatestFrom(videoCategory.asObservable()) { ($0, $1) }
+            .flatMapLatest { text, category -> Observable<Response> in
                 var parameters = type.parameters
-                if !keyword.isEmpty { parameters.append(Search.q(keyword: text)) }
-                if !category.isEmpty { provider.request(YoutubeAPI.search(parameters:parameters)) }
-                .retry(3)
-                    .observeOn(MainScheduler.instance)
-        }
+                if !text.isEmpty { parameters.append(Search.q(keyword: text)) }
+                if !category.isEmpty { parameters.append(Search.videoCategoryId(id: category)) }
+                return provider.request(YoutubeAPI.search(parameters:parameters))
+                    .retry(3)
+                    .observeOn(MainScheduler.instance) }
+        // TODO: After Swift4 Codable mapObject
+        // https://github.com/Moya/Moya/issues/1118
+        
+        // TODO: 以下二つのTODOはRxTodoの編集画面Present処理参考
+        // TODO: itemDataSourceはitemsを変換して代入
+        // TODO: presentPlayerViewModelはitemsをwithLatestFromしてPlayerViewModelのストリームを代入
         
     }
 }

@@ -8,6 +8,9 @@
 
 import Foundation
 import Moya
+import RxMoya
+
+let YoutubeProvider = RxMoyaProvider<YoutubeAPI>()
 
 private extension String {
     var URLEscapedString: String? {
