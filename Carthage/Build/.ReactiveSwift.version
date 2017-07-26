@@ -1,26 +1,8 @@
 {
+  "commitish" : "1.1.5",
   "iOS" : [
     {
-      "hash" : "00913ea3fe34499aee4a2cda749923262d3e4a6723894961bebaf3342745f753",
-      "name" : "ReactiveSwift"
-    }
-  ],
-  "commitish" : "1.1.5",
-  "watchOS" : [
-    {
-      "hash" : "178d3b965d4f6442855bfa5f123b98ef817b95f0c0d311556fb7f5f29ad2e439",
-      "name" : "ReactiveSwift"
-    }
-  ],
-  "tvOS" : [
-    {
-      "hash" : "2e82ab0c04f9a6aae40e34933af9860619bfab288dff15c2a55ed9389bbf5a65",
-      "name" : "ReactiveSwift"
-    }
-  ],
-  "Mac" : [
-    {
-      "hash" : "54e0749abfbb931ad96897a718c919a58ecd732fa0e30501ddda05a1a8a47e12",
+      "hash" : "638bc1b309f01e2436c9ed935321a52b23912bc14b6c8cd632b5c712d6993925",
       "name" : "ReactiveSwift"
     }
   ]
