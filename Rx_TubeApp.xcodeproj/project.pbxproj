@@ -11,16 +11,18 @@
 		1C0DACF71E966B9C00B3D2C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C0DACF61E966B9C00B3D2C4 /* Assets.xcassets */; };
 		1C0DAD051E966B9D00B3D2C4 /* Rx_TubeAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0DAD041E966B9D00B3D2C4 /* Rx_TubeAppTests.swift */; };
 		1C0DAD101E966B9D00B3D2C4 /* Rx_TubeAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0DAD0F1E966B9D00B3D2C4 /* Rx_TubeAppUITests.swift */; };
-		1CEF64571EA581BD0072C43F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF64561EA581BD0072C43F /* Alamofire.framework */; };
-		1CEF64591EA581CF0072C43F /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF64581EA581CF0072C43F /* RxSwift.framework */; };
-		1CEF645B1EA581D90072C43F /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF645A1EA581D90072C43F /* SnapKit.framework */; };
 		1CEF64601EA587000072C43F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CEF645F1EA587000072C43F /* Launch Screen.storyboard */; };
 		A303B39F1F2810460055D12E /* SearchItemCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A303B39E1F2810460055D12E /* SearchItemCellModel.swift */; };
 		A303B3A11F2811A10055D12E /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A303B3A01F2811A10055D12E /* NavigationViewController.swift */; };
 		A303B3A31F2812380055D12E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A303B3A21F2812380055D12E /* SearchView.swift */; };
 		A3111F461F1CC5560054BA5E /* VideoCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3111F451F1CC5560054BA5E /* VideoCategory.swift */; };
-		A3111F481F1CD0CE0054BA5E /* videoCategories in Resources */ = {isa = PBXBuildFile; fileRef = A3111F471F1CD0CE0054BA5E /* videoCategories */; };
 		A33121EB1F0E85F700FC0AD6 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33121EA1F0E85F700FC0AD6 /* Video.swift */; };
+		A33637BB1F322110004A1E57 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3AD33DD1F1FA00E006A1D2E /* Kingfisher.framework */; };
+		A33637BC1F322120004A1E57 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00B1F05CBC300E053D1 /* Moya.framework */; };
+		A33637BD1F322133004A1E57 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A391FE701F3219DA008A2F9C /* RxCocoa.framework */; };
+		A33637BE1F32214D004A1E57 /* RxMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */; };
+		A33637BF1F32215F004A1E57 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF64581EA581CF0072C43F /* RxSwift.framework */; };
+		A33637C01F322171004A1E57 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF645A1EA581D90072C43F /* SnapKit.framework */; };
 		A3718ACF1F0DAFDE0048FECC /* channel.json in Resources */ = {isa = PBXBuildFile; fileRef = A3718AC91F0DAFDE0048FECC /* channel.json */; };
 		A3718AD01F0DAFDE0048FECC /* searchlist.json in Resources */ = {isa = PBXBuildFile; fileRef = A3718ACA1F0DAFDE0048FECC /* searchlist.json */; };
 		A3718AD11F0DAFDE0048FECC /* subscriptionsdelete.json in Resources */ = {isa = PBXBuildFile; fileRef = A3718ACB1F0DAFDE0048FECC /* subscriptionsdelete.json */; };
@@ -30,12 +32,11 @@
 		A3718AD61F0DB31A0048FECC /* YoutubeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3718AD51F0DB31A0048FECC /* YoutubeAPI.swift */; };
 		A38A2FAD1F1840B9006715A0 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38A2FAC1F1840B9006715A0 /* PlayerView.swift */; };
 		A38A2FAF1F1840D0006715A0 /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38A2FAE1F1840D0006715A0 /* PlayerViewModel.swift */; };
-		A3AD33DE1F1FA00E006A1D2E /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3AD33DD1F1FA00E006A1D2E /* Kingfisher.framework */; };
-		A3B0B00C1F05CBC300E053D1 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00B1F05CBC300E053D1 /* Moya.framework */; };
-		A3B0B00E1F05CBD900E053D1 /* RxMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */; };
+		A3AAF6021F2E0E17003B2A71 /* videoCategories.json in Resources */ = {isa = PBXBuildFile; fileRef = A3AAF6011F2E0E0B003B2A71 /* videoCategories.json */; };
 		A3C7BC0D1F150BF0003AF320 /* SearchItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C7BC0C1F150BF0003AF320 /* SearchItems.swift */; };
 		A3C7BC0F1F150F2C003AF320 /* ItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C7BC0E1F150F2C003AF320 /* ItemListViewController.swift */; };
 		A3E09E511F22EF7F007BDC76 /* SearchItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E09E501F22EF7F007BDC76 /* SearchItemCell.swift */; };
+		A3EBEE271F3224A4003DDD85 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF64561EA581BD0072C43F /* Alamofire.framework */; };
 		A3FBB62D1F2622ED007AEBC1 /* ItemListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C7BC101F150FDA003AF320 /* ItemListViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,7 +76,6 @@
 		A303B3A01F2811A10055D12E /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationViewController.swift; path = UI/ViewControllers/NavigationViewController.swift; sourceTree = "<group>"; };
 		A303B3A21F2812380055D12E /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchView.swift; path = UI/Views/SearchView.swift; sourceTree = "<group>"; };
 		A3111F451F1CC5560054BA5E /* VideoCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoCategory.swift; path = Components/Models/VideoCategory.swift; sourceTree = "<group>"; };
-		A3111F471F1CD0CE0054BA5E /* videoCategories */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = videoCategories; path = Application/Resource/StubbedResponses/videoCategories; sourceTree = "<group>"; };
 		A33121EA1F0E85F700FC0AD6 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Video.swift; path = Components/Models/Video.swift; sourceTree = "<group>"; };
 		A3718AC91F0DAFDE0048FECC /* channel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = channel.json; path = Application/Resource/StubbedResponses/channel.json; sourceTree = "<group>"; };
 		A3718ACA1F0DAFDE0048FECC /* searchlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = searchlist.json; path = Application/Resource/StubbedResponses/searchlist.json; sourceTree = "<group>"; };
@@ -86,6 +86,8 @@
 		A3718AD51F0DB31A0048FECC /* YoutubeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YoutubeAPI.swift; path = Components/Networking/YoutubeAPI.swift; sourceTree = "<group>"; };
 		A38A2FAC1F1840B9006715A0 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerView.swift; path = UI/Views/PlayerView.swift; sourceTree = "<group>"; };
 		A38A2FAE1F1840D0006715A0 /* PlayerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerViewModel.swift; path = UI/Views/PlayerViewModel.swift; sourceTree = "<group>"; };
+		A391FE701F3219DA008A2F9C /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
+		A3AAF6011F2E0E0B003B2A71 /* videoCategories.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = videoCategories.json; path = Application/Resource/StubbedResponses/videoCategories.json; sourceTree = "<group>"; };
 		A3AD33DD1F1FA00E006A1D2E /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		A3B0B00B1F05CBC300E053D1 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
 		A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxMoya.framework; path = Carthage/Build/iOS/RxMoya.framework; sourceTree = "<group>"; };
@@ -100,12 +102,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3AD33DE1F1FA00E006A1D2E /* Kingfisher.framework in Frameworks */,
-				A3B0B00E1F05CBD900E053D1 /* RxMoya.framework in Frameworks */,
-				A3B0B00C1F05CBC300E053D1 /* Moya.framework in Frameworks */,
-				1CEF645B1EA581D90072C43F /* SnapKit.framework in Frameworks */,
-				1CEF64571EA581BD0072C43F /* Alamofire.framework in Frameworks */,
-				1CEF64591EA581CF0072C43F /* RxSwift.framework in Frameworks */,
+				A3EBEE271F3224A4003DDD85 /* Alamofire.framework in Frameworks */,
+				A33637C01F322171004A1E57 /* SnapKit.framework in Frameworks */,
+				A33637BF1F32215F004A1E57 /* RxSwift.framework in Frameworks */,
+				A33637BE1F32214D004A1E57 /* RxMoya.framework in Frameworks */,
+				A33637BD1F322133004A1E57 /* RxCocoa.framework in Frameworks */,
+				A33637BC1F322120004A1E57 /* Moya.framework in Frameworks */,
+				A33637BB1F322110004A1E57 /* Kingfisher.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +181,7 @@
 		1CEF64551EA581BC0072C43F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A391FE701F3219DA008A2F9C /* RxCocoa.framework */,
 				A3AD33DD1F1FA00E006A1D2E /* Kingfisher.framework */,
 				A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */,
 				A3B0B00B1F05CBC300E053D1 /* Moya.framework */,
@@ -251,8 +255,8 @@
 		A394F38D1F0D28C100BF14BC /* StubbedResponses */ = {
 			isa = PBXGroup;
 			children = (
+				A3AAF6011F2E0E0B003B2A71 /* videoCategories.json */,
 				A3718AC91F0DAFDE0048FECC /* channel.json */,
-				A3111F471F1CD0CE0054BA5E /* videoCategories */,
 				A3718ACA1F0DAFDE0048FECC /* searchlist.json */,
 				A3718ACB1F0DAFDE0048FECC /* subscriptionsdelete.json */,
 				A3718ACC1F0DAFDE0048FECC /* subscriptionsinsert.json */,
@@ -290,6 +294,7 @@
 				1C0DACE81E966B9C00B3D2C4 /* Sources */,
 				1C0DACE91E966B9C00B3D2C4 /* Frameworks */,
 				1C0DACEA1E966B9C00B3D2C4 /* Resources */,
+				A33637C11F3221AA004A1E57 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -343,20 +348,24 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "HIroshi Hosoda";
 				TargetAttributes = {
 					1C0DACEB1E966B9C00B3D2C4 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = L979L9HDYZ;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					1C0DACFF1E966B9D00B3D2C4 = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 1C0DACEB1E966B9C00B3D2C4;
 					};
 					1C0DAD0A1E966B9D00B3D2C4 = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 1C0DACEB1E966B9C00B3D2C4;
 					};
@@ -387,10 +396,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3AAF6021F2E0E17003B2A71 /* videoCategories.json in Resources */,
 				1CEF64601EA587000072C43F /* Launch Screen.storyboard in Resources */,
 				A3718AD01F0DAFDE0048FECC /* searchlist.json in Resources */,
 				1C0DACF71E966B9C00B3D2C4 /* Assets.xcassets in Resources */,
-				A3111F481F1CD0CE0054BA5E /* videoCategories in Resources */,
 				A3718ACF1F0DAFDE0048FECC /* channel.json in Resources */,
 				A3718AD11F0DAFDE0048FECC /* subscriptionsdelete.json in Resources */,
 				A3718AD41F0DAFDE0048FECC /* videos.json in Resources */,
@@ -414,6 +423,30 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A33637C11F3221AA004A1E57 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Moya.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxMoya.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1C0DACE81E966B9C00B3D2C4 /* Sources */ = {
@@ -477,7 +510,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -485,7 +520,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -514,6 +553,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -527,7 +567,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -535,7 +577,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -556,6 +602,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -564,34 +611,41 @@
 		1C0DAD151E966B9D00B3D2C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = L979L9HDYZ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				GENERATE_MASTER_OBJECT_FILE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Rx_TubeApp/Application/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "hiroshi.Rx-TubeApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		1C0DAD161E966B9D00B3D2C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = L979L9HDYZ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				GENERATE_MASTER_OBJECT_FILE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Rx_TubeApp/Application/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "hiroshi.Rx-TubeApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -604,7 +658,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "hiroshi.Rx-TubeAppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rx_TubeApp.app/Rx_TubeApp";
 			};
 			name = Debug;
@@ -618,7 +673,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "hiroshi.Rx-TubeAppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rx_TubeApp.app/Rx_TubeApp";
 			};
 			name = Release;
@@ -631,7 +687,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "hiroshi.Rx-TubeAppUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Rx_TubeApp;
 			};
 			name = Debug;
@@ -644,7 +701,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "hiroshi.Rx-TubeAppUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Rx_TubeApp;
 			};
 			name = Release;

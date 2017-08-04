@@ -14,6 +14,8 @@ import Moya
 
 typealias Search = YoutubeAPI.SearchParameter
 
+// MARK: Types
+
 enum ItemListViewType {
     case short
     case long
@@ -66,14 +68,14 @@ final class ItemListViewModel {
     var selectedItem = PublishSubject<IndexPath>()
     
     // Output
-//    let presentPlayerViewModel: Observable<PlayerViewModel>
-//    let itemDataSource: Driver<[SearchItemCellModel]>
+    let presentPlayerViewModel: Observable<PlayerViewModel>
+    let itemDataSource: Driver<[SearchItemCellModel]>
     
     // MARK: Initializing
     
     init(provider: RxMoyaProvider<YoutubeAPI>, type: ItemListViewType) {
         
-        let items = Observable
+        let cellModels: Observable<[SearchItemCellModel]> = Observable
             .of(searchKeyDidTap, selectedTab, refresh, horizontalSwipe)
             .merge()
             .withLatestFrom(searchText.asObservable())
@@ -85,13 +87,24 @@ final class ItemListViewModel {
                 return provider.request(YoutubeAPI.search(parameters:parameters))
                     .retry(3)
                     .observeOn(MainScheduler.instance) }
-        // TODO: After Swift4 Codable mapObject
-        // https://github.com/Moya/Moya/issues/1118
+            .map { (response:Moya.Response) -> SearchItems in
+                let decoder: JSONDecoder = JSONDecoder()
+                return try decoder.decode(SearchItems.self, from: response.data)
+            }.map { items in
+                return items.items
+                    .map { SearchItemCellModel(item: $0) }
+                    .flatMap { $0 }
+            }.shareReplay(1)
         
-        // TODO: 以下二つのTODOはRxTodoの編集画面Present処理参考
-        // TODO: itemDataSourceはitemsを変換して代入
-        // TODO: presentPlayerViewModelはitemsをwithLatestFromしてPlayerViewModelのストリームを代入
+        itemDataSource = cellModels.asDriver(onErrorJustReturn: [])
         
+        presentPlayerViewModel = selectedItem
+            .withLatestFrom(cellModels) { ($0, $1) }
+            .map { index, models in
+                let model = models[index.row]
+                return PlayerViewModel(provider: provider,
+                                       parameter: YoutubeAPI.VideosParameter.id(id: model.type.id))
+        }
     }
 }
 

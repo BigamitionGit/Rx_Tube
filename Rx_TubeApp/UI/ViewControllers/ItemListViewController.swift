@@ -58,10 +58,13 @@ final class ItemListViewController: UIViewController {
     // MARK: Configuring
     
     private func configure(_ viewModel: ItemListViewModel) {
-        // TODO: viewModel実装後
-//        viewModel.itemDataSource
-//            .drive(videoListView.rx.items(dataSource: dataSource))
-//            .addDisposableTo(disposeBag)
+        viewModel.presentPlayerViewModel.subscribe(onNext: { [weak self] viewModel in
+            // TODO: Implement Present PlayerView
+            }).addDisposableTo(disposeBag)
+        
+        viewModel.itemDataSource
+            .drive(videoListView.rx.items(dataSource: dataSource))
+            .addDisposableTo(disposeBag)
         
         videoListView.delegate = dataSource
         

@@ -8,41 +8,41 @@
 
 import Foundation
 
-struct SearchItems {
+struct SearchItems: Codable {
     let items: [Item]
+}
+
+struct Item: Codable {
+    let id: ItemId
     
-    struct Item {
-        let id: ItemId
-        
-        struct ItemId {
-            let kind: String
-            let videoId: String?
-            let channelId: String?
-            let playlistId: String?
-        }
-        
-        let snippet: Snippet
-        
-        struct Snippet {
-            let publishedAt: String
-            let channelId: String
-            let title: String
-            let description: String
-            let thumbnails: Thumbnails
-            let channelTitle: String
-            let liveBroadcastContent: String
-            
-            struct Thumbnails {
-                let `default`: Image
-                let medium: Image
-                let high: Image
-                
-                struct Image {
-                    let url: String
-                    let width: Int
-                    let height: Int
-                }
-            }
-        }
-    }
+    let snippet: Snippet
+}
+
+struct ItemId: Codable {
+    let kind: String
+    let videoId: String?
+    let channelId: String?
+    let playlistId: String?
+}
+
+struct Snippet: Codable {
+    let publishedAt: String
+    let channelId: String
+    let title: String
+    let description: String
+    let thumbnails: Thumbnails
+    let channelTitle: String
+    let liveBroadcastContent: String
+}
+
+struct Thumbnails: Codable {
+    let `default`: Image
+    let medium: Image
+    let high: Image
+}
+
+struct Image: Codable {
+    let url: String
+    let width: Int
+    let height: Int
 }
