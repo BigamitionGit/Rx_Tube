@@ -1,5 +1,5 @@
 github "Alamofire/Alamofire"
-github "SnapKit/SnapKit" ~> 3.2.0
-github "ReactiveX/RxSwift" ~> 3.0
+github "SnapKit/SnapKit"
+github "ReactiveX/RxSwift"
 github "Moya/Moya"
-github "onevcat/Kingfisher" ~> 3.0
+github "onevcat/Kingfisher"
