@@ -25,20 +25,95 @@ protocol ParameterType {
 extension ParameterType {
     var key: String {
         let keyString = String(describing: self)
-        guard let index = keyString.range(of: "(")?.lowerBound else { return keyString }
-        return keyString.substring(to: index)
+        guard let index = keyString.index(of: "(") else { return keyString }
+        return String(keyString[..<index])
     }
 }
 
 enum YoutubeAPI {
-    case search(parameters:[SearchParameter])
-    case subscriptionsList(parameter:SubscriptionsListParameter)
-    case subscriptionsInsert(parameter:SubscriptionsInsertParameter)
-    case subscriptionsDelete(parameter:SubscriptionsDeleteParameter)
-    case channels(parameter:ChannelsParameter)
-    case videos(parameter:VideosParameter)
-    case videoCategories(parameter:RegionCode)
+    case search(require: SearchRequireParameter, filter:[SearchParameter])
+    case subscriptionsList(require: SubscriptionsRequireParameter, filter:SubscriptionsListParameter)
+    case subscriptionsInsert(require: SubscriptionsRequireParameter, filter:SubscriptionsInsertParameter)
+    case subscriptionsDelete(require: DeleteRequireParameter, filter:SubscriptionsDeleteParameter)
+    case channels(require: ChannelsRequireParameter, filter:ChannelsParameter)
+    case videos(require: VideosRequireParameter, filter:VideosParameter)
+    case videoCategories(require: VideoCategoryRequireParameter, filter:RegionCode)
     
+    static let keyParameter = "key"
+    static let keyProperty = "AIzaSyCFCOuvjqfco2AqdsD5WrG21ZcYAoyWyBw"
+    
+    // MARK: RequireParameter
+    
+    struct SearchRequireParameter {
+        let parameter: String = "part"
+        let properties: [Property]
+        
+        enum Property: String {
+            case snippet
+            case id
+        }
+    }
+    
+    struct SubscriptionsRequireParameter {
+        let parameter: String = "part"
+        let properties: [Property]
+        
+        enum Property: String {
+            case snippet
+            case id
+            case contentDetails
+        }
+    }
+    
+    struct DeleteRequireParameter {
+        let parameter: String = "id"
+        var property: String // Specify the YouTube subscription channel ID.
+    }
+    
+    struct ChannelsRequireParameter {
+        let parameter: String = "part"
+        let properties: [Property]
+        
+        enum Property: String {
+            case snippet
+            case id
+            case brandingSettings
+            case contentDetails
+            case invideoPromotion
+            case statistics
+            case topicDetails
+        }
+    }
+    
+    struct VideosRequireParameter {
+        let parameter: String = "part"
+        let properties: [Property]
+        enum Property: String {
+            case snippet
+            case id
+            case contentDetails
+            case fileDetails
+            case liveStreamingDetails
+            case player
+            case processingDetails
+            case recordingDetails
+            case statistics
+            case status
+            case suggestions
+            case topicDetails
+        }
+    }
+    
+    struct VideoCategoryRequireParameter {
+        let parameter: String = "part"
+        let properties: [Property]
+        enum Property: String {
+            case snippet
+            case id
+        }
+    }
+    
+    // MARK: Filter Parameter
     
     enum RegionCode: String {
         case JP
@@ -53,8 +128,9 @@ enum YoutubeAPI {
         case HK
         case RU
         
-        static let key = "regionCode"
-        
+        var key: String {
+            return "regionCode"
+        }
     }
     
     struct SubscriptionsListParameter {
@@ -161,6 +237,15 @@ enum YoutubeAPI {
             }
         }
         
+        var isNeedTypeVideo: Bool {
+            switch self {
+            case .eventType, .videoCaption, .videoCategoryId, .videoDefinition, .videoDuration:
+                return true
+            default:
+                return false
+            }
+        }
+        
         enum Event: String {
             case completed
             case live
@@ -205,7 +290,7 @@ enum YoutubeAPI {
 
 extension YoutubeAPI:TargetType {
     
-    var parameterEncoding: ParameterEncoding { return JSONEncoding.default }
+    var parameterEncoding: ParameterEncoding { return URLEncoding.default }
     
     var task: Task { return .request }
     
@@ -228,24 +313,31 @@ extension YoutubeAPI:TargetType {
     
     var parameters: [String: Any]? {
         switch self {
-        case .search(let parameters):
-            return parameters.reduce([String:Any]()) { (result, parameter) -> [String:Any] in
+        case .search(let rParams, let fParams):
+            var params = fParams.reduce([String:Any]()) { (result, parameter) -> [String:Any] in
                 var result = result
                 result[parameter.key] = parameter.value
                 return result
             }
-        case .subscriptionsList(let parameter):
-            return [parameter.key:parameter.value]
-        case .subscriptionsInsert(let parameter):
-            return [parameter.key:parameter.value]
-        case .subscriptionsDelete(let parameter):
-            return [parameter.key:parameter.value]
-        case .channels(let parameter):
-            return [parameter.key:parameter.value]
-        case .videos(let parameter):
-            return [parameter.key:parameter.value]
-        case .videoCategories(let parameter):
-            return [RegionCode.key:parameter.rawValue]
+            params[rParams.parameter] = rParams.properties.map { $0.rawValue }.joined(separator: ",")
+            params[YoutubeAPI.keyParameter] = YoutubeAPI.keyProperty
+            if fParams.contains(where: { $0.isNeedTypeVideo }) {
+                let type = YoutubeAPI.SearchParameter.type(type: YoutubeAPI.SearchParameter.SearchType.video)
+                params[type.key] = type.value
+            }
+            return params
+        case .subscriptionsList(let rParam, let fParam):
+            return [rParam.parameter: rParam.properties.map { $0.rawValue }.joined(separator: ","), fParam.key: fParam.value]
+        case .subscriptionsInsert(let rParam, let fParam):
+            return [rParam.parameter: rParam.properties.map { $0.rawValue }.joined(separator: ","), fParam.key: fParam.value]
+        case .subscriptionsDelete(let rParam, let fParam):
+            return [rParam.parameter: rParam.property, fParam.key: fParam.value]
+        case .channels(let rParam, let fParam):
+            return [rParam.parameter: rParam.properties.map { $0.rawValue }.joined(separator: ","), fParam.key: fParam.value]
+        case .videos(let rParam, let fParam):
+            return [rParam.parameter: rParam.properties.map { $0.rawValue }.joined(separator: ","), fParam.key: fParam.value]
+        case .videoCategories(let rParam, let fParam):
+            return [rParam.parameter: rParam.properties.map { $0.rawValue }.joined(separator: ","), fParam.key: fParam.rawValue]
         }
     }
     

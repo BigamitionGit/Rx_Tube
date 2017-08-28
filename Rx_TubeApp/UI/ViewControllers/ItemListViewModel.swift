@@ -12,7 +12,8 @@ import RxCocoa
 import RxMoya
 import Moya
 
-typealias Search = YoutubeAPI.SearchParameter
+fileprivate typealias Search = YoutubeAPI.SearchParameter
+fileprivate typealias SearchRequire = YoutubeAPI.SearchRequireParameter
 
 // MARK: Types
 
@@ -28,7 +29,11 @@ enum ItemListViewType {
     case caption
     case HD
     
-    var parameters:[Search] {
+    fileprivate var requireParameters: SearchRequire {
+        return SearchRequire(properties: [SearchRequire.Property.id, SearchRequire.Property.snippet])
+    }
+    
+    fileprivate var filterParameters:[Search] {
         switch self {
         case .short:
             return [Search.videoDuration(duration: Search.Duration.short)]
@@ -56,9 +61,27 @@ enum ItemListViewType {
     }
 }
 
-final class ItemListViewModel {
+protocol ItemListViewModelType: class {
     
     // Input
+    var viewDidLoad: PublishSubject<Void> { get }
+    var searchText: Variable<String> { get }
+    var searchKeyDidTap: PublishSubject<Void> { get }
+    var videoCategory: Variable<String> { get }
+    var selectedTab: PublishSubject<Void> { get }
+    var refresh: PublishSubject<Void> { get }
+    var horizontalSwipe: PublishSubject<Void> { get }
+    var selectedItem: PublishSubject<IndexPath> { get }
+    
+    // Output
+    var presentPlayerViewModel: Observable<PlayerViewModel> { get }
+    var itemDataSource: Driver<[SearchItemCellModel]> { get }
+}
+
+final class ItemListViewModel: ItemListViewModelType {
+    
+    // MARK: Input
+    var viewDidLoad = PublishSubject<Void>()
     var searchText = Variable("")
     var searchKeyDidTap = PublishSubject<Void>()
     var videoCategory = Variable("")
@@ -67,7 +90,7 @@ final class ItemListViewModel {
     var horizontalSwipe = PublishSubject<Void>()
     var selectedItem = PublishSubject<IndexPath>()
     
-    // Output
+    // MARK: Output
     let presentPlayerViewModel: Observable<PlayerViewModel>
     let itemDataSource: Driver<[SearchItemCellModel]>
     
@@ -76,15 +99,15 @@ final class ItemListViewModel {
     init(provider: RxMoyaProvider<YoutubeAPI>, type: ItemListViewType) {
         
         let cellModels: Observable<[SearchItemCellModel]> = Observable
-            .of(searchKeyDidTap, selectedTab, refresh, horizontalSwipe)
+            .of(viewDidLoad, searchKeyDidTap, selectedTab, refresh, horizontalSwipe)
             .merge()
             .withLatestFrom(searchText.asObservable())
             .withLatestFrom(videoCategory.asObservable()) { ($0, $1) }
             .flatMapLatest { text, category -> Observable<Response> in
-                var parameters = type.parameters
+                var parameters = type.filterParameters
                 if !text.isEmpty { parameters.append(Search.q(keyword: text)) }
                 if !category.isEmpty { parameters.append(Search.videoCategoryId(id: category)) }
-                return provider.request(YoutubeAPI.search(parameters:parameters))
+                return provider.request(YoutubeAPI.search(require: type.requireParameters, filter: parameters))
                     .retry(3)
                     .observeOn(MainScheduler.instance) }
             .map { (response:Moya.Response) -> SearchItems in

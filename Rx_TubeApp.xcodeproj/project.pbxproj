@@ -31,8 +31,7 @@
 		A350AE371F3A020B00D387A8 /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF645A1EA581D90072C43F /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A350AE381F3A020B00D387A8 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF64581EA581CF0072C43F /* RxSwift.framework */; };
 		A350AE391F3A020B00D387A8 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF64581EA581CF0072C43F /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A350AE3A1F3A020B00D387A8 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF64561EA581BD0072C43F /* Alamofire.framework */; };
-		A350AE3B1F3A020B00D387A8 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF64561EA581BD0072C43F /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A350AE3E1F3A09C700D387A8 /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = A350AE3D1F3A09C700D387A8 /* UIViewController+Rx.swift */; };
 		A3718ACF1F0DAFDE0048FECC /* channel.json in Resources */ = {isa = PBXBuildFile; fileRef = A3718AC91F0DAFDE0048FECC /* channel.json */; };
 		A3718AD01F0DAFDE0048FECC /* searchlist.json in Resources */ = {isa = PBXBuildFile; fileRef = A3718ACA1F0DAFDE0048FECC /* searchlist.json */; };
 		A3718AD11F0DAFDE0048FECC /* subscriptionsdelete.json in Resources */ = {isa = PBXBuildFile; fileRef = A3718ACB1F0DAFDE0048FECC /* subscriptionsdelete.json */; };
@@ -46,6 +45,8 @@
 		A3C7BC0D1F150BF0003AF320 /* SearchItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C7BC0C1F150BF0003AF320 /* SearchItems.swift */; };
 		A3C7BC0F1F150F2C003AF320 /* ItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C7BC0E1F150F2C003AF320 /* ItemListViewController.swift */; };
 		A3E09E511F22EF7F007BDC76 /* SearchItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E09E501F22EF7F007BDC76 /* SearchItemCell.swift */; };
+		A3E50A261F46C608001FEC7C /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3E50A241F46C600001FEC7C /* Alamofire.framework */; };
+		A3E50A271F46C608001FEC7C /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A3E50A241F46C600001FEC7C /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A3FBB62D1F2622ED007AEBC1 /* ItemListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C7BC101F150FDA003AF320 /* ItemListViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -80,7 +81,7 @@
 				A350AE371F3A020B00D387A8 /* SnapKit.framework in Embed Frameworks */,
 				A350AE311F3A020B00D387A8 /* Kingfisher.framework in Embed Frameworks */,
 				A350AE2D1F3A020B00D387A8 /* Result.framework in Embed Frameworks */,
-				A350AE3B1F3A020B00D387A8 /* Alamofire.framework in Embed Frameworks */,
+				A3E50A271F46C608001FEC7C /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -98,7 +99,6 @@
 		1C0DAD0B1E966B9D00B3D2C4 /* Rx_TubeAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Rx_TubeAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C0DAD0F1E966B9D00B3D2C4 /* Rx_TubeAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rx_TubeAppUITests.swift; sourceTree = "<group>"; };
 		1C0DAD111E966B9D00B3D2C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1CEF64561EA581BD0072C43F /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		1CEF64581EA581CF0072C43F /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		1CEF645A1EA581D90072C43F /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		1CEF645F1EA587000072C43F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "Application/Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -107,6 +107,7 @@
 		A303B3A21F2812380055D12E /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchView.swift; path = UI/Views/SearchView.swift; sourceTree = "<group>"; };
 		A3111F451F1CC5560054BA5E /* VideoCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoCategory.swift; path = Components/Models/VideoCategory.swift; sourceTree = "<group>"; };
 		A33121EA1F0E85F700FC0AD6 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Video.swift; path = Components/Models/Video.swift; sourceTree = "<group>"; };
+		A350AE3D1F3A09C700D387A8 /* UIViewController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIViewController+Rx.swift"; path = "Components/Rx/UIViewController+Rx.swift"; sourceTree = "<group>"; };
 		A3718AC91F0DAFDE0048FECC /* channel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = channel.json; path = Application/Resource/StubbedResponses/channel.json; sourceTree = "<group>"; };
 		A3718ACA1F0DAFDE0048FECC /* searchlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = searchlist.json; path = Application/Resource/StubbedResponses/searchlist.json; sourceTree = "<group>"; };
 		A3718ACB1F0DAFDE0048FECC /* subscriptionsdelete.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = subscriptionsdelete.json; path = Application/Resource/StubbedResponses/subscriptionsdelete.json; sourceTree = "<group>"; };
@@ -126,6 +127,7 @@
 		A3C7BC0E1F150F2C003AF320 /* ItemListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemListViewController.swift; path = UI/ViewControllers/ItemListViewController.swift; sourceTree = "<group>"; };
 		A3C7BC101F150FDA003AF320 /* ItemListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemListViewModel.swift; path = UI/ViewControllers/ItemListViewModel.swift; sourceTree = "<group>"; };
 		A3E09E501F22EF7F007BDC76 /* SearchItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchItemCell.swift; path = UI/Views/SearchItemCell.swift; sourceTree = "<group>"; };
+		A3E50A241F46C600001FEC7C /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3E50A261F46C608001FEC7C /* Alamofire.framework in Frameworks */,
 				A350AE321F3A020B00D387A8 /* RxMoya.framework in Frameworks */,
 				A350AE341F3A020B00D387A8 /* Moya.framework in Frameworks */,
 				A350AE381F3A020B00D387A8 /* RxSwift.framework in Frameworks */,
@@ -140,7 +143,6 @@
 				A350AE361F3A020B00D387A8 /* SnapKit.framework in Frameworks */,
 				A350AE301F3A020B00D387A8 /* Kingfisher.framework in Frameworks */,
 				A350AE2C1F3A020B00D387A8 /* Result.framework in Frameworks */,
-				A350AE3A1F3A020B00D387A8 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +215,7 @@
 		1CEF64551EA581BC0072C43F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A3E50A241F46C600001FEC7C /* Alamofire.framework */,
 				A37245ED1F39FA0D00CADACB /* Result.framework */,
 				A391FE701F3219DA008A2F9C /* RxCocoa.framework */,
 				A3AD33DD1F1FA00E006A1D2E /* Kingfisher.framework */,
@@ -220,7 +223,6 @@
 				A3B0B00B1F05CBC300E053D1 /* Moya.framework */,
 				1CEF645A1EA581D90072C43F /* SnapKit.framework */,
 				1CEF64581EA581CF0072C43F /* RxSwift.framework */,
-				1CEF64561EA581BD0072C43F /* Alamofire.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -240,6 +242,7 @@
 		1CEF645D1EA585140072C43F /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A350AE3C1F3A099F00D387A8 /* Rx */,
 				A33121E91F0E85BC00FC0AD6 /* Models */,
 				A3D117D31F07BE77005E1202 /* Networking */,
 			);
@@ -263,6 +266,14 @@
 				A3111F451F1CC5560054BA5E /* VideoCategory.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		A350AE3C1F3A099F00D387A8 /* Rx */ = {
+			isa = PBXGroup;
+			children = (
+				A350AE3D1F3A09C700D387A8 /* UIViewController+Rx.swift */,
+			);
+			name = Rx;
 			sourceTree = "<group>";
 		};
 		A38A2FAB1F184091006715A0 /* Views */ = {
@@ -464,7 +475,6 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Moya.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
@@ -492,6 +502,7 @@
 				A303B39F1F2810460055D12E /* SearchItemCellModel.swift in Sources */,
 				A3C7BC0D1F150BF0003AF320 /* SearchItems.swift in Sources */,
 				A33121EB1F0E85F700FC0AD6 /* Video.swift in Sources */,
+				A350AE3E1F3A09C700D387A8 /* UIViewController+Rx.swift in Sources */,
 				A38A2FAD1F1840B9006715A0 /* PlayerView.swift in Sources */,
 				A3111F461F1CC5560054BA5E /* VideoCategory.swift in Sources */,
 				A303B3A31F2812380055D12E /* SearchView.swift in Sources */,

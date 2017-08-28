@@ -27,7 +27,7 @@ final class ItemListViewController: UIViewController {
 
     // MARK: Initializing
     
-    init(viewModel: ItemListViewModel) {
+    init(viewModel: ItemListViewModelType) {
         super.init(nibName: nil, bundle: nil)
         self.configure(viewModel)
     }
@@ -49,15 +49,18 @@ final class ItemListViewController: UIViewController {
     // MARK: Setup Constraint
     
     private func setupConstraint() {
-        self.videoListView.snp.makeConstraints({ make in
-            make.top.equalTo(self.topLayoutGuide.snp.bottom).offset(0)
-            //            make.left.equalTo
-        })
+        self.videoListView.snp.makeConstraints { make in
+            make.edges.equalTo(0)
+        }
     }
     
     // MARK: Configuring
     
-    private func configure(_ viewModel: ItemListViewModel) {
+    private func configure(_ viewModel: ItemListViewModelType) {
+        self.rx.viewDidLoad
+            .bind(to: viewModel.viewDidLoad)
+            .addDisposableTo(self.disposeBag)
+        
         viewModel.presentPlayerViewModel.subscribe(onNext: { [weak self] viewModel in
             // TODO: Implement Present PlayerView
             }).addDisposableTo(disposeBag)
