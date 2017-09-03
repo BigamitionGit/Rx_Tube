@@ -15,7 +15,7 @@ struct SearchItemCellModel {
         case channel(id: String)
         case playlist(id: String)
         
-        init?(itemId: ItemId) {
+        init?(itemId: SearchItems.Item.Id) {
             if let video = itemId.videoId {
                 self = .video(id: video)
             } else if let channel = itemId.channelId {
@@ -43,7 +43,7 @@ struct SearchItemCellModel {
     let thumbnailUrl: String
     let channelTitle: String
     
-    init?(item: Item) {
+    init?(item: SearchItems.Item) {
         guard let itemType = ItemType(itemId: item.id) else { return nil }
         type = itemType
         let snippet = item.snippet

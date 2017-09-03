@@ -10,39 +10,38 @@ import Foundation
 
 struct SearchItems: Codable {
     let items: [Item]
-}
-
-struct Item: Codable {
-    let id: ItemId
     
-    let snippet: Snippet
-}
-
-struct ItemId: Codable {
-    let kind: String
-    let videoId: String?
-    let channelId: String?
-    let playlistId: String?
-}
-
-struct Snippet: Codable {
-    let publishedAt: String
-    let channelId: String
-    let title: String
-    let description: String
-    let thumbnails: Thumbnails
-    let channelTitle: String
-    let liveBroadcastContent: String
-}
-
-struct Thumbnails: Codable {
-    let `default`: Image
-    let medium: Image
-    let high: Image
-}
-
-struct Image: Codable {
-    let url: String
-    let width: Int
-    let height: Int
+    struct Item: Codable {
+        let id: Id
+        let snippet: Snippet
+        
+        struct Id: Codable {
+            let kind: String
+            let videoId: String?
+            let channelId: String?
+            let playlistId: String?
+        }
+        
+        struct Snippet: Codable {
+            let publishedAt: String
+            let channelId: String
+            let title: String
+            let description: String
+            let thumbnails: Thumbnails
+            let channelTitle: String
+            let liveBroadcastContent: String
+            
+            struct Thumbnails: Codable {
+                let `default`: Image
+                let medium: Image
+                let high: Image
+                
+                struct Image: Codable {
+                    let url: String
+                    let width: Int
+                    let height: Int
+                }
+            }
+        }
+    }
 }

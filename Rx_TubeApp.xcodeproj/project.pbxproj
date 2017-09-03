@@ -16,8 +16,10 @@
 		A303B3A11F2811A10055D12E /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A303B3A01F2811A10055D12E /* NavigationViewController.swift */; };
 		A303B3A31F2812380055D12E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A303B3A21F2812380055D12E /* SearchView.swift */; };
 		A3111F461F1CC5560054BA5E /* VideoCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3111F451F1CC5560054BA5E /* VideoCategory.swift */; };
-		A33121EB1F0E85F700FC0AD6 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33121EA1F0E85F700FC0AD6 /* Video.swift */; };
 		A33A1ABF1F5704EE0077C2B5 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A1ABE1F5704EE0077C2B5 /* BaseTableViewCell.swift */; };
+		A33F4BE81F5BA91B00ADC19C /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F4BE71F5BA91B00ADC19C /* Videos.swift */; };
+		A33F4BEA1F5BA93200ADC19C /* Channels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F4BE91F5BA93200ADC19C /* Channels.swift */; };
+		A33F4BEC1F5BB03E00ADC19C /* Playlists.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F4BEB1F5BB03E00ADC19C /* Playlists.swift */; };
 		A350AE2C1F3A020B00D387A8 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A37245ED1F39FA0D00CADACB /* Result.framework */; };
 		A350AE2D1F3A020B00D387A8 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A37245ED1F39FA0D00CADACB /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A350AE2E1F3A020B00D387A8 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A391FE701F3219DA008A2F9C /* RxCocoa.framework */; };
@@ -107,8 +109,10 @@
 		A303B3A01F2811A10055D12E /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationViewController.swift; path = UI/ViewControllers/NavigationViewController.swift; sourceTree = "<group>"; };
 		A303B3A21F2812380055D12E /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchView.swift; path = UI/Views/SearchView.swift; sourceTree = "<group>"; };
 		A3111F451F1CC5560054BA5E /* VideoCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoCategory.swift; path = Components/Models/VideoCategory.swift; sourceTree = "<group>"; };
-		A33121EA1F0E85F700FC0AD6 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Video.swift; path = Components/Models/Video.swift; sourceTree = "<group>"; };
 		A33A1ABE1F5704EE0077C2B5 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseTableViewCell.swift; path = UI/Views/BaseTableViewCell.swift; sourceTree = "<group>"; };
+		A33F4BE71F5BA91B00ADC19C /* Videos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Videos.swift; path = Components/Models/Videos.swift; sourceTree = "<group>"; };
+		A33F4BE91F5BA93200ADC19C /* Channels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Channels.swift; path = Components/Models/Channels.swift; sourceTree = "<group>"; };
+		A33F4BEB1F5BB03E00ADC19C /* Playlists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Playlists.swift; path = Components/Models/Playlists.swift; sourceTree = "<group>"; };
 		A350AE3D1F3A09C700D387A8 /* UIViewController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIViewController+Rx.swift"; path = "Components/Rx/UIViewController+Rx.swift"; sourceTree = "<group>"; };
 		A3718AC91F0DAFDE0048FECC /* channel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = channel.json; path = Application/Resource/StubbedResponses/channel.json; sourceTree = "<group>"; };
 		A3718ACA1F0DAFDE0048FECC /* searchlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = searchlist.json; path = Application/Resource/StubbedResponses/searchlist.json; sourceTree = "<group>"; };
@@ -263,9 +267,11 @@
 		A33121E91F0E85BC00FC0AD6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A33121EA1F0E85F700FC0AD6 /* Video.swift */,
 				A3C7BC0C1F150BF0003AF320 /* SearchItems.swift */,
 				A3111F451F1CC5560054BA5E /* VideoCategory.swift */,
+				A33F4BE71F5BA91B00ADC19C /* Videos.swift */,
+				A33F4BE91F5BA93200ADC19C /* Channels.swift */,
+				A33F4BEB1F5BB03E00ADC19C /* Playlists.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -500,12 +506,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A303B3A11F2811A10055D12E /* NavigationViewController.swift in Sources */,
+				A33F4BE81F5BA91B00ADC19C /* Videos.swift in Sources */,
 				A3E09E511F22EF7F007BDC76 /* SearchItemCell.swift in Sources */,
 				A38A2FAF1F1840D0006715A0 /* PlayerViewModel.swift in Sources */,
 				A303B39F1F2810460055D12E /* SearchItemCellModel.swift in Sources */,
 				A3C7BC0D1F150BF0003AF320 /* SearchItems.swift in Sources */,
-				A33121EB1F0E85F700FC0AD6 /* Video.swift in Sources */,
 				A350AE3E1F3A09C700D387A8 /* UIViewController+Rx.swift in Sources */,
+				A33F4BEC1F5BB03E00ADC19C /* Playlists.swift in Sources */,
 				A38A2FAD1F1840B9006715A0 /* PlayerView.swift in Sources */,
 				A3111F461F1CC5560054BA5E /* VideoCategory.swift in Sources */,
 				A303B3A31F2812380055D12E /* SearchView.swift in Sources */,
@@ -513,6 +520,7 @@
 				1C0DACF01E966B9C00B3D2C4 /* AppDelegate.swift in Sources */,
 				A3FBB62D1F2622ED007AEBC1 /* ItemListViewModel.swift in Sources */,
 				A33A1ABF1F5704EE0077C2B5 /* BaseTableViewCell.swift in Sources */,
+				A33F4BEA1F5BA93200ADC19C /* Channels.swift in Sources */,
 				A3C7BC0F1F150F2C003AF320 /* ItemListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

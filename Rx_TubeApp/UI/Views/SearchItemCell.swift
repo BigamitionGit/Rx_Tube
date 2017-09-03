@@ -83,7 +83,7 @@ final class VideoItemCell: BaseTableViewCell, SearchItemCellType {
     func config(item: SearchItemCellModel) {
         titleLabel.text = item.title
         publishedAtLabel.text = item.publishedAt
-        channelTitleLabel.text = item.publishedAt
+        channelTitleLabel.text = item.channelTitle
         thumbnail.kf.setImage(with: URL(string: item.thumbnailUrl))
         
         setConstraint()
