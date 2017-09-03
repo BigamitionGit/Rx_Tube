@@ -13,7 +13,7 @@ import RxCocoa
 
 final class PlayerViewModel {
     
-    init(provider: RxMoyaProvider<YoutubeAPI>, parameter: YoutubeAPI.VideosParameter) {
+    init(provider: RxMoyaProvider<YoutubeAPI>, parameter: YoutubeAPI.FilterParameter.Videos) {
         
     }
 }

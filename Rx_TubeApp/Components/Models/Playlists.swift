@@ -6,13 +6,13 @@
 //  Copyright © 2017 HIroshi Hosoda. All rights reserved.
 //
 
-struct Playlists {
+struct Playlists: Codable {
     let id: String
     let snippet: Snippet
     let contentDetails: ContentDetails
     let player: Player
     
-    struct Snippet {
+    struct Snippet: Codable {
         let title: String
         let description: String
         let publishedAt: String
@@ -35,11 +35,11 @@ struct Playlists {
         }
     }
     
-    struct ContentDetails {
+    struct ContentDetails: Codable {
         let itemCount: Int
     }
     
-    struct Player {
+    struct Player: Codable {
         let embedHtml: String
     }
 }

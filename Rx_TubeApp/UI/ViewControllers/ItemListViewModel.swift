@@ -12,8 +12,8 @@ import RxCocoa
 import RxMoya
 import Moya
 
-fileprivate typealias Search = YoutubeAPI.SearchParameter
-fileprivate typealias SearchRequire = YoutubeAPI.SearchRequireParameter
+fileprivate typealias Search = YoutubeAPI.FilterParameter.Search
+fileprivate typealias SearchRequire = YoutubeAPI.RequireParameter.Search
 
 // MARK: Types
 
@@ -52,7 +52,7 @@ enum ItemListViewType {
             return [Search.publishedBefore(time: Date()), Search.publishedAfter(time: Date())]
         case .region:
             // Default US
-            return [Search.regionCode(code: YoutubeAPI.RegionCode.US)]
+            return [Search.regionCode(code: YoutubeAPI.FilterParameter.RegionCode.US)]
         case .caption:
             return [Search.videoCaption(caption: Search.Caption.closedCaption)]
         case .HD:
@@ -126,7 +126,7 @@ final class ItemListViewModel: ItemListViewModelType {
             .map { index, models in
                 let model = models[index.row]
                 return PlayerViewModel(provider: provider,
-                                       parameter: YoutubeAPI.VideosParameter.id(id: model.type.id))
+                                       parameter: YoutubeAPI.FilterParameter.Videos.id(ids: [model.type.id]))
         }
     }
 }

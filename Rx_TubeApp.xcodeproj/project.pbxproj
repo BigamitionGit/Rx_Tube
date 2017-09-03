@@ -134,6 +134,7 @@
 		A3C7BC101F150FDA003AF320 /* ItemListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemListViewModel.swift; path = UI/ViewControllers/ItemListViewModel.swift; sourceTree = "<group>"; };
 		A3E09E501F22EF7F007BDC76 /* SearchItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchItemCell.swift; path = UI/Views/SearchItemCell.swift; sourceTree = "<group>"; };
 		A3E50A241F46C600001FEC7C /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		A3E583041F5BCBD10029DFEF /* playlists.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = playlists.json; path = Application/Resource/StubbedResponses/playlists.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				A3AAF6011F2E0E0B003B2A71 /* videoCategories.json */,
+				A3E583041F5BCBD10029DFEF /* playlists.json */,
 				A3718AC91F0DAFDE0048FECC /* channel.json */,
 				A3718ACA1F0DAFDE0048FECC /* searchlist.json */,
 				A3718ACB1F0DAFDE0048FECC /* subscriptionsdelete.json */,
