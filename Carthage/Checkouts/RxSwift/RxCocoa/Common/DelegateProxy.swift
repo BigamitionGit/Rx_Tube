@@ -15,8 +15,8 @@
     #endif
 #endif
 
-var delegateAssociatedTag: UnsafeRawPointer = UnsafeRawPointer(UnsafeMutablePointer<UInt8>.allocate(capacity: 1))
-var dataSourceAssociatedTag: UnsafeRawPointer = UnsafeRawPointer(UnsafeMutablePointer<UInt8>.allocate(capacity: 1))
+let delegateAssociatedTag: UnsafeRawPointer = UnsafeRawPointer(UnsafeMutablePointer<UInt8>.allocate(capacity: 1))
+let dataSourceAssociatedTag: UnsafeRawPointer = UnsafeRawPointer(UnsafeMutablePointer<UInt8>.allocate(capacity: 1))
 
 /// Base class for `DelegateProxyType` protocol.
 ///
@@ -186,13 +186,6 @@ open class DelegateProxy : _RXDelegateProxy {
     /// - returns: Associated object tag.
     open class func delegateAssociatedObjectTag() -> UnsafeRawPointer {
         return delegateAssociatedTag
-    }
-    
-    /// Initializes new instance of delegate proxy.
-    ///
-    /// - returns: Initialized instance of `self`.
-    open class func createProxyForObject(_ object: AnyObject) -> AnyObject {
-        return self.init(parentObject: object)
     }
     
     /// Returns assigned proxy for object.

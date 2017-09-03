@@ -16,6 +16,8 @@ final class ItemListViewController: UIViewController {
     private let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: nil)
     private lazy var videoListView: UITableView = {
         let tableView = UITableView()
+        tableView.estimatedRowHeight = 60
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(VideoItemCell.self, forCellReuseIdentifier: VideoItemCell.identifier)
         tableView.register(ChannelItemCell.self, forCellReuseIdentifier: ChannelItemCell.identifier)
         tableView.register(PlaylistItemCell.self, forCellReuseIdentifier: PlaylistItemCell.identifier)

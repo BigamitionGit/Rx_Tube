@@ -23,20 +23,20 @@ extension NSButtonTests {
 
     func testButton_StateCompletesOnDealloc() {
         let createView: () -> NSButton = { NSButton(frame: CGRect(x: 0, y: 0, width: 1, height: 1)) }
-        ensurePropertyDeallocated(createView, 0) { (view: NSButton) in view.rx.state }
+        ensurePropertyDeallocated(createView, NSControl.StateValue.off) { (view: NSButton) in view.rx.state }
     }
 
     func testButton_state_observer_on() {
         let button = NSButton(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
-        _ = Observable.just(NSOnState).bind(to: button.rx.state)
+        _ = Observable.just(NSControl.StateValue.on).bind(to: button.rx.state)
 
-        XCTAssertEqual(button.state, NSOnState)
+        XCTAssertEqual(button.state, NSControl.StateValue.on)
     }
 
     func testButton_state_observer_off() {
         let button = NSButton(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
-        _ = Observable.just(NSOffState).bind(to: button.rx.state)
+        _ = Observable.just(NSControl.StateValue.off).bind(to: button.rx.state)
 
-        XCTAssertEqual(button.state, NSOffState)
+        XCTAssertEqual(button.state, NSControl.StateValue.off)
     }
 }

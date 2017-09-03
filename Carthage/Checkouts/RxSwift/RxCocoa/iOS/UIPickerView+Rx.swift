@@ -13,26 +13,6 @@
 #endif
     import UIKit
 
-    extension UIPickerView {
-
-        /// Factory method that enables subclasses to implement their own `delegate`.
-        ///
-        /// - returns: Instance of delegate proxy that wraps `delegate`.
-        public func createRxDelegateProxy() -> RxPickerViewDelegateProxy {
-            return RxPickerViewDelegateProxy(parentObject: self)
-        }
-        
-        /**
-         Factory method that enables subclasses to implement their own `rx.dataSource`.
-         
-         - returns: Instance of delegate proxy that wraps `dataSource`.
-         */
-        public func createRxDataSourceProxy() -> RxPickerViewDataSourceProxy {
-            return RxPickerViewDataSourceProxy(parentObject: self)
-        }
-
-    }
-    
     extension Reactive where Base: UIPickerView {
 
         /// Reactive wrapper for `delegate`.

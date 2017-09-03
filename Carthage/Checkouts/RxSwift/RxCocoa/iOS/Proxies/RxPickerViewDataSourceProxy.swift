@@ -31,6 +31,10 @@ public class RxPickerViewDataSourceProxy
     , UIPickerViewDataSource
     , DelegateProxyType {
 
+    public static var factory = DelegateProxyFactory { (parentObject: UIPickerView) in
+            RxPickerViewDataSourceProxy(parentObject: parentObject)
+        }
+
     /// Typed parent object.
     public weak fileprivate(set) var pickerView: UIPickerView?
     private weak var _requiredMethodsDataSource: UIPickerViewDataSource? = pickerViewDataSourceNotSet
@@ -42,8 +46,7 @@ public class RxPickerViewDataSourceProxy
         self.pickerView = castOrFatalError(parentObject)
         super.init(parentObject: parentObject)
     }
-    
-    
+
     // MARK: UIPickerViewDataSource
 
     /// Required delegate method implementation.
@@ -57,12 +60,6 @@ public class RxPickerViewDataSourceProxy
     }
     
     // MARK: proxy
-    
-    /// For more information take a look at `DelegateProxyType`.
-    public override class func createProxyForObject(_ object: AnyObject) -> AnyObject {
-        let pickerView: UIPickerView = castOrFatalError(object)
-        return pickerView.createRxDataSourceProxy()
-    }
     
     /// For more information take a look at `DelegateProxyType`.
     public override class func delegateAssociatedObjectTag() -> UnsafeRawPointer {
