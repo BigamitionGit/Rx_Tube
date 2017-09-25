@@ -31,7 +31,7 @@ extension ParameterType {
 }
 
 enum YoutubeAPI {
-    case search(require: RequireParameter.Search, filter:[FilterParameter.Search])
+    case search(require: RequireParameter.Search, filter:Set<FilterParameter.Search>)
     case subscriptionsList(require: RequireParameter.Subscriptions, filter:FilterParameter.SubscriptionsList)
     case subscriptionsInsert(require: RequireParameter.Subscriptions, filter:FilterParameter.SubscriptionsInsert)
     case subscriptionsDelete(require: RequireParameter.Delete, filter:FilterParameter.SubscriptionsDelete)
@@ -53,7 +53,7 @@ enum YoutubeAPI {
         
         struct Search {
             let parameter: String = Const.part
-            let properties: [Property]
+            let properties: Set<Property>
             
             enum Property: String {
                 case snippet
@@ -63,7 +63,7 @@ enum YoutubeAPI {
         
         struct Subscriptions {
             let parameter: String = Const.part
-            let properties: [Property]
+            let properties: Set<Property>
             
             enum Property: String {
                 case snippet
@@ -79,7 +79,7 @@ enum YoutubeAPI {
         
         struct Channels {
             let parameter: String = Const.part
-            let properties: [Property]
+            let properties: Set<Property>
             
             enum Property: String {
                 case snippet
@@ -92,7 +92,7 @@ enum YoutubeAPI {
         
         struct Videos {
             let parameter: String = Const.part
-            let properties: [Property]
+            let properties: Set<Property>
             enum Property: String {
                 case snippet
                 case id
@@ -106,7 +106,7 @@ enum YoutubeAPI {
         
         struct VideoCategory {
             let parameter: String = Const.part
-            let properties: [Property]
+            let properties: Set<Property>
             enum Property: String {
                 case snippet
                 case id
@@ -114,7 +114,7 @@ enum YoutubeAPI {
         }
         struct Playlists {
             let parameter: String = Const.part
-            let properties: [Property]
+            let properties: Set<Property>
             
             enum Property: String {
                 case snippet
@@ -153,7 +153,7 @@ enum YoutubeAPI {
             }
         }
         
-        enum Search:ParameterType {
+        enum Search:ParameterType, Hashable {
             case channelId(id:String)
             case eventType(event:Event)
             case maxResults(max:Int)
@@ -171,34 +171,20 @@ enum YoutubeAPI {
             
             var property:Any {
                 switch self {
-                case .channelId(let id):
-                    return id
-                case .eventType(let event):
-                    return event.rawValue
-                case .maxResults(let max):
-                    return max
-                case .order(let order):
-                    return order.rawValue
-                case .publishedAfter(let time):
-                    return time
-                case .publishedBefore(let time):
-                    return time
-                case .datetime(let time):
-                    return time
-                case .q(let keyword):
-                    return keyword
-                case .regionCode(let code):
-                    return code.rawValue
-                case .type(let type):
-                    return type.rawValue
-                case .videoCaption(let caption):
-                    return caption.rawValue
-                case .videoCategoryId(let id):
-                    return id
-                case .videoDefinition(let definition):
-                    return definition.rawValue
-                case .videoDuration(let duration):
-                    return duration.rawValue
+                case .channelId(let id): return id
+                case .eventType(let event): return event.rawValue
+                case .maxResults(let max): return max
+                case .order(let order): return order.rawValue
+                case .publishedAfter(let time): return time
+                case .publishedBefore(let time): return time
+                case .datetime(let time): return time
+                case .q(let keyword): return keyword
+                case .regionCode(let code): return code.rawValue
+                case .type(let type): return type.rawValue
+                case .videoCaption(let caption): return caption.rawValue
+                case .videoCategoryId(let id): return id
+                case .videoDefinition(let definition): return definition.rawValue
+                case .videoDuration(let duration): return duration.rawValue
                 }
             }
             
@@ -249,6 +235,45 @@ enum YoutubeAPI {
                 case long
                 case medium
                 case short
+            }
+            
+            static func ==(lhs: Search, rhs: Search) -> Bool {
+                switch (lhs, rhs) {
+                case (.channelId, .channelId): return true
+                case (.eventType, .eventType): return true
+                case (.maxResults, .maxResults): return true
+                case (.order, .order): return true
+                case (.publishedAfter, .publishedAfter): return true
+                case (.publishedBefore, .publishedBefore): return true
+                case (.datetime, .datetime): return true
+                case (.q, .q): return true
+                case (.regionCode, .regionCode): return true
+                case (.type, .type): return true
+                case (.videoCaption, .videoCaption): return true
+                case (.videoCategoryId, .videoCategoryId): return true
+                case (.videoDefinition, .videoDefinition): return true
+                case (.videoDuration, .videoDuration): return true
+                default: return false
+                }
+            }
+            
+            var hashValue: Int {
+                switch self {
+                case .channelId: return 0
+                case .eventType: return 1
+                case .maxResults: return 2
+                case .order: return 3
+                case .publishedAfter: return 4
+                case .publishedBefore: return 5
+                case .datetime: return 6
+                case .q: return 7
+                case .regionCode: return 0
+                case .type: return 9
+                case .videoCaption: return 10
+                case .videoCategoryId: return 11
+                case .videoDefinition: return 12
+                case .videoDuration: return 13
+                }
             }
         }
         
