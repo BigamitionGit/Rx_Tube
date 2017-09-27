@@ -301,14 +301,10 @@ enum YoutubeAPI {
             
             var property:Any {
                 switch self {
-                case .categoryId(let id):
-                    return id
-                case .forUsername(let name):
-                    return name
-                case .id(let ids):
-                    return ids.joined(separator: ",")
-                case .mine:
-                    return true
+                case .categoryId(let id): return id
+                case .forUsername(let name): return name
+                case .id(let ids): return ids.joined(separator: ",")
+                case .mine: return true
                 }
             }
         }
@@ -320,12 +316,9 @@ enum YoutubeAPI {
             
             var property:Any {
                 switch self {
-                case .chart:
-                    return Const.mostPopular
-                case .id(let ids):
-                    return ids.joined(separator: ",")
-                case .myRating(let rating):
-                    return rating.rawValue
+                case .chart: return Const.mostPopular
+                case .id(let ids): return ids.joined(separator: ",")
+                case .myRating(let rating): return rating.rawValue
                 }
             }
             
@@ -342,12 +335,9 @@ enum YoutubeAPI {
             
             var property:Any {
                 switch self {
-                case .channelId(let id):
-                    return id
-                case .id(let ids):
-                    return ids.joined(separator: ",")
-                case .mine:
-                    return true
+                case .channelId(let id): return id
+                case .id(let ids): return ids.joined(separator: ",")
+                case .mine: return true
                 }
             }
         }
@@ -382,53 +372,55 @@ extension YoutubeAPI:TargetType {
     var parameters: [String: Any]? {
         switch self {
         case .search(let requires, let filters):
-            var params = filters.reduce([String:Any]()) { (result, search) -> [String:Any] in
-                var result = result
-                result[search.parameter] = search.property
-                return result
-            }
+            var params = filters.reduce(into: [String:Any]()) { $0[$1.parameter] = $1.property }
             params[requires.parameter] = requires.properties.map { $0.rawValue }.joined(separator: ",")
             params[YoutubeAPI.keyParameter] = YoutubeAPI.keyProperty
             if filters.contains(where: { $0.isNeedTypeVideo }) {
-                let type = YoutubeAPI.FilterParameter.Search.type(type: YoutubeAPI.FilterParameter.Search.SearchType.video)
+                let type = FilterParameter.Search.type(type: .video)
                 params[type.parameter] = type.property
             }
             return params
         case .subscriptionsList(let require, let filter):
-            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","), filter.parameter: filter.property]
+            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
+                    filter.parameter: filter.property,
+                    YoutubeAPI.keyParameter: YoutubeAPI.keyProperty]
         case .subscriptionsInsert(let require, let filter):
-            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","), filter.parameter: filter.property]
+            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
+                    filter.parameter: filter.property,
+                    YoutubeAPI.keyParameter: YoutubeAPI.keyProperty]
         case .subscriptionsDelete(let require, let filter):
-            return [require.parameter: require.property, filter.parameter: filter.property]
+            return [require.parameter: require.property,
+                    filter.parameter: filter.property,
+                    YoutubeAPI.keyParameter: YoutubeAPI.keyProperty]
         case .channels(let require, let filter):
-            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","), filter.parameter: filter.property]
+            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
+                    filter.parameter: filter.property,
+                    YoutubeAPI.keyParameter: YoutubeAPI.keyProperty]
         case .videos(let require, let filter):
-            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","), filter.parameter: filter.property]
+            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
+                    filter.parameter: filter.property,
+                    YoutubeAPI.keyParameter: YoutubeAPI.keyProperty]
         case .videoCategories(let require, let filter):
-            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","), filter.parameter: filter.rawValue]
+            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
+                    filter.parameter: filter.rawValue,
+                    YoutubeAPI.keyParameter: YoutubeAPI.keyProperty]
         case .playlists(let require, let filter):
-            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","), filter.parameter: filter.property]
+            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
+                    filter.parameter: filter.property,
+                    YoutubeAPI.keyParameter: YoutubeAPI.keyProperty]
         }
     }
     
     var sampleData: Data {
         switch self {
-        case .search:
-            return stubbedResponse("search")
-        case .videos:
-            return stubbedResponse("videos")
-        case .channels:
-            return stubbedResponse("channel")
-        case .subscriptionsList:
-            return stubbedResponse("subscriptionslist")
-        case .subscriptionsInsert:
-            return stubbedResponse("subscriptionsinsert")
-        case .subscriptionsDelete:
-            return stubbedResponse("subscriptionsdelete")
-        case .videoCategories:
-            return stubbedResponse("videoCategories")
-        case .playlists:
-            return stubbedResponse("playlists")
+        case .search: return stubbedResponse("search")
+        case .videos: return stubbedResponse("videos")
+        case .channels: return stubbedResponse("channel")
+        case .subscriptionsList: return stubbedResponse("subscriptionslist")
+        case .subscriptionsInsert: return stubbedResponse("subscriptionsinsert")
+        case .subscriptionsDelete: return stubbedResponse("subscriptionsdelete")
+        case .videoCategories: return stubbedResponse("videoCategories")
+        case .playlists: return stubbedResponse("playlists")
         }
         
     }
