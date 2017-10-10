@@ -10,29 +10,17 @@ struct Channels: Codable {
     let items: [Item]
     
     struct Item: Codable {
+        let id: String
         let snippet: Snippet?
         let contentDetails: ContentDetails?
         let statistics: Statistics?
         let topicDetails: TopicDetails?
         
-        struct Snippet: Codable {
+        struct Snippet: Codable, ContentsSnippetType {
             let title: String
             let description: String
             let publishedAt: String
             let thumbnails: Thumbnails
-            
-            struct Thumbnails: Codable {
-                let `default`: Image
-                let medium: Image
-                let high: Image
-                let standard: Image
-                
-                struct Image: Codable {
-                    let url: String
-                    let width: Int
-                    let height: Int
-                }
-            }
         }
         
         struct ContentDetails: Codable {

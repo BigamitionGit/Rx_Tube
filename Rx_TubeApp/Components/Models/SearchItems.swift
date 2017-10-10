@@ -22,7 +22,7 @@ struct SearchItems: Codable {
             let playlistId: String?
         }
         
-        struct Snippet: Codable {
+        struct Snippet: Codable, ContentsSnippetType {
             let publishedAt: String
             let channelId: String
             let title: String
@@ -30,18 +30,6 @@ struct SearchItems: Codable {
             let thumbnails: Thumbnails
             let channelTitle: String
             let liveBroadcastContent: String
-            
-            struct Thumbnails: Codable {
-                let `default`: Image
-                let medium: Image
-                let high: Image
-                
-                struct Image: Codable {
-                    let url: String
-                    let width: Int
-                    let height: Int
-                }
-            }
         }
     }
 }

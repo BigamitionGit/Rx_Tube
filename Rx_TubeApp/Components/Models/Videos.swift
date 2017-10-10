@@ -19,7 +19,7 @@ struct Videos: Codable {
         let topicDetails: TopicDetails?
         let recordingDetails: RecordingDetails?
         
-        struct Snippet: Codable {
+        struct Snippet: Codable, ContentsSnippetType {
             let publishedAt: String
             let channelId: String
             let title: String
@@ -28,22 +28,19 @@ struct Videos: Codable {
             let channelTitle: String
             let tags: [String]
             var categoryId: String
-            
-            struct Thumbnails: Codable {
-                let `default`: Image
-                let medium: Image
-                let high: Image
-                let standard: Image
-                
-                struct Image: Codable {
-                    let url: String
-                    let width: Int
-                    let height: Int
-                }
-            }
         }
         
         struct ContentDetails: Codable {
+            enum Dimension: String {
+                case eee
+                case aaaa
+            }
+            
+            enum Definition: String {
+                case hd
+                case sd
+            }
+            
             let duration: String
             let dimension: String
             let definition: String
@@ -51,11 +48,11 @@ struct Videos: Codable {
         }
         
         struct Statistics: Codable {
-            let viewCount: String
-            let likeCount: String
-            let dislikeCount: String
-            let favoriteCount: String
-            let commentCount: String
+            let viewCount: Int
+            let likeCount: Int
+            let dislikeCount: Int
+            let favoriteCount: Int
+            let commentCount: Int
         }
         
         struct Player: Codable {
