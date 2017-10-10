@@ -8,48 +8,65 @@
 
 import Foundation
 
-struct SearchItemCellModel {
-    
-    enum ItemType {
-        case video(id: String)
-        case channel(id: String)
-        case playlist(id: String)
+enum SearchItemCellModel {
+    case video(Video)
+    case channel(Channel)
+    case playlist(Playlist)
         
-        init?(itemId: SearchItems.Item.Id) {
-            if let video = itemId.videoId {
-                self = .video(id: video)
-            } else if let channel = itemId.channelId {
-                self = .channel(id: channel)
-            } else if let playlist = itemId.playlistId {
-                self = .playlist(id: playlist)
-            } else { return nil }
-        }
+    class SearchItem {
+        let publishedAt: String
+        let title: String
+        let thumbnailUrl: String
         
-        var id: String {
-            switch self {
-            case .video(let id):
-                return id
-            case .channel(let id):
-                return id
-            case .playlist(let id):
-                return id
-            }
+        init(snippet: ContentsSnippetType) {
+            publishedAt = snippet.publishedAt
+            title = snippet.title
+            thumbnailUrl = snippet.thumbnails.default.url
         }
     }
     
-    let type: ItemType
-    let publishedAt: String
-    let title: String
-    let thumbnailUrl: String
-    let channelTitle: String
-    
-    init?(item: SearchItems.Item) {
-        guard let itemType = ItemType(itemId: item.id) else { return nil }
-        type = itemType
-        let snippet = item.snippet
-        publishedAt = snippet.publishedAt
-        title = snippet.title
-        thumbnailUrl = snippet.thumbnails.default.url
-        channelTitle = snippet.channelTitle
+    class Video: SearchItem {
+        let id: String
+        let duration: String
+        let channelTitle: String
+        let definition: String
+        
+        
+        init?(video: Videos.Item) {
+            guard let snippet = video.snippet,
+                let statistics = video.statistics,
+                let contentsDetail = video.contentDetails else { return nil }
+            
+            id = video.id
+            duration = contentsDetail.duration
+            channelTitle = snippet.channelTitle
+            definition = contentsDetail.definition
+            
+            
+            super.init(snippet: snippet)
+        }
     }
+    
+    class Channel: SearchItem {
+        let id: String
+        
+        init?(channel: Channels.Item) {
+            guard let snippet = channel.snippet,
+                let statistics = channel.statistics,
+                let contentsDetail = channel.contentDetails else { return nil }
+            id = channel.id
+            super.init(snippet: snippet)
+        }
+    }
+    
+    class Playlist: SearchItem {
+        let id: String
+        
+        init?(searchItem: SearchItems.Item) {
+            guard let playlistId = searchItem.id.playlistId else { return nil }
+            id = playlistId
+            super.init(snippet: searchItem.snippet)
+        }
+    }
+    
 }

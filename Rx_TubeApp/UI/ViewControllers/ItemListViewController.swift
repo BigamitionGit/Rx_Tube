@@ -12,6 +12,30 @@ import RxSwift
 import RxCocoa
 
 final class ItemListViewController: UIViewController {
+    
+//    enum Destination {
+//        case Player(PlayerViewModel)
+//        case Search(SearchViewModel)
+//        case Playlist(PlaylistViewModel)
+//        case Channel(ChannelViewModel)
+//
+//        func go(from vc: UIViewController) {
+//            switch self {
+//            case .Player(let vm):
+//                let view = PlayerView(viewModel: vm)
+//                // TODO: transition
+//            case .Search(let vm):
+//                let view = SearchView(viewModel: vm)
+//                // TODO: transition
+//            case .Playlist(let vm):
+//                let view = PlaylistView(viewModel: vm)
+//                // TODO: transition
+//            case .Channel(let vm):
+//                let view = ChannelView(viewModel: vm)
+//                // TODO: transition
+//            }
+//        }
+//    }
 
     private let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: nil)
     private lazy var videoListView: UITableView = {
@@ -62,11 +86,7 @@ final class ItemListViewController: UIViewController {
         self.rx.viewDidLoad
             .bind(to: viewModel.viewDidLoad)
             .addDisposableTo(self.disposeBag)
-        
-        viewModel.presentPlayerViewModel.subscribe(onNext: { [weak self] viewModel in
-            // TODO: Implement Present PlayerView
-            }).addDisposableTo(disposeBag)
-        
+                
         viewModel.itemDataSource
             .drive(videoListView.rx.items(dataSource: dataSource))
             .addDisposableTo(disposeBag)
@@ -100,18 +120,18 @@ final class ItemListViewController: UIViewController {
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let item = items[indexPath.row]
-            switch item.type {
-            case .channel:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChannelItemCell.identifier, for: indexPath) as? ChannelItemCell else { fatalError("Could not create Cell") }
-                cell.config(item: item)
-                return cell
-            case .video:
+            switch item {
+            case .video(let video):
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: VideoItemCell.identifier, for: indexPath) as? VideoItemCell else { fatalError("Could not create Cell") }
-                cell.config(item: item)
+                cell.config(item: video)
                 return cell
-            case .playlist:
+            case .playlist(let playlist):
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: PlaylistItemCell.identifier, for: indexPath) as? PlaylistItemCell else { fatalError("Could not create Cell") }
-                cell.config(item: item)
+                cell.config(item: playlist)
+                return cell
+            case .channel(let channel):
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChannelItemCell.identifier, for: indexPath) as? ChannelItemCell else { fatalError("Could not create Cell") }
+                cell.config(item: channel)
                 return cell
             }
         }

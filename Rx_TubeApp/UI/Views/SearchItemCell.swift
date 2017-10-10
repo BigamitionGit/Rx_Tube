@@ -10,14 +10,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-protocol SearchItemCellType {
-    func config(item: SearchItemCellModel)
-}
-
-extension SearchItemCellType where Self:UITableViewCell {
-}
-
-final class VideoItemCell: BaseTableViewCell, SearchItemCellType {
+final class VideoItemCell: BaseTableViewCell {
     static let identifier = String(describing: VideoItemCell.self)
     
     private lazy var titleLabel: UILabel = {
@@ -80,7 +73,7 @@ final class VideoItemCell: BaseTableViewCell, SearchItemCellType {
     
     // MARK: Configuring
     
-    func config(item: SearchItemCellModel) {
+    func config(item: SearchItemCellModel.Video) {
         titleLabel.text = item.title
         publishedAtLabel.text = item.publishedAt
         channelTitleLabel.text = item.channelTitle
@@ -90,18 +83,18 @@ final class VideoItemCell: BaseTableViewCell, SearchItemCellType {
     }
 }
 
-final class ChannelItemCell: BaseTableViewCell, SearchItemCellType {
+final class ChannelItemCell: BaseTableViewCell {
     static let identifier = String(describing: ChannelItemCell.self)
     
-    func config(item: SearchItemCellModel) {
+    func config(item: SearchItemCellModel.Channel) {
         
     }
 }
 
-final class PlaylistItemCell: BaseTableViewCell, SearchItemCellType {
+final class PlaylistItemCell: BaseTableViewCell {
     static let identifier = String(describing: PlaylistItemCell.self)
     
-    func config(item: SearchItemCellModel) {
+    func config(item: SearchItemCellModel.Playlist) {
         
     }
 }
