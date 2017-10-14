@@ -1,4 +1,4 @@
-//
+ //
 //  ItemListViewModel.swift
 //  Rx_TubeApp
 //
@@ -143,15 +143,18 @@ final class ItemListViewModel: ItemListViewModelType {
                 let vCellModels = model.videos.items
                     .flatMap { SearchItemCellModel.Video(video: $0)}
                     .map { SearchItemCellModel.video($0) }
-                let cCellModel = model.searchItems.items
-                    .flatMap { $0.id.channelId }
-                    .flatMap { id in model.channels.items.first(where: { $0.id == id }) }
+                let cCellModel = model.channels.items
                     .flatMap { SearchItemCellModel.Channel(channel: $0) }
                     .map { SearchItemCellModel.channel($0) }
                 let pCellModel = model.searchItems.items
-                    .filter { $0.id.playlistId != nil }
-                    .flatMap { SearchItemCellModel.Playlist(searchItem: $0) }
-                    .map { SearchItemCellModel.playlist($0)}
+                    .flatMap { item in
+                        guard let id = item.id.playlistId else { return nil }
+                        return (id: id, snippet: item.snippet)
+                    }
+                    .map { (id: String, snippet: SearchItems.Item.Snippet)->SearchItemCellModel in
+                        let playlist = SearchItemCellModel.Playlist(playlistId: id, searchItem: snippet)
+                        return SearchItemCellModel.playlist(playlist)
+                    }
                 
                 return vCellModels + cCellModel + pCellModel
         }

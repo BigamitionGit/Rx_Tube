@@ -62,10 +62,9 @@ enum SearchItemCellModel {
     class Playlist: SearchItem {
         let id: String
         
-        init?(searchItem: SearchItems.Item) {
-            guard let playlistId = searchItem.id.playlistId else { return nil }
+        init(playlistId: String, searchItem: SearchItems.Item.Snippet) {
             id = playlistId
-            super.init(snippet: searchItem.snippet)
+            super.init(snippet: searchItem)
         }
     }
     
