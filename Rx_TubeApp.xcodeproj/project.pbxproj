@@ -18,6 +18,7 @@
 		A33F4BE81F5BA91B00ADC19C /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F4BE71F5BA91B00ADC19C /* Videos.swift */; };
 		A33F4BEA1F5BA93200ADC19C /* Channels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F4BE91F5BA93200ADC19C /* Channels.swift */; };
 		A33F4BEC1F5BB03E00ADC19C /* Playlists.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F4BEB1F5BB03E00ADC19C /* Playlists.swift */; };
+		A34FA0B41F9E11D900FB8532 /* YoutubeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA0B31F9E11D900FB8532 /* YoutubeService.swift */; };
 		A350AE2C1F3A020B00D387A8 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A37245ED1F39FA0D00CADACB /* Result.framework */; };
 		A350AE2D1F3A020B00D387A8 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A37245ED1F39FA0D00CADACB /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A350AE2E1F3A020B00D387A8 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A391FE701F3219DA008A2F9C /* RxCocoa.framework */; };
@@ -123,6 +124,7 @@
 		A33F4BE71F5BA91B00ADC19C /* Videos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Videos.swift; path = Components/Models/Videos.swift; sourceTree = "<group>"; };
 		A33F4BE91F5BA93200ADC19C /* Channels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Channels.swift; path = Components/Models/Channels.swift; sourceTree = "<group>"; };
 		A33F4BEB1F5BB03E00ADC19C /* Playlists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Playlists.swift; path = Components/Models/Playlists.swift; sourceTree = "<group>"; };
+		A34FA0B31F9E11D900FB8532 /* YoutubeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YoutubeService.swift; path = Components/Networking/YoutubeService.swift; sourceTree = "<group>"; };
 		A350AE3D1F3A09C700D387A8 /* UIViewController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIViewController+Rx.swift"; path = "Components/Rx/UIViewController+Rx.swift"; sourceTree = "<group>"; };
 		A3718AC91F0DAFDE0048FECC /* channel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = channel.json; path = Application/Resource/StubbedResponses/channel.json; sourceTree = "<group>"; };
 		A3718ACA1F0DAFDE0048FECC /* searchlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = searchlist.json; path = Application/Resource/StubbedResponses/searchlist.json; sourceTree = "<group>"; };
@@ -140,6 +142,10 @@
 		A3B0B00B1F05CBC300E053D1 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
 		A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxMoya.framework; path = Carthage/Build/iOS/RxMoya.framework; sourceTree = "<group>"; };
 		A3C7BC0C1F150BF0003AF320 /* SearchItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchItems.swift; path = Components/Models/SearchItems.swift; sourceTree = "<group>"; };
+		A3DECA661F9233630077086E /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseCoordinator.swift; path = UI/BaseCoordinator.swift; sourceTree = "<group>"; };
+		A3DECA681F92345D0077086E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppCoordinator.swift; path = Application/AppCoordinator.swift; sourceTree = "<group>"; };
+		A3DECA6A1F9234CB0077086E /* ItemListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemListCoordinator.swift; path = UI/ViewControllers/ItemList/ItemListCoordinator.swift; sourceTree = "<group>"; };
+		A3DECA6E1F9239390077086E /* PlayerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerCoordinator.swift; path = UI/Views/Player/PlayerCoordinator.swift; sourceTree = "<group>"; };
 		A3E3FB311F85A193009209D2 /* ObservableType+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ObservableType+Codable.swift"; path = "Components/Rx/ObservableType+Codable.swift"; sourceTree = "<group>"; };
 		A3E50A241F46C600001FEC7C /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		A3E583041F5BCBD10029DFEF /* playlists.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = playlists.json; path = Application/Resource/StubbedResponses/playlists.json; sourceTree = "<group>"; };
@@ -361,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				A3718AD51F0DB31A0048FECC /* YoutubeAPI.swift */,
+				A34FA0B31F9E11D900FB8532 /* YoutubeService.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -602,6 +609,8 @@
 				A33A1ABF1F5704EE0077C2B5 /* BaseTableViewCell.swift in Sources */,
 				A3AABAB51F72C185001E425F /* ContentsSnippetType.swift in Sources */,
 				A33F4BEA1F5BA93200ADC19C /* Channels.swift in Sources */,
+				A34FA0B41F9E11D900FB8532 /* YoutubeService.swift in Sources */,
+				A3DECA6F1F9239390077086E /* PlayerCoordinator.swift in Sources */,
 				A3F30F561F8D8B6E00684487 /* ChannelViewController.swift in Sources */,
 				A3E3FB321F85A193009209D2 /* ObservableType+Codable.swift in Sources */,
 			);
