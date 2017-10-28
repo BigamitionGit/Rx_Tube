@@ -1,28 +1,28 @@
  //
-//  ItemListViewModel.swift
-//  Rx_TubeApp
-//
-//  Created by 細田　大志 on 2017/07/11.
-//  Copyright © 2017 HIroshi Hosoda. All rights reserved.
-//
-
-import UIKit
-import RxSwift
-import RxCocoa
-import RxMoya
-import Moya
-
-fileprivate typealias SearchFilter = YoutubeAPI.FilterParameter.Search
-fileprivate typealias SearchRequire = YoutubeAPI.RequireParameter.Search
-fileprivate typealias ChannelsFilter = YoutubeAPI.FilterParameter.Channels
-fileprivate typealias ChannelsRequire = YoutubeAPI.RequireParameter.Channels
-fileprivate typealias VideosFilter = YoutubeAPI.FilterParameter.Videos
-fileprivate typealias VideosRequire = YoutubeAPI.RequireParameter.Videos
-
-
-// MARK: Types
-
-enum ItemListViewType {
+ //  ItemListViewModel.swift
+ //  Rx_TubeApp
+ //
+ //  Created by 細田　大志 on 2017/07/11.
+ //  Copyright © 2017 HIroshi Hosoda. All rights reserved.
+ //
+ 
+ import UIKit
+ import RxSwift
+ import RxCocoa
+ import RxMoya
+ import Moya
+ 
+ fileprivate typealias SearchFilter = YoutubeAPI.FilterParameter.Search
+ fileprivate typealias SearchRequire = YoutubeAPI.RequireParameter.Search
+ fileprivate typealias ChannelsFilter = YoutubeAPI.FilterParameter.Channels
+ fileprivate typealias ChannelsRequire = YoutubeAPI.RequireParameter.Channels
+ fileprivate typealias VideosFilter = YoutubeAPI.FilterParameter.Videos
+ fileprivate typealias VideosRequire = YoutubeAPI.RequireParameter.Videos
+ 
+ 
+ // MARK: Types
+ 
+ enum ItemListViewType {
     case short
     case long
     case event
@@ -64,9 +64,9 @@ enum ItemListViewType {
             return [SearchFilter.videoDefinition(definition: SearchFilter.Definition.high)]
         }
     }
-}
-
-protocol ItemListViewModelType: class {
+ }
+ 
+ protocol ItemListViewModelType: class {
     
     // Input
     var viewDidLoad: PublishSubject<Void> { get }
@@ -79,13 +79,13 @@ protocol ItemListViewModelType: class {
     var selectedItem: PublishSubject<IndexPath> { get }
     
     // Output
-    var presentPlayer: Observable<String> { get }
-    var presentPlaylist: Observable<String> { get }
+    var showPlayer: Observable<String> { get }
+    var showPlaylist: Observable<String> { get }
     var pushChannelDetail: Observable<String> { get }
     var itemDataSource: Driver<[SearchItemCellModel]> { get }
-}
-
-final class ItemListViewModel: ItemListViewModelType {
+ }
+ 
+ final class ItemListViewModel: ItemListViewModelType {
     
     // MARK: Input
     var viewDidLoad = PublishSubject<Void>()
@@ -98,8 +98,8 @@ final class ItemListViewModel: ItemListViewModelType {
     var selectedItem = PublishSubject<IndexPath>()
     
     // MARK: Output
-    var presentPlayer: Observable<String> { return selectedPlayer }
-    var presentPlaylist: Observable<String> { return selectedPlaylist }
+    var showPlayer: Observable<String> { return selectedPlayer }
+    var showPlaylist: Observable<String> { return selectedPlaylist }
     var pushChannelDetail: Observable<String> { return selectedChannel }
     let itemDataSource: Driver<[SearchItemCellModel]>
     
@@ -110,32 +110,34 @@ final class ItemListViewModel: ItemListViewModelType {
     
     // MARK: Initializing
     
-    init(provider: RxMoyaProvider<YoutubeAPI>, type: ItemListViewType) {
+    init(service: YoutubeServiceType, type: ItemListViewType) {
         
         let searchItems: Observable<SearchItems> = Observable
             .of(viewDidLoad, searchKeyDidTap, selectedTab, refresh, horizontalSwipe)
             .merge()
             .withLatestFrom(searchText.asObservable())
             .withLatestFrom(videoCategory.asObservable()) { ($0, $1) }
-            .flatMapLatest { text, category -> Observable<Response> in
+            .flatMapLatest { text, category -> Observable<SearchItems> in
                 var parameters = type.filterParameters
                 if !text.isEmpty { parameters.insert(SearchFilter.q(keyword: text)) }
                 if !category.isEmpty { parameters.insert(SearchFilter.videoCategoryId(id: category)) }
-                return provider.request(YoutubeAPI.search(require: type.requireParameters, filter: parameters))
-                    .retry(3)}
-            .map(SearchItems.self)
+                return service.fetchSearchItems(type.requireParameters, parameters)}
         
         let models: Observable<(videos: Videos, channels: Channels, searchItems: SearchItems)> = searchItems
             .flatMapLatest { (searchItems)->Observable<(videos: Videos, channels: Channels, searchItems: SearchItems)> in
-            let videoIds = searchItems.items.flatMap { $0.id.videoId }
-            let channelIds = searchItems.items.map { $0.snippet.channelId }
-            let videos = provider.request(YoutubeAPI.videos(require: VideosRequire(properties: [ VideosRequire.Property.snippet, VideosRequire.Property.statistics]), filter: VideosFilter.id(ids: videoIds)))
-                .map(Videos.self)
-            let channels = provider.request(YoutubeAPI.channels(require: ChannelsRequire(properties: [ChannelsRequire.Property.snippet, ChannelsRequire.Property.contentDetails, ChannelsRequire.Property.statistics]), filter: ChannelsFilter.id(ids: channelIds)))
-                .map(Channels.self)
-            
-            return Observable
-                .combineLatest(videos, channels) { (videos: $0, channels: $1, searchItems: searchItems)}
+                let videoIds = searchItems.items.flatMap { $0.id.videoId }
+                let channelIds = searchItems.items.map { $0.snippet.channelId }
+                
+                let videos = service.fetchVideos(
+                    VideosRequire(properties: [ .snippet, .statistics]),
+                    VideosFilter.id(ids: videoIds))
+                
+                let channels = service.fetchChannels(
+                    ChannelsRequire(properties: [.snippet, .contentDetails, .statistics]),
+                    ChannelsFilter.id(ids: channelIds))
+                
+                return Observable
+                    .combineLatest(videos, channels) { (videos: $0, channels: $1, searchItems: searchItems)}
         }
         
         let cellModels: Observable<[SearchItemCellModel]> = models
@@ -147,19 +149,16 @@ final class ItemListViewModel: ItemListViewModelType {
                     .flatMap { SearchItemCellModel.Channel(channel: $0) }
                     .map { SearchItemCellModel.channel($0) }
                 let pCellModel = model.searchItems.items
-                    .flatMap { item in
+                    .flatMap { item->SearchItemCellModel? in
                         guard let id = item.id.playlistId else { return nil }
-                        return (id: id, snippet: item.snippet)
-                    }
-                    .map { (id: String, snippet: SearchItems.Item.Snippet)->SearchItemCellModel in
-                        let playlist = SearchItemCellModel.Playlist(playlistId: id, searchItem: snippet)
+                        let playlist = SearchItemCellModel.Playlist(playlistId: id, searchItem: item.snippet)
                         return SearchItemCellModel.playlist(playlist)
                     }
                 
                 return vCellModels + cCellModel + pCellModel
         }
         
-    
+        
         itemDataSource = cellModels.asDriver(onErrorJustReturn: [])
         
         selectedItem
@@ -173,15 +172,15 @@ final class ItemListViewModel: ItemListViewModelType {
                 }
             }).disposed(by: disposeBag)
     }
-}
-
-
-
-
-
-
-
-
-
-
-
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
