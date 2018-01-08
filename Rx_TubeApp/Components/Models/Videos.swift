@@ -31,10 +31,6 @@ struct Videos: Codable {
         }
         
         struct ContentDetails: Codable {
-            enum Dimension: String {
-                case eee
-                case aaaa
-            }
             
             enum Definition: String {
                 case hd

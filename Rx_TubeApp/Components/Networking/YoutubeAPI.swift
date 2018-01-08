@@ -31,14 +31,14 @@ extension ParameterType {
 }
 
 enum YoutubeAPI {
-    case search(require: RequireParameter.Search, filter:Set<FilterParameter.Search>)
+    case search(require: RequireParameter.Search, filter: FilterParameter.Search?, option:Set<OptionParameter.Search>)
     case subscriptionsList(require: RequireParameter.Subscriptions, filter:FilterParameter.SubscriptionsList)
     case subscriptionsInsert(require: RequireParameter.Subscriptions, filter:FilterParameter.SubscriptionsInsert)
     case subscriptionsDelete(require: RequireParameter.Delete, filter:FilterParameter.SubscriptionsDelete)
     case channels(require: RequireParameter.Channels, filter:FilterParameter.Channels)
     case videos(require: RequireParameter.Videos, filter:FilterParameter.Videos)
     case playlists(require: RequireParameter.Playlists, filter:FilterParameter.Playlists)
-    case videoCategories(require: RequireParameter.VideoCategory, filter:FilterParameter.RegionCode)
+    case videoCategories(require: RequireParameter.VideoCategory, filter:OptionParameter.RegionCode)
     
     static let keyParameter = "key"
     static let keyProperty = "AIzaSyCFCOuvjqfco2AqdsD5WrG21ZcYAoyWyBw"
@@ -133,6 +133,101 @@ enum YoutubeAPI {
             static let channelId = "channelId"
             static let id = "id"
             static let mostPopular = "mostPopular"
+        }
+        
+        enum Search: ParameterType {
+            case forContentOwner(Bool)
+            case forMine(Bool)
+            case relatedToVideoId(id: String)
+            
+            var property: Any {
+                switch self {
+                case .forContentOwner(let isContentOwner): return isContentOwner
+                case .forMine(let isMine): return isMine
+                case .relatedToVideoId(let id): return id
+                }
+            }
+            
+            var isNeedTypeVideo: Bool {
+                switch self {
+                case .relatedToVideoId, .forMine: return true
+                case .forContentOwner: return false
+                }
+            }
+        }
+        
+        
+        struct SubscriptionsList {
+            let property:String
+            let parameter:String = Const.channelId
+        }
+        
+        struct SubscriptionsInsert {
+            let property:String
+            //TODO:parameterではなくrequest 本文　body?
+            let parameter:String = Const.channelId
+        }
+        
+        struct SubscriptionsDelete {
+            let property:String
+            let parameter:String = Const.id
+        }
+        
+        enum Channels:ParameterType {
+            case categoryId(id:String)
+            case forUsername(name:String)
+            case id(ids:[String])
+            case mine
+            
+            var property:Any {
+                switch self {
+                case .categoryId(let id): return id
+                case .forUsername(let name): return name
+                case .id(let ids): return ids.joined(separator: ",")
+                case .mine: return true
+                }
+            }
+        }
+        
+        enum Videos: ParameterType {
+            case chart
+            case id(ids: [String])
+            case myRating(rating: Rating)
+            
+            var property:Any {
+                switch self {
+                case .chart: return Const.mostPopular
+                case .id(let ids): return ids.joined(separator: ",")
+                case .myRating(let rating): return rating.rawValue
+                }
+            }
+            
+            enum Rating: String {
+                case dislike
+                case like
+            }
+        }
+        
+        enum Playlists: ParameterType {
+            case channelId(id: String)
+            case id(ids: [String])
+            case mine
+            
+            var property:Any {
+                switch self {
+                case .channelId(let id): return id
+                case .id(let ids): return ids.joined(separator: ",")
+                case .mine: return true
+                }
+            }
+        }
+    }
+    
+    // MARK: Option Parameter
+    
+    struct OptionParameter {
+        private struct Const {
+            static let regionCode = "regionCode"
         }
         
         enum RegionCode: String {
@@ -276,71 +371,6 @@ enum YoutubeAPI {
                 }
             }
         }
-        
-        struct SubscriptionsList {
-            let property:String
-            let parameter:String = Const.channelId
-        }
-        
-        struct SubscriptionsInsert {
-            let property:String
-            //TODO:parameterではなくrequest 本文　body?
-            let parameter:String = Const.channelId
-        }
-        
-        struct SubscriptionsDelete {
-            let property:String
-            let parameter:String = Const.id
-        }
-        
-        enum Channels:ParameterType {
-            case categoryId(id:String)
-            case forUsername(name:String)
-            case id(ids:[String])
-            case mine
-            
-            var property:Any {
-                switch self {
-                case .categoryId(let id): return id
-                case .forUsername(let name): return name
-                case .id(let ids): return ids.joined(separator: ",")
-                case .mine: return true
-                }
-            }
-        }
-        
-        enum Videos: ParameterType {
-            case chart
-            case id(ids: [String])
-            case myRating(rating: Rating)
-            
-            var property:Any {
-                switch self {
-                case .chart: return Const.mostPopular
-                case .id(let ids): return ids.joined(separator: ",")
-                case .myRating(let rating): return rating.rawValue
-                }
-            }
-            
-            enum Rating: String {
-                case dislike
-                case like
-            }
-        }
-        
-        enum Playlists: ParameterType {
-            case channelId(id: String)
-            case id(ids: [String])
-            case mine
-            
-            var property:Any {
-                switch self {
-                case .channelId(let id): return id
-                case .id(let ids): return ids.joined(separator: ",")
-                case .mine: return true
-                }
-            }
-        }
     }
 }
 
@@ -371,12 +401,15 @@ extension YoutubeAPI:TargetType {
     
     var parameters: [String: Any]? {
         switch self {
-        case .search(let requires, let filters):
-            var params = filters.reduce(into: [String:Any]()) { $0[$1.parameter] = $1.property }
-            params[requires.parameter] = requires.properties.map { $0.rawValue }.joined(separator: ",")
+        case .search(let require, let filter, let options):
+            var params = options.reduce(into: [String:Any]()) { $0[$1.parameter] = $1.property }
+            params[require.parameter] = require.properties.map { $0.rawValue }.joined(separator: ",")
+            if let f = filter {
+                params[f.parameter] = f.property
+            }
             params[YoutubeAPI.keyParameter] = YoutubeAPI.keyProperty
-            if filters.contains(where: { $0.isNeedTypeVideo }) {
-                let type = FilterParameter.Search.type(type: .video)
+            if let f = filter, f.isNeedTypeVideo || options.contains(where: { $0.isNeedTypeVideo }) {
+                let type = OptionParameter.Search.type(type: .video)
                 params[type.parameter] = type.property
             }
             return params

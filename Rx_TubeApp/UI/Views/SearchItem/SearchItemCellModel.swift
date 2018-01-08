@@ -12,6 +12,17 @@ enum SearchItemCellModel {
     case video(Video)
     case channel(Channel)
     case playlist(Playlist)
+    
+    var itemId: String {
+        switch self {
+        case .video(let video):
+            return video.id
+        case .channel(let channel):
+            return channel.id
+        case .playlist(let playlist):
+            return playlist.id
+        }
+    }
         
     class SearchItem {
         let publishedAt: String
@@ -32,7 +43,7 @@ enum SearchItemCellModel {
         let definition: String
         
         
-        init?(video: Videos.Item) {
+        init?(video: Videos.Item, channel: Channels.Item) {
             guard let snippet = video.snippet,
                 let statistics = video.statistics,
                 let contentsDetail = video.contentDetails else { return nil }
@@ -62,9 +73,11 @@ enum SearchItemCellModel {
     class Playlist: SearchItem {
         let id: String
         
-        init(playlistId: String, searchItem: SearchItems.Item.Snippet) {
-            id = playlistId
-            super.init(snippet: searchItem)
+        init?(playlist: Playlists.Item, channel: Channels.Item) {
+            guard let snippet = playlist.snippet,
+                let contentsDetail = playlist.contentDetails else { return nil }
+            id = playlist.id
+            super.init(snippet: snippet)
         }
     }
     

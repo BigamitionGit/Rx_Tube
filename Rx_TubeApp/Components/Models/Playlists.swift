@@ -7,26 +7,31 @@
 //
 
 struct Playlists: Codable {
-    let id: String
-    let snippet: Snippet
-    let contentDetails: ContentDetails
-    let player: Player
     
-    struct Snippet: Codable, ContentsSnippetType {
-        let title: String
-        let description: String
-        let publishedAt: String
-        let thumbnails: Thumbnails
-        let channelId: String
-        let tags: [String]
-        var channelTitle: String
-    }
+    let items: [Item]
     
-    struct ContentDetails: Codable {
-        let itemCount: Int
-    }
-    
-    struct Player: Codable {
-        let embedHtml: String
+    struct Item: Codable {
+        let id: String
+        let snippet: Snippet?
+        let contentDetails: ContentDetails?
+        let player: Player?
+        
+        struct Snippet: Codable, ContentsSnippetType {
+            let title: String
+            let description: String
+            let publishedAt: String
+            let thumbnails: Thumbnails
+            let channelId: String
+            let tags: [String]
+            var channelTitle: String
+        }
+        
+        struct ContentDetails: Codable {
+            let itemCount: Int
+        }
+        
+        struct Player: Codable {
+            let embedHtml: String
+        }
     }
 }

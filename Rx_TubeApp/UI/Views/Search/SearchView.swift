@@ -7,11 +7,31 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class SearchView: UIView {
     
-    init(viewModel: SearchViewModel) {
+    let disposeBag = DisposeBag()
+    
+    init(viewModel: SearchViewModelType) {
         super.init(frame: CGRect.zero)
+        
+        let searchButton = UIButton()
+        let searchBar = UISearchBar()
+        
+        viewModel.initialize.onNext(Void())
+        
+        searchBar.rx.text
+            .bind(to: viewModel.inputSearchKeyword)
+            .disposed(by: disposeBag)
+        
+        Observable
+            .of(searchBar.rx.searchButtonClicked, searchButton.rx.tap)
+            .merge()
+            .bind(to: viewModel.searchDidTap)
+            .disposed(by: disposeBag)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -13,30 +13,6 @@ import RxCocoa
 
 final class ItemListViewController: UIViewController {
     
-//    enum Destination {
-//        case Player(PlayerViewModel)
-//        case Search(SearchViewModel)
-//        case Playlist(PlaylistViewModel)
-//        case Channel(ChannelViewModel)
-//
-//        func go(from vc: UIViewController) {
-//            switch self {
-//            case .Player(let vm):
-//                let view = PlayerView(viewModel: vm)
-//                // TODO: transition
-//            case .Search(let vm):
-//                let view = SearchView(viewModel: vm)
-//                // TODO: transition
-//            case .Playlist(let vm):
-//                let view = PlaylistView(viewModel: vm)
-//                // TODO: transition
-//            case .Channel(let vm):
-//                let view = ChannelView(viewModel: vm)
-//                // TODO: transition
-//            }
-//        }
-//    }
-
     private let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: nil)
     private lazy var videoListView: UITableView = {
         let tableView = UITableView()
@@ -62,7 +38,7 @@ final class ItemListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: View Life Cycle
+    // MARK: Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,7 +79,7 @@ final class ItemListViewController: UIViewController {
         typealias Element = [SearchItemCellModel]
         var items: Element = []
         
-        fileprivate let selectedIndexPath = PublishSubject<IndexPath>()
+        fileprivate let selectedIndexPath = PublishSubject<Int>()
         
         func tableView(_ tableView: UITableView, observedEvent: Event<[SearchItemCellModel]>) {
             if case .next(let items) = observedEvent {
@@ -139,7 +115,7 @@ final class ItemListViewController: UIViewController {
         // MARK: UITableViewDelegate
         
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            selectedIndexPath.onNext(indexPath)
+            selectedIndexPath.onNext(indexPath.row)
         }
         
     }

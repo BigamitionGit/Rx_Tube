@@ -10,7 +10,7 @@ import UIKit
 
 class PlayerView: UIView {
 
-    init(viewModel: PlayerViewModel) {
+    init(viewModel: PlayerViewModelType) {
         super.init(frame: CGRect.zero)
     }
     
