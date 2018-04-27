@@ -8,9 +8,7 @@
 
 #if os(iOS) || os(tvOS)
 
-#if !RX_NO_MODULE
 import RxSwift
-#endif
 import UIKit
 
 extension Reactive where Base: UINavigationController {
@@ -19,8 +17,8 @@ extension Reactive where Base: UINavigationController {
     /// Reactive wrapper for `delegate`.
     ///
     /// For more information take a look at `DelegateProxyType` protocol documentation.
-    public var delegate: DelegateProxy {
-        return RxNavigationControllerDelegateProxy.proxyForObject(base)
+    public var delegate: DelegateProxy<UINavigationController, UINavigationControllerDelegate> {
+        return RxNavigationControllerDelegateProxy.proxy(for: base)
     }
 
     /// Reactive wrapper for delegate method `navigationController(:willShow:animated:)`.

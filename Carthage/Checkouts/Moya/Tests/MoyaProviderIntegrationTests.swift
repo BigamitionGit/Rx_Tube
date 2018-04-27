@@ -1,7 +1,6 @@
 import Quick
 import Nimble
 import OHHTTPStubs
-import Alamofire
 
 @testable import Moya
 @testable import ReactiveMoya
@@ -19,23 +18,27 @@ func beIdenticalToResponse(_ expectedValue: Moya.Response) -> Predicate<Moya.Res
     }
 }
 
-class MoyaProviderIntegrationTests: QuickSpec {
+final class MoyaProviderIntegrationTests: QuickSpec {
     override func spec() {
         let userMessage = String(data: GitHub.userProfile("ashfurrow").sampleData, encoding: .utf8)
         let zenMessage = String(data: GitHub.zen.sampleData, encoding: .utf8)
 
         beforeEach {
-            OHHTTPStubs.stubRequests(passingTest: {$0.url!.path == "/zen"}) { _ in
+            OHHTTPStubs.stubRequests(passingTest: {$0.url!.path == "/zen"}, withStubResponse: { _ in
                 return OHHTTPStubsResponse(data: GitHub.zen.sampleData, statusCode: 200, headers: nil)
-            }
+            })
 
-            OHHTTPStubs.stubRequests(passingTest: {$0.url!.path == "/users/ashfurrow"}) { _ in
+            OHHTTPStubs.stubRequests(passingTest: {$0.url!.path == "/users/ashfurrow"}, withStubResponse: { _ in
                 return OHHTTPStubsResponse(data: GitHub.userProfile("ashfurrow").sampleData, statusCode: 200, headers: nil)
-            }
+            })
 
-            OHHTTPStubs.stubRequests(passingTest: {$0.url!.path == "/basic-auth/user/passwd"}) { _ in
+            OHHTTPStubs.stubRequests(passingTest: {$0.url!.path == "/users/invalid"}, withStubResponse: { _ in
+                return OHHTTPStubsResponse(data: GitHub.userProfile("invalid").sampleData, statusCode: 400, headers: nil)
+            })
+
+            OHHTTPStubs.stubRequests(passingTest: {$0.url!.path == "/basic-auth/user/passwd"}, withStubResponse: { _ in
                 return OHHTTPStubsResponse(data: HTTPBin.basicAuth.sampleData, statusCode: 200, headers: nil)
-            }
+            })
 
         }
 
@@ -82,6 +85,23 @@ class MoyaProviderIntegrationTests: QuickSpec {
                         expect(message) == userMessage
                     }
 
+                    it("returns real response when validation fails") {
+                        var response: Response?
+
+                        waitUntil { done in
+                            let target: GitHub = .userProfile("invalid")
+                            provider.request(target) { result in
+                                if case let .failure(error) = result {
+                                    response = error.response
+                                }
+                                done()
+                            }
+                        }
+
+                        expect(response).toNot(beNil())
+                        expect(response?.statusCode).to(equal(400))
+                    }
+
                     it("uses a custom Alamofire.Manager request generation") {
                         let manager = StubManager()
                         let provider = MoyaProvider<GitHub>(manager: manager)
@@ -93,13 +113,13 @@ class MoyaProviderIntegrationTests: QuickSpec {
                         expect(manager.called) == true
                     }
 
-                    it("uses other background queue") {
+                    it("uses a background queue") {
                         var isMainThread: Bool?
-                        let queue = DispatchQueue(label: "background_queue", attributes: .concurrent)
+                        let callbackQueue = DispatchQueue(label: "background_queue", attributes: .concurrent)
                         let target: GitHub = .zen
 
                         waitUntil { done in
-                            provider.request(target, queue:queue) { _ in
+                            provider.request(target, callbackQueue: callbackQueue) { _ in
                                 isMainThread = Thread.isMainThread
                                 done()
                             }
@@ -108,10 +128,9 @@ class MoyaProviderIntegrationTests: QuickSpec {
                         expect(isMainThread) == false
                     }
 
-                    it("uses main queue") {
+                    it("uses the main queue") {
                         var isMainThread: Bool?
                         let target: GitHub = .zen
-
                         waitUntil { done in
                             provider.request(target) { _ in
                                 isMainThread = Thread.isMainThread
@@ -169,34 +188,44 @@ class MoyaProviderIntegrationTests: QuickSpec {
                 describe("a provider with network activity plugin") {
                     it("notifies at the beginning of network requests") {
                         var called = false
-                        let plugin = NetworkActivityPlugin { change in
+                        var calledTarget: GitHub?
+
+                        let plugin = NetworkActivityPlugin { change, target in
                             if change == .began {
                                 called = true
+                                calledTarget = target as? GitHub
                             }
                         }
 
                         let provider = MoyaProvider<GitHub>(plugins: [plugin])
+                        let target: GitHub = .zen
                         waitUntil { done in
-                            provider.request(.zen) { _ in done() }
+                            provider.request(target) { _ in done() }
                         }
 
                         expect(called) == true
+                        expect(calledTarget) == target
                     }
 
                     it("notifies at the end of network requests") {
                         var called = false
-                        let plugin = NetworkActivityPlugin { change in
+                        var calledTarget: GitHub?
+
+                        let plugin = NetworkActivityPlugin { change, target in
                             if change == .ended {
                                 called = true
+                                calledTarget = target as? GitHub
                             }
                         }
 
                         let provider = MoyaProvider<GitHub>(plugins: [plugin])
+                        let target: GitHub = .zen
                         waitUntil { done in
-                            provider.request(.zen) { _ in done() }
+                            provider.request(target) { _ in done() }
                         }
 
                         expect(called) == true
+                        expect(calledTarget) == target
                     }
                 }
 
@@ -221,28 +250,31 @@ class MoyaProviderIntegrationTests: QuickSpec {
                             provider.request(.zen) { _ in done() }
                         }
 
-                        expect(log).to( contain("Request:") )
-                        expect(log).to( contain("{ URL: https://api.github.com/zen }") )
-                        expect(log).to( contain("Request Headers: [:]") )
-                        expect(log).to( contain("HTTP Request Method: GET") )
-                        expect(log).to( contain("Response:") )
-                        expect(log).to( contain("{ URL: https://api.github.com/zen } { status code: 200, headers") )
-                        expect(log).to( contain("\"Content-Length\" = 43;") )
+                        expect(log).to(contain("Request:"))
+                        expect(log).to(contain("{ URL: https://api.github.com/zen }"))
+                        expect(log).to(contain("Request Headers: [:]"))
+                        expect(log).to(contain("HTTP Request Method: GET"))
+                        expect(log).to(contain("Response:"))
+                        expect(log).to(contain("{ URL: https://api.github.com/zen }"))
+                        // Had to split these two below because of whitespaces/newlines
+                        // Also these have the log lowercased because of the inconsistency on the backend side
+                        expect(log.lowercased()).to(contain("{ status code: 200, headers"))
+                        expect(log.lowercased()).to(contain("\"content-length\""))
                     }
                 }
             }
 
             describe("a reactive provider with SignalProducer") {
-                var provider: ReactiveSwiftMoyaProvider<GitHub>!
+                var provider: MoyaProvider<GitHub>!
                 beforeEach {
-                    provider = ReactiveSwiftMoyaProvider<GitHub>()
+                    provider = MoyaProvider<GitHub>()
                 }
 
                 it("returns some data for zen request") {
                     var message: String?
 
                     waitUntil { done in
-                        provider.request(.zen).startWithResult { result in
+                        provider.reactive.request(.zen).startWithResult { result in
                             if case .success(let response) = result {
                                 message = String(data: response.data, encoding: String.Encoding.utf8)
                                 done()
@@ -258,7 +290,7 @@ class MoyaProviderIntegrationTests: QuickSpec {
 
                     waitUntil { done in
                         let target: GitHub = .userProfile("ashfurrow")
-                        provider.request(target).startWithResult { result in
+                        provider.reactive.request(target).startWithResult { result in
                             if case .success(let response) = result {
                                 message = String(data: response.data, encoding: String.Encoding.utf8)
                                 done()
@@ -270,10 +302,59 @@ class MoyaProviderIntegrationTests: QuickSpec {
                 }
             }
         }
+
+        // Resolves ValidationType not working with multipart upload #1590
+        describe("a provider performing a multipart upload with Alamofire validation") {
+            let provider = MoyaProvider<HTTPBin>()
+            let formData = HTTPBin.createTestMultipartFormData()
+
+            it("returns an error for status code different than 287") {
+                let target = HTTPBin.validatedUploadMultipart(formData, nil, [287])
+                var receievedResponse: Response?
+                var receivedError: Error?
+
+                waitUntil(timeout: 5.0) { done in
+                    provider.request(target) { result in
+                        switch result {
+                        case .success(let response):
+                            receievedResponse = response
+                        case .failure(let error):
+                            receivedError = error
+                        }
+                        done()
+                    }
+                }
+
+                expect(receievedResponse).to(beNil())
+                expect(receivedError).toNot(beNil())
+            }
+
+            it("returns a valid response for .succesCodes") {
+                let successCodes = ValidationType.successCodes.statusCodes
+                let target = HTTPBin.validatedUploadMultipart(formData, nil, successCodes)
+                var receievedResponse: Response?
+                var receivedError: Error?
+
+                waitUntil(timeout: 5.0) { done in
+                    provider.request(target) { result in
+                        switch result {
+                        case .success(let response):
+                            receievedResponse = response
+                        case .failure(let error):
+                            receivedError = error
+                        }
+                        done()
+                    }
+                }
+
+                expect(receievedResponse).toNot(beNil())
+                expect(receivedError).to(beNil())
+            }
+        }
     }
 }
 
-class StubManager: Manager {
+final class StubManager: Manager {
     var called = false
 
     override func request(_ urlRequest: URLRequestConvertible) -> DataRequest {

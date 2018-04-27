@@ -6,10 +6,8 @@
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
 //
 
-#if !RX_NO_MODULE
 import RxSwift
 import RxCocoa
-#endif
 
 /**
 This is example where view model is mutable. Some consider this to be MVVM, some consider this to be Presenter,
@@ -70,16 +68,16 @@ class GithubSignupViewModel1 {
                     .observeOn(MainScheduler.instance)
                     .catchErrorJustReturn(.failed(message: "Error contacting server"))
             }
-            .shareReplay(1)
+            .share(replay: 1)
 
         validatedPassword = input.password
             .map { password in
                 return validationService.validatePassword(password)
             }
-            .shareReplay(1)
+            .share(replay: 1)
 
         validatedPasswordRepeated = Observable.combineLatest(input.password, input.repeatedPassword, resultSelector: validationService.validateRepeatedPassword)
-            .shareReplay(1)
+            .share(replay: 1)
 
         let signingIn = ActivityIndicator()
         self.signingIn = signingIn.asObservable()
@@ -101,7 +99,7 @@ class GithubSignupViewModel1 {
                         loggedIn
                     }
             }
-            .shareReplay(1)
+            .share(replay: 1)
         
         signupEnabled = Observable.combineLatest(
             validatedUsername,
@@ -115,6 +113,6 @@ class GithubSignupViewModel1 {
                 !signingIn
             }
             .distinctUntilChanged()
-            .shareReplay(1)
+            .share(replay: 1)
     }
 }

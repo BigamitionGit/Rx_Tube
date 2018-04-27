@@ -9,31 +9,29 @@
 #if os(iOS) || os(tvOS)
 
 import UIKit
-#if !RX_NO_MODULE
 import RxSwift
-#endif
 
 fileprivate var rx_tap_key: UInt8 = 0
 
 extension Reactive where Base: UIBarButtonItem {
     
     /// Bindable sink for `enabled` property.
-    public var isEnabled: UIBindingObserver<Base, Bool> {
-        return UIBindingObserver(UIElement: self.base) { UIElement, value in
-            UIElement.isEnabled = value
+    public var isEnabled: Binder<Bool> {
+        return Binder(self.base) { element, value in
+            element.isEnabled = value
         }
     }
     
     /// Bindable sink for `title` property.
-    public var title: UIBindingObserver<Base, String> {
-        return UIBindingObserver(UIElement: self.base) { UIElement, value in
-            UIElement.title = value
+    public var title: Binder<String> {
+        return Binder(self.base) { element, value in
+            element.title = value
         }
     }
 
     /// Reactive wrapper for target action pattern on `self`.
-    public var tap: ControlEvent<Void> {
-        let source = lazyInstanceObservable(&rx_tap_key) { () -> Observable<Void> in
+    public var tap: ControlEvent<()> {
+        let source = lazyInstanceObservable(&rx_tap_key) { () -> Observable<()> in
             Observable.create { [weak control = self.base] observer in
                 guard let control = control else {
                     observer.on(.completed)

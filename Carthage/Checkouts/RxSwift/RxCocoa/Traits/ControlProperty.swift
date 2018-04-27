@@ -6,9 +6,7 @@
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
 //
 
-#if !RX_NO_MODULE
 import RxSwift
-#endif
 
 /// Protocol that enables extension of `ControlProperty`.
 public protocol ControlPropertyType : ObservableType, ObserverType {
@@ -102,7 +100,7 @@ public struct ControlProperty<PropertyType> : ControlPropertyType {
     public func on(_ event: Event<E>) {
         switch event {
         case .error(let error):
-            bindingErrorToInterface(error)
+            bindingError(error)
         case .next:
             _valueSink.on(event)
         case .completed:

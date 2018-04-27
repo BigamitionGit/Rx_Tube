@@ -89,7 +89,7 @@ func packageRelativePath(_ paths: [String], targetDirName: String, excluded: [St
 
     print("Checking " + targetPath)
 
-    for file in try fileManager.contentsOfDirectory(atPath: targetPath)  {
+    for file in try fileManager.contentsOfDirectory(atPath: targetPath).sorted { $0 < $1 }  {
         if file != "include" && file != ".DS_Store" {
             print("Checking extension \(file)")
             try checkExtension(file)
@@ -146,7 +146,7 @@ func buildAllTestsTarget(_ testsPath: String) throws {
 
     var reducedMethods: [String: [String]] = [:]
 
-    for file in try fileManager.contentsOfDirectory(atPath: testsPath) {
+    for file in try fileManager.contentsOfDirectory(atPath: testsPath).sorted { $0 < $1 } {
         if !file.hasSuffix(".swift") || file == "main.swift" {
             continue
         }
@@ -156,7 +156,7 @@ func buildAllTestsTarget(_ testsPath: String) throws {
 
         print(fileRelativePath)
 
-        let classMatches = splitClassesRegularExpression.matches(in: testContent as String, options: [], range: NSRange(location: 0, length: testContent.characters.count))
+        let classMatches = splitClassesRegularExpression.matches(in: testContent as String, options: [], range: NSRange(location: 0, length: testContent.count))
         let matchIndexes = classMatches
             .map { $0.range.location }
 
@@ -166,7 +166,7 @@ func buildAllTestsTarget(_ testsPath: String) throws {
             let classNames = classMatches.map { (testContent as NSString).substring(with: $0.rangeAt(1)) as NSString }
         #endif
 
-        let ranges = zip([0] + matchIndexes, matchIndexes + [testContent.characters.count]).map { NSRange(location: $0, length: $1 - $0) }
+        let ranges = zip([0] + matchIndexes, matchIndexes + [testContent.count]).map { NSRange(location: $0, length: $1 - $0) }
         let classRanges = ranges[1 ..< ranges.count]
 
         let classes = zip(classNames, classRanges.map { (testContent as NSString).substring(with: $0) as NSString })
@@ -277,6 +277,7 @@ try packageRelativePath(["RxSwift"], targetDirName: "RxSwift")
 
 try packageRelativePath([
     "RxCocoa/RxCocoa.swift",
+    "RxCocoa/Deprecated.swift",
     "RxCocoa/Traits",
     "RxCocoa/Common",
     "RxCocoa/Foundation",
@@ -317,6 +318,10 @@ try packageRelativePath([
     excluded: [
         "Tests/VirtualSchedulerTest.swift",
         "Tests/HistoricalSchedulerTest.swift",
+        // @testable import doesn't work well in Linux :/
+        "QueueTests.swift",
+        // @testable import doesn't work well in Linux :/
+        "SubjectConcurrencyTest.swift",
         // @testable import doesn't work well in Linux :/
         "BagTest.swift"
     ])

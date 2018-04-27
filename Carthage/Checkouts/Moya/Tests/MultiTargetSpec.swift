@@ -2,18 +2,17 @@ import Quick
 import Nimble
 @testable import Moya
 
-class MultiTargetSpec: QuickSpec {
+final class MultiTargetSpec: QuickSpec {
     override func spec() {
         describe("MultiTarget") {
             struct StructAPI: TargetType {
                 let baseURL = URL(string: "http://example.com")!
                 let path = "/endpoint"
                 let method = Moya.Method.get
-                let parameters: [String: Any]? = ["key": "value"]
-                let parameterEncoding: Moya.ParameterEncoding = JSONEncoding.default
-                let task = Task.request
+                let task = Task.requestParameters(parameters: ["key": "value"], encoding: JSONEncoding.default)
                 let sampleData = "sample data".data(using: .utf8)!
-                let validate = true
+                let validationType: ValidationType = .successCodes
+                let headers: [String: String]? = ["headerKey": "headerValue"]
             }
 
             var target: MultiTarget!
@@ -31,12 +30,20 @@ class MultiTargetSpec: QuickSpec {
             }
 
             it("uses correct parameters") {
-                expect(target.parameters?["key"] as? String) == "value"
-                expect(target.parameters?.count) == 1
+                if case let .requestParameters(parameters: parameters, encoding: _) = target.task {
+                    expect(parameters["key"] as? String) == "value"
+                    expect(parameters.count) == 1
+                } else {
+                    fail("expected task type `.requestParameters`, was \(String(describing: target.task))")
+                }
             }
 
             it("uses correct parameter encoding.") {
-                expect(target.parameterEncoding is JSONEncoding) == true
+                if case let .requestParameters(parameters: _, encoding: parameterEncoding) = target.task {
+                    expect(parameterEncoding is JSONEncoding) == true
+                } else {
+                    fail("expected task type `.requestParameters`, was \(String(describing: target.task))")
+                }
             }
 
             it("uses correct method") {
@@ -44,7 +51,7 @@ class MultiTargetSpec: QuickSpec {
             }
 
             it("uses correct task") {
-                expect(String(describing: target.task)) == "request" // Hack to avoid implementing Equatable for Task
+                expect(String(describing: target.task)).to(beginWith("requestParameters")) // Hack to avoid implementing Equatable for Task
             }
 
             it("uses correct sample data") {
@@ -52,8 +59,12 @@ class MultiTargetSpec: QuickSpec {
                 expect(target.sampleData).to(equal(expectedData))
             }
 
-            it("uses correct validate") {
-                expect(target.validate) == true
+            it("uses correct validation type") {
+                expect(target.validationType).to(equal(ValidationType.successCodes))
+            }
+
+            it("uses correct headers") {
+                expect(target.headers) == ["headerKey": "headerValue"]
             }
         }
     }

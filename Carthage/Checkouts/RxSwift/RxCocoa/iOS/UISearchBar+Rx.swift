@@ -8,9 +8,7 @@
 
 #if os(iOS) || os(tvOS)
 
-#if !RX_NO_MODULE
 import RxSwift
-#endif
 import UIKit
 
 extension Reactive where Base: UISearchBar {
@@ -18,8 +16,8 @@ extension Reactive where Base: UISearchBar {
     /// Reactive wrapper for `delegate`.
     ///
     /// For more information take a look at `DelegateProxyType` protocol documentation.
-    public var delegate: DelegateProxy {
-        return RxSearchBarDelegateProxy.proxyForObject(base)
+    public var delegate: DelegateProxy<UISearchBar, UISearchBarDelegate> {
+        return RxSearchBarDelegateProxy.proxy(for: base)
     }
 
     /// Reactive wrapper for `text` property.
@@ -39,7 +37,7 @@ extension Reactive where Base: UISearchBar {
                     .startWith(text)
         }
 
-        let bindingObserver = UIBindingObserver(UIElement: self.base) { (searchBar, text: String?) in
+        let bindingObserver = Binder(self.base) { (searchBar, text: String?) in
             searchBar.text = text
         }
         
@@ -58,7 +56,7 @@ extension Reactive where Base: UISearchBar {
                 .startWith(index)
         }
         
-        let bindingObserver = UIBindingObserver(UIElement: self.base) { (searchBar, index: Int) in
+        let bindingObserver = Binder(self.base) { (searchBar, index: Int) in
             searchBar.selectedScopeButtonIndex = index
         }
         

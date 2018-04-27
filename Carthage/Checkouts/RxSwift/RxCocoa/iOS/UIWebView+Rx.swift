@@ -8,18 +8,15 @@
 
 #if os(iOS)
 
-import UIKit
-
-#if !RX_NO_MODULE
-import RxSwift
-#endif
+    import UIKit
+    import RxSwift
 
     extension Reactive where Base: UIWebView {
 
         /// Reactive wrapper for `delegate`.
         /// For more information take a look at `DelegateProxyType` protocol documentation.
-        public var delegate: DelegateProxy {
-            return RxWebViewDelegateProxy.proxyForObject(base)
+        public var delegate: DelegateProxy<UIWebView, UIWebViewDelegate> {
+            return RxWebViewDelegateProxy.proxy(for: base)
         }
 
         /// Reactive wrapper for `delegate` message.

@@ -8,12 +8,12 @@
 
 import UIKit
 import RxSwift
-import RxMoya
+import Moya
 
 final class ItemListCoordinator: BaseCoordinator<Void> {
     
     private let window: UIWindow
-    private let provider: RxMoyaProvider<YoutubeAPI>
+    private let provider: MoyaProvider<YoutubeAPI>
     
     init(window: UIWindow) {
         self.window = window

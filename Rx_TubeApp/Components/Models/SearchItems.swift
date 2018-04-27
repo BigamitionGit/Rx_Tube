@@ -29,7 +29,10 @@ struct SearchItems: Codable {
 
 struct SearchItemId: Codable {
     
-    enum SearchItemType {
+    let searchItemId: String
+    let kind: Kind
+    
+    enum Kind {
         case video
         case channel
         case playlist
@@ -50,11 +53,14 @@ extension SearchItemId {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         if let id = try? values.decode(String.self, forKey: .videoId) {
-            self = .video(id: id)
+            searchItemId = id
+            kind = .video
         } else if let id = try? values.decode(String.self, forKey: .channelId) {
-            self = .channel(id: id)
+            searchItemId = id
+            kind = .channel
         } else if let id = try? values.decode(String.self, forKey: .playlistId) {
-            self = .playlist(id: id)
+            searchItemId = id
+            kind = .playlist
         } else {
             throw SearchItemIdCodingError.decoding("Decoding Error")
         }
@@ -62,13 +68,13 @@ extension SearchItemId {
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        switch self {
-        case .video(let id):
-            try container.encode(id, forKey: .videoId)
-        case .channel(let id):
-            try container.encode(id, forKey: .channelId)
-        case .playlist(let id):
-            try container.encode(id, forKey: .playlistId)
+        switch self.kind {
+        case .video:
+            try container.encode(self.searchItemId, forKey: .videoId)
+        case .channel:
+            try container.encode(self.searchItemId, forKey: .channelId)
+        case .playlist:
+            try container.encode(self.searchItemId, forKey: .playlistId)
         }
     }
 }

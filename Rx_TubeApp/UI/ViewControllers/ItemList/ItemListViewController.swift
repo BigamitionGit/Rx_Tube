@@ -61,17 +61,17 @@ final class ItemListViewController: UIViewController {
     private func configure(_ viewModel: ItemListViewModelType) {
         self.rx.viewDidLoad
             .bind(to: viewModel.viewDidLoad)
-            .addDisposableTo(self.disposeBag)
+            .disposed(by: disposeBag)
                 
         viewModel.itemDataSource
             .drive(videoListView.rx.items(dataSource: dataSource))
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         videoListView.delegate = dataSource
         
         dataSource.selectedIndexPath
             .bind(to: viewModel.selectedItem)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
     
     class DataSource: NSObject, RxTableViewDataSourceType, UITableViewDataSource, UITableViewDelegate {
@@ -79,7 +79,7 @@ final class ItemListViewController: UIViewController {
         typealias Element = [SearchItemCellModel]
         var items: Element = []
         
-        fileprivate let selectedIndexPath = PublishSubject<Int>()
+        fileprivate let selectedIndexPath = PublishRelay<Int>()
         
         func tableView(_ tableView: UITableView, observedEvent: Event<[SearchItemCellModel]>) {
             if case .next(let items) = observedEvent {
@@ -115,7 +115,7 @@ final class ItemListViewController: UIViewController {
         // MARK: UITableViewDelegate
         
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            selectedIndexPath.onNext(indexPath.row)
+            selectedIndexPath.accept(indexPath.row)
         }
         
     }

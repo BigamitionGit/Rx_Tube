@@ -2,6 +2,183 @@
 
 -----
 
+## [4.7.0 - Cancel All](https://github.com/onevcat/Kingfisher/releases/tag/4.7.0) (2018-04-06)
+
+#### Add
+* ImageDownloader now contains a method `cancelAll` to cancel all downloading tasks. [#894](https://github.com/onevcat/Kingfisher/pull/894)
+* Supports Swift 4.1 and Xcode 9.3. [#889](https://github.com/onevcat/Kingfisher/pull/889)
+
+---
+
+## [4.6.4 - Customize Activity Indicator](https://github.com/onevcat/Kingfisher/releases/tag/4.6.4) (2018-03-20)
+
+#### Fix
+* An issue caused customize activity indicator not working for Swift 4. [#872](https://github.com/onevcat/Kingfisher/issues/872)
+* Specify Swift compiler version explicity in pod spec file for CocoaPods 1.4. [#875](https://github.com/onevcat/Kingfisher/pull/875)
+
+---
+
+## [4.6.3 - Clean Demo](https://github.com/onevcat/Kingfisher/releases/tag/4.6.3) (2018-03-01)
+
+#### Fix
+* Move demo project out from Kingfisher framework project. [#867](https://github.com/onevcat/Kingfisher/pull/867)
+* An issue that caused stack overflow when prefetching too many images, while they are already cached. [#866](https://github.com/onevcat/Kingfisher/pull/866)
+
+---
+
+## [4.6.2 - GIF frames](https://github.com/onevcat/Kingfisher/releases/tag/4.6.2) (2018-02-14)
+
+#### Fix
+* Animated image view now will call finished delegate method in correct timing. [#860](https://github.com/onevcat/Kingfisher/issues/860)
+
+---
+
+## [4.6.1 - MD5](https://github.com/onevcat/Kingfisher/releases/tag/4.6.1) (2017-12-28)
+
+#### Fix
+* Revert to use non-dependency way to handle MD5, to solve issues which redefination of dependency library. [#834](https://github.com/onevcat/Kingfisher/pull/834)
+
+---
+
+## [4.6.0 - AniBird](https://github.com/onevcat/Kingfisher/releases/tag/4.6.0) (2017-12-27)
+
+#### Add
+* Delegate methods for `AnimatedImageView` to inspect finishing event and/or end of an animation loop. [#829](https://github.com/onevcat/Kingfisher/pull/829)
+
+#### Fix
+* Minor performance improvement by `final` some classes.
+* Remove unnecessary `Box` type since Objective-C world takes `Any`. [#832](https://github.com/onevcat/Kingfisher/pull/832).
+* Some internal failing tests on earlier macOS, in which color space giving different result.
+
+---
+
+## [4.5.0 - Blending](https://github.com/onevcat/Kingfisher/releases/tag/4.5.0) (2017-12-05)
+
+#### Add
+* New image processors to blend an image. See `BlendImageProcessor` on iOS/tvOS and `CompositingImageProcessor` on macOS. [#818](https://github.com/onevcat/Kingfisher/pull/818)
+
+#### Fix
+* A crash when prefetching too many images in a single batch. [#692](https://github.com/onevcat/Kingfisher/issues/692)
+* A possible invalid redeclaration on `Array` from `AnimatedImageView`. [#819](https://github.com/onevcat/Kingfisher/pull/819)
+
+---
+
+## [4.4.0 - Image Modifier](https://github.com/onevcat/Kingfisher/releases/tag/4.4.0) (2017-12-01)
+
+#### Add
+* Add `ImageModifier` to give a final chance for setting image object related properties just before getting back the image from either network or cache. [#810](https://github.com/onevcat/Kingfisher/issues/810)
+
+#### Fix
+* Apply scale on all image based processor methods, including the existing ones from memory cache. [#813](https://github.com/onevcat/Kingfisher/issues/813)
+
+---
+
+## [4.3.1 - Cache Regression](https://github.com/onevcat/Kingfisher/releases/tag/4.3.1) (2017-11-21)
+
+#### Fix
+* A regression introduced in 4.3.0 which cause the cache not working well for processed images.
+
+---
+
+## [4.3.0 - Memory Or Refresh](https://github.com/onevcat/Kingfisher/releases/tag/4.3.0) (2017-11-17)
+
+#### Add
+* An option for only getting cached images from memory or refresh it by downloading. It could be useful for fetching images behind the same URL while keeping to use the latest memory cached ones. [#806](https://github.com/onevcat/Kingfisher/pull/806)
+
+#### Fix
+* A problem when setting customized indicator with non-zero frame. Now the indicator will be no longer resized to image view size incorrectly. [#798](https://github.com/onevcat/Kingfisher/pull/798)
+* Improve store performance by avoiding re-encode images as long as the original data could be provided. [#805](https://github.com/onevcat/Kingfisher/pull/805)
+
+---
+
+## [4.2.0 - A Tale of Two Caches](https://github.com/onevcat/Kingfisher/releases/tag/4.2.0) (2017-10-22)
+
+#### Add
+* An option to provice a specific cache for original image. This gives us a change to caching original iamges on a different cache. [#794](https://github.com/onevcat/Kingfisher/pull/794)
+
+---
+
+## [4.1.1 - Love Barrier Again](https://github.com/onevcat/Kingfisher/releases/tag/4.1.1) (2017-10-17)
+
+#### Fix
+* A potential race condition in `ImageDownloader`. [#763](https://github.com/onevcat/Kingfisher/issues/763)
+
+---
+
+## [4.1.0 - Data in Hand](https://github.com/onevcat/Kingfisher/releases/tag/4.1.0) (2017-09-28)
+
+#### Add
+* An `ImageDownloader` delegate method to provide a chance for you to check and modify the data. [#773](https://github.com/onevcat/Kingfisher/pull/773)
+
+#### Fix
+* Now Kingfisher also supports Swift 3.2, as a workaround for CocoaPods not respecting pod spec build setting. [CocoaPods_#6791](https://github.com/CocoaPods/CocoaPods/issues/6791)
+
+---
+
+## [4.0.1 - Swift 4](https://github.com/onevcat/Kingfisher/releases/tag/4.0.1) (2017-09-15)
+
+#### Add
+* Supports for Swift 4. The new major version of Kingfisher should be source compatible with Kingfisher 3. Please make sure you have no warning left with Kingfisher related APIs before migrating to version 4, since all deprecated methods are removed from our code base. [#704](https://github.com/onevcat/Kingfisher/pull/704)
+* A cleaner API to track whether an image is cached and its cache type. Use `imageChachedType` and `CacheType.cached` instead of `isImageCached` and `CacheCheckResult`. [#704](https://github.com/onevcat/Kingfisher/pull/704/commits/38860911310931842f2d44e020204e894b7b2ae8)
+
+#### Fix
+* Update pod spec to use Swift 4.0 as Swift Version configuration.
+
+---
+
+## [4.0.0 - Swift 4](https://github.com/onevcat/Kingfisher/releases/tag/4.0.0) (2017-09-14)
+
+#### Add
+* Supports for Swift 4. The new major version of Kingfisher should be source compatible with Kingfisher 3. Please make sure you have no warning left with Kingfisher related APIs before migrating to version 4, since all deprecated methods are removed from our code base. [#704](https://github.com/onevcat/Kingfisher/pull/704)
+* A cleaner API to track whether an image is cached and its cache type. Use `imageChachedType` and `CacheType.cached` instead of `isImageCached` and `CacheCheckResult`. [#704](https://github.com/onevcat/Kingfisher/pull/704/commits/38860911310931842f2d44e020204e894b7b2ae8)
+
+---
+
+## [3.13.1 - Evil Setting](https://github.com/onevcat/Kingfisher/releases/tag/3.13.1) (2017-09-14)
+
+#### Fix
+* Disable code coverage for all targets in build setting to avoid rejecting from iTunes when building with Xcode 9. [#753](https://github.com/onevcat/Kingfisher/pull/753)
+
+---
+
+## [3.13.0 - Rum Bird](https://github.com/onevcat/Kingfisher/releases/tag/3.13.0) (2017-09-12)
+
+#### Add
+* Introduces a `backgroundColor` property to `RoundCornerImageProcessor` allowing to specify a desired backgroud color. It could be useful for a JPEG based image to prevent alpha blending. [#766](https://github.com/onevcat/Kingfisher/pull/766)
+
+---
+
+## [3.12.2 - Scaling Background Decoding](https://github.com/onevcat/Kingfisher/releases/tag/3.12.2) (2017-09-02)
+
+#### Fix
+* Fix an issue which causes image scale not correct when background decoding option is used. [#761](https://github.com/onevcat/Kingfisher/issues/761)
+
+---
+
+## [3.12.1 - Placeholder](https://github.com/onevcat/Kingfisher/releases/tag/3.12.1) (2017-08-30)
+
+#### Add
+* Now you could use a customized view (subclass of `UIView` or `NSView`) as placeholder in image view setting extension method. [#746](https://github.com/onevcat/Kingfisher/issues/746)
+
+---
+
+## [3.12.0 - Placeholder](https://github.com/onevcat/Kingfisher/releases/tag/3.12.0) (2017-08-30)
+
+#### Add
+* Now you could use a customized view (subclass of `UIView` or `NSView`) as placeholder in image view setting extension method. [#746](https://github.com/onevcat/Kingfisher/issues/746)
+
+---
+
+## [3.11.0 - Task Auth](https://github.com/onevcat/Kingfisher/releases/tag/3.11.0) (2017-08-16)
+
+#### Add
+* A task based authentication challenge handler for some auth methods like HTTP Digest. [#742](https://github.com/onevcat/Kingfisher/issues/742)
+
+#### Fix
+* The option of `keepCurrentImageWhileLoading` now will respect your placeholder if the original image is `nil` in the image view. [#747](https://github.com/onevcat/Kingfisher/pull/747)
+
+---
+
 ## [3.10.4 - Indicator Size](https://github.com/onevcat/Kingfisher/releases/tag/3.10.4) (2017-07-26)
 
 #### Fix

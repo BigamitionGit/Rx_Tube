@@ -79,7 +79,7 @@
     var selectedTab: PublishSubject<Void> { get }
     var refresh: PublishSubject<Void> { get }
     var horizontalSwipe: PublishSubject<Void> { get }
-    var selectedItem: PublishSubject<Int> { get }
+    var selectedItem: PublishSubject<IndexPath> { get }
     
     // Output
     var showPlayer: Driver<Videos.Item> { get }
@@ -98,7 +98,7 @@
     var selectedTab = PublishSubject<Void> ()
     var refresh = PublishSubject<Void>()
     var horizontalSwipe = PublishSubject<Void>()
-    var selectedItem = PublishSubject<Int>()
+    var selectedItem = PublishSubject<IndexPath>()
     
     // MARK: Output
     let showPlayer: Driver<Videos.Item>
@@ -117,7 +117,7 @@
             .merge()
             .withLatestFrom(searchText.asObservable())
             .withLatestFrom(videoCategory.asObservable()) { ($0, $1) }
-            .flatMapLatest { text, category -> Observable<SearchItems> in
+            .flatMapLatest { text, category -> Single<SearchItems> in
                 var parameters = type.filterParameters
                 if !text.isEmpty { parameters.insert(SearchOption.q(keyword: text)) }
                 if !category.isEmpty { parameters.insert(SearchOption.videoCategoryId(id: category)) }
@@ -127,58 +127,57 @@
         
         let models: Observable<(videos: Videos, channels: Channels, playlists: Playlists)> = searchItems
             .flatMapLatest { (searchItems)->Observable<(videos: Videos, channels: Channels, playlists: Playlists)> in
-                let videoIds = searchItems.items.filter { .video == $0.id }.flatMap { $0.id.videoId }
+                let videoIds = searchItems.items.filter { $0.id.kind == .video }.map { $0.id.searchItemId }
                 let channelIds = searchItems.items.map { $0.snippet.channelId }
-                let playlistIds = searchItems.items.flatMap { $0.id.playlistId }
+                let playlistIds = searchItems.items.filter { $0.id.kind == .playlist }.map { $0.id.searchItemId }
                 
                 let videos = service.fetchVideos(
                     VideosRequire(properties: [ .snippet, .statistics, .player]),
                     VideosFilter.id(ids: videoIds))
+                    .asObservable()
                 
                 let channels = service.fetchChannels(
                     ChannelsRequire(properties: [.snippet, .contentDetails, .statistics]),
                     ChannelsFilter.id(ids: channelIds))
+                    .asObservable()
                 
                 let playlists = service.fetchPlaylists(
-                    PlaylistsRequire(properties: [.snippet, .contentDetails, .player]), PlaylistsFilter.id(ids: playlistIds))
+                    PlaylistsRequire(properties: [.snippet, .contentDetails, .player]),
+                    PlaylistsFilter.id(ids: playlistIds))
+                    .asObservable()
                 
-                return Observable
-                    .combineLatest(videos, channels, playlists) { (videos: $0, channels: $1, playlists: $2)}
-        }.shareReplay(1)
+                return Observable.combineLatest(videos, channels, playlists) {(videos: $0, channels: $1, playlists: $2)}
+        }.share(replay: 1)
         
         let cellModels: Observable<[SearchItemCellModel]> = models
             .withLatestFrom(searchItems) { model, items in
-                // video
-                let vCellModels = model.videos.items
-                    .flatMap { video in model.channels.items
-                        .first(where: { video.snippet?.channelId == $0.id })
-                        .flatMap { channel in (video, channel) }
-                    }
-                    .flatMap { SearchItemCellModel.Video(video: $0.0, channel: $0.1)
-                        .flatMap {SearchItemCellModel.video($0)}}
-                // channel
-                let searchChannelIds = items.items.flatMap { $0.id.channelId }
-                let cCellModel = model.channels.items
-                    .filter { searchChannelIds.contains($0.id) }
-                    .flatMap { SearchItemCellModel.Channel(channel: $0).flatMap { SearchItemCellModel.channel($0)}}
-                // playlist
-                let pCellModel = model.playlists.items
-                    .flatMap { playlist in model.channels.items
-                        .first(where: { playlist.snippet?.channelId == $0.id })
-                        .flatMap { channel in (playlist, channel)} }
-                    .flatMap { SearchItemCellModel.Playlist(playlist: $0.0, channel: $0.1)
-                        .flatMap { SearchItemCellModel.playlist($0)}}
-                
-                return vCellModels + cCellModel + pCellModel
-                
-            }
-            .shareReplay(1)
+                return items.items
+                    .flatMap { item in
+                        switch item.id.kind {
+                        case .video:
+                            let video = model.videos.items.first(where: { item.id.searchItemId == $0.id })
+                            let channel = model.channels.items.first(where: { item.snippet.channelId == $0.id })
+                            return SearchItemCellModel.Video(videoItem: video, channel: channel)
+                                .flatMap(SearchItemCellModel.video)
+                        case .channel:
+                            let channel = model.channels.items.first(where: { item.id.searchItemId == $0.id })
+                            return SearchItemCellModel.Channel(channelItem: channel)
+                                .flatMap(SearchItemCellModel.channel)
+                        case .playlist:
+                            let playlist = model.playlists.items.first(where: { item.id.searchItemId == $0.id })
+                            let channel = model.channels.items.first(where: { item.snippet.channelId == $0.id })
+                            return SearchItemCellModel.Playlist(playlistItem: playlist, channelItem: channel)
+                                .flatMap(SearchItemCellModel.playlist)
+                        }
+                }
+        }.share(replay: 1)
         
         
         itemDataSource = cellModels.asDriver(onErrorDriveWith: Driver.empty())
         
         let selectedCellModel = selectedItem
-            .withLatestFrom(cellModels) { index, models in models[index] }
+            .withLatestFrom(cellModels) { indexPath, models in models[indexPath.row] }
+            .share(replay: 1)
         
         showPlayer = selectedCellModel
             .withLatestFrom(models) { cellModel, models->Videos.Item? in

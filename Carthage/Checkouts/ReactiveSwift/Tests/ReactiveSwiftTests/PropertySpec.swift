@@ -275,28 +275,35 @@ class PropertySpec: QuickSpec {
 					queue = DispatchQueue.global(priority: .high)
 				}
 
-				let group = DispatchGroup()
+				let setup = DispatchGroup()
+				let workers = DispatchGroup()
 
-				DispatchQueue.concurrentPerform(iterations: 500) { _ in
-					let source = MutableProperty(1)
-					var target = Optional(MutableProperty(1))
+				queue.async(group: setup) {
+					for _ in 0 ..< 1000 {
+						let source = MutableProperty(1)
+						var target = Optional(MutableProperty(1))
 
-					let semaphore = DispatchSemaphore(value: 0)
+						target! <~ source
 
-					target! <~ source
+						// Ensure everything before this iteration has been
+						// completed.
+						queue.async(group: workers, flags: .barrier) {}
 
-					queue.async(group: group) {
-						semaphore.wait()
-						target = nil
-					}
+						queue.async(group: workers) {
+							source.value = 2
+						}
 
-					queue.async(group: group) {
-						semaphore.signal()
-						source.value = 2
+						queue.async(group: workers) {
+							target = nil
+						}
 					}
 				}
 
-				group.wait()
+				waitUntil { done in
+					setup.notify(queue: queue) {
+						workers.notify(queue: .main, execute: done)
+					}
+				}
 			}
 		}
 
@@ -732,6 +739,15 @@ class PropertySpec: QuickSpec {
 					property.value = 2
 					expect(mappedProperty.value) == 3
 				}
+
+				it("should work with key paths") {
+					let property = MutableProperty("foo")
+					let mappedProperty = property.map(\.count)
+					expect(mappedProperty.value) == 3
+
+					property.value = "foobar"
+					expect(mappedProperty.value) == 6
+				}
 			}
 
 			describe("combineLatest") {
@@ -783,7 +799,7 @@ class PropertySpec: QuickSpec {
 					var secondResult: String!
 
 					let combined = property.combineLatest(with: otherProperty)
-					combined.producer.startWithValues { (left, right) in firstResult = left + right }
+					combined.producer.startWithValues { firstResult = $0.0 + $0.1 }
 
 					func getValue() -> String {
 						return combined.value.0 + combined.value.1
@@ -796,7 +812,7 @@ class PropertySpec: QuickSpec {
 					expect(getValue()) == subsequentPropertyValue + initialOtherPropertyValue
 					expect(firstResult) == subsequentPropertyValue + initialOtherPropertyValue
 
-					combined.producer.startWithValues { (left, right) in secondResult = left + right }
+					combined.producer.startWithValues { secondResult = $0.0 + $0.1 }
 					expect(secondResult) == subsequentPropertyValue + initialOtherPropertyValue
 
 					otherProperty.value = subsequentOtherPropertyValue
@@ -813,7 +829,7 @@ class PropertySpec: QuickSpec {
 					var firstResult: Int!
 
 					let combined = A.combineLatest(with: B)
-					combined.producer.startWithValues { (left, right) in firstResult = left + right }
+					combined.producer.startWithValues { firstResult = $0.0 + $0.1 }
 
 					func getValue() -> Int {
 						return combined.value.0 + combined.value.1
@@ -839,7 +855,7 @@ class PropertySpec: QuickSpec {
 					/// Zip another property now.
 					var secondResult: Int!
 					let anotherCombined = combined.combineLatest(with: C)
-					anotherCombined.producer.startWithValues { (left, right) in secondResult = (left.0 + left.1) + right }
+					anotherCombined.producer.startWithValues { secondResult = ($0.0.0 + $0.0.1) + $0.1 }
 
 					func getAnotherValue() -> Int {
 						return (anotherCombined.value.0.0 + anotherCombined.value.0.1) + anotherCombined.value.1
@@ -866,7 +882,7 @@ class PropertySpec: QuickSpec {
 					var result: [String] = []
 
 					let zippedProperty = property.zip(with: otherProperty)
-					zippedProperty.producer.startWithValues { (left, right) in result.append("\(left)\(right)") }
+					zippedProperty.producer.startWithValues { result.append("\($0.0)\($0.1)") }
 
 					let firstResult = [ "\(initialPropertyValue)\(initialOtherPropertyValue)" ]
 					let secondResult = firstResult + [ "\(subsequentPropertyValue)\(subsequentOtherPropertyValue)" ]
@@ -900,7 +916,7 @@ class PropertySpec: QuickSpec {
 					var secondResult: String!
 
 					let zippedProperty = property.zip(with: otherProperty)
-					zippedProperty.producer.startWithValues { (left, right) in firstResult = left + right }
+					zippedProperty.producer.startWithValues { firstResult = $0.0 + $0.1 }
 
 					func getValue() -> String {
 						return zippedProperty.value.0 + zippedProperty.value.1
@@ -915,7 +931,7 @@ class PropertySpec: QuickSpec {
 
 					// It should still be the tuple with initial property values,
 					// since `otherProperty` isn't changed yet.
-					zippedProperty.producer.startWithValues { (left, right) in secondResult = left + right }
+					zippedProperty.producer.startWithValues { secondResult = $0.0 + $0.1 }
 					expect(secondResult) == initialPropertyValue + initialOtherPropertyValue
 
 					otherProperty.value = subsequentOtherPropertyValue
@@ -932,7 +948,7 @@ class PropertySpec: QuickSpec {
 					var firstResult: Int!
 
 					let zipped = A.zip(with: B)
-					zipped.producer.startWithValues { (left, right) in firstResult = left + right }
+					zipped.producer.startWithValues { firstResult = $0.0 + $0.1 }
 
 					func getValue() -> Int {
 						return zipped.value.0 + zipped.value.1
@@ -958,7 +974,7 @@ class PropertySpec: QuickSpec {
 					/// Zip another property now.
 					var secondResult: Int!
 					let anotherZipped = zipped.zip(with: C)
-					anotherZipped.producer.startWithValues { (left, right) in secondResult = (left.0 + left.1) + right }
+					anotherZipped.producer.startWithValues { secondResult = ($0.0.0 + $0.0.1) + $0.1 }
 
 					func getAnotherValue() -> Int {
 						return (anotherZipped.value.0.0 + anotherZipped.value.0.1) + anotherZipped.value.1
@@ -987,7 +1003,7 @@ class PropertySpec: QuickSpec {
 					var firstResult: Int!
 
 					let zipped = A.zip(with: B)
-					zipped.producer.startWithValues { (left, right) in firstResult = left + right }
+					zipped.producer.startWithValues { firstResult = $0.0 + $0.1 }
 
 					func getValue() -> Int {
 						return zipped.value.0 + zipped.value.1
@@ -1013,7 +1029,7 @@ class PropertySpec: QuickSpec {
 					/// Zip another property now.
 					var secondResult: Int!
 					let anotherZipped = zipped.zip(with: C)
-					anotherZipped.producer.startWithValues { (left, right) in secondResult = (left.0 + left.1) + right }
+					anotherZipped.producer.startWithValues { secondResult = ($0.0.0 + $0.0.1) + $0.1 }
 
 					func getAnotherValue() -> Int {
 						return (anotherZipped.value.0.0 + anotherZipped.value.0.1) + anotherZipped.value.1
@@ -1033,9 +1049,9 @@ class PropertySpec: QuickSpec {
 					let combined = anotherZipped.combineLatest(with: yetAnotherZipped)
 
 					var thirdResult: Int!
-					combined.producer.startWithValues { (left, right) in
-						let leftResult = left.0.0 + left.0.1 + left.1
-						let rightResult = right.0.0.0 + right.0.0.1 + right.0.1 + right.1
+					combined.producer.startWithValues {
+						let leftResult = $0.0.0.0 + $0.0.0.1 + $0.0.1
+						let rightResult = $0.1.0.0.0 + $0.1.0.0.1 + $0.1.0.1 + $0.1.1
 						thirdResult = leftResult + rightResult
 					}
 
@@ -1560,13 +1576,13 @@ class PropertySpec: QuickSpec {
 			describe("and attribute") {
 				it("should emit true when both properties contains the same value") {
 					let property1 = MutableProperty(true)
-					let property2 = Property(MutableProperty(true))
+					let property2 = MutableProperty(true)
 					expect(property1.and(property2).value).to(beTrue())
 				}
 
 				it("should emit false when both properties contains opposite values") {
 					let property1 = MutableProperty(true)
-					let property2 = Property(MutableProperty(false))
+					let property2 = MutableProperty(false)
 					expect(property1.and(property2).value).to(beFalse())
 				}
 			}
@@ -1574,13 +1590,13 @@ class PropertySpec: QuickSpec {
 			describe("or attribute") {
 				it("should emit true when at least one of the properties contains true") {
 					let property1 = MutableProperty(true)
-					let property2 = Property(MutableProperty(false))
+					let property2 = MutableProperty(false)
 					expect(property1.or(property2).value).to(beTrue())
 				}
 
 				it("should emit false when both properties contains false") {
 					let property1 = MutableProperty(false)
-					let property2 = Property(MutableProperty(false))
+					let property2 = MutableProperty(false)
 					expect(property1.or(property2).value).to(beFalse())
 				}
 			}
@@ -1615,9 +1631,17 @@ class PropertySpec: QuickSpec {
 				}
 
 				it("should tear down the binding when the property deallocates") {
+					var isDisposed = false
+
+					var outerObserver: Signal<String, NoError>.Observer!
+
+					// Mitigate the "was written to, but never read" warning.
+					_ = outerObserver
+
 					var signal: Signal<String, NoError>? = {
-						let (signal, _) = Signal<String, NoError>.pipe()
-						return signal
+						let (signal, observer) = Signal<String, NoError>.pipe()
+						outerObserver = observer
+						return signal.on(disposed: { isDisposed = true })
 					}()
 					weak var weakSignal = signal
 
@@ -1627,14 +1651,16 @@ class PropertySpec: QuickSpec {
 					signal = nil
 
 					// The binding attached an observer to the signal, so it cannot
-					// deinitialize.
-					expect(weakSignal).toNot(beNil())
+					// be disposed of.
+					expect(weakSignal).to(beNil())
+					expect(isDisposed) == false
 
 					// The deinitialization should tear down the binding, which would
 					// remove the last observer from the signal, causing it to
 					// dispose of itself.
 					mutableProperty = nil
 					expect(weakSignal).to(beNil())
+					expect(isDisposed) == true
 				}
 			}
 
@@ -1663,17 +1689,19 @@ class PropertySpec: QuickSpec {
 				}
 
 				it("should tear down the binding when the property deallocates") {
-					let (signal, _) = Signal<String, NoError>.pipe()
+					let (signal, observer) = Signal<String, NoError>.pipe()
 					let signalProducer = SignalProducer(signal)
 
 					var mutableProperty: MutableProperty<String>? = MutableProperty(initialPropertyValue)
 
-					var isDisposed = false
-					mutableProperty! <~ signalProducer.on(disposed: { isDisposed = true })
-					expect(isDisposed) == false
+					withExtendedLifetime(observer) {
+						var isDisposed = false
+						mutableProperty! <~ signalProducer.on(disposed: { isDisposed = true })
+						expect(isDisposed) == false
 
-					mutableProperty = nil
-					expect(isDisposed) == true
+						mutableProperty = nil
+						expect(isDisposed) == true
+					}
 				}
 			}
 

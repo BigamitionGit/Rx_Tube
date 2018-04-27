@@ -18,7 +18,7 @@ protocol PlayerViewModelType {
     /// related video in player
     var relatedVideoDidTap: PublishSubject<IndexPath> { get }
     var channelDidTap: PublishSubject<Void> { get }
-    var likeDidTap: PublishSubject<Void> { get }
+    var likeDidTap: PublishSubject<Void> { get } 
     var dislikeDidTap: PublishSubject<Void> { get }
     var nextDidTap: PublishSubject<Void> { get }
     var previousDidTap: PublishSubject<Void> { get }
@@ -27,7 +27,7 @@ protocol PlayerViewModelType {
     
     var play: Driver<String> { get }
     var showChannelDetail: Driver<String> { get }
-    var overview: Driver<ItemOverviewViewModel> { get }
+    var overview: Driver<VideoOverviewViewModelType> { get }
     var relatedVideoCellModels: Driver<[RelatedVideoCellModel]> { get }
 }
 
@@ -43,19 +43,28 @@ final class PlayerViewModel: PlayerViewModelType {
     
     let play: Driver<String>
     let showChannelDetail: Driver<String>
-    var overview: Driver<ItemOverviewViewModel>
+    var overview: Driver<VideoOverviewViewModelType>
     var relatedVideoCellModels: Driver<[RelatedVideoCellModel]>
     
     init(service: YoutubeServiceType) {
         
-        let relatedVideos: Observable<SearchItems> = videoDidTap
-            .flatMap { item in service.fetchSearchItems(
+        let relatedItems: Observable<SearchItems> = videoDidTap
+            .flatMap { (video, _) in service.fetchSearchItems(
                 YoutubeAPI.RequireParameter.Search(properties: [.snippet, .id]),
-                nil,
+                YoutubeAPI.FilterParameter.Search.relatedToVideoId(id: video.id),
                 Set<YoutubeAPI.OptionParameter.Search>()) }
-            .shareReplay(1)
+            .share(replay: 1)
         
-        relatedVideoCellModels = relatedVideos
+        relatedVideoCellModels = relatedItems
+            .map { searchItems in searchItems.items
+                .map { RelatedVideoCellModel(item: $0.snippet) }}
+            .asDriver(onErrorJustReturn: [])
+        
+        let relatedVideosChannels = relatedItems
+            .flatMap { items in
+                let videos = service.fetchVideos
+            return Observable.combineLatest()
+        }
         
         let item: Observable<(Videos.Item, Channels.Item)> = relatedVideoDidTap
             .withLatestFrom(relatedVideos) {(indexPath, videos)->RelatedVideoCellModel in videos[indexPath.row] }

@@ -43,8 +43,9 @@ enum SearchItemCellModel {
         let definition: String
         
         
-        init?(video: Videos.Item, channel: Channels.Item) {
-            guard let snippet = video.snippet,
+        init?(videoItem: Videos.Item?, channel: Channels.Item?) {
+            guard let video = videoItem,
+                let snippet = video.snippet,
                 let statistics = video.statistics,
                 let contentsDetail = video.contentDetails else { return nil }
             
@@ -61,8 +62,9 @@ enum SearchItemCellModel {
     class Channel: SearchItem {
         let id: String
         
-        init?(channel: Channels.Item) {
-            guard let snippet = channel.snippet,
+        init?(channelItem: Channels.Item?) {
+            guard let channel = channelItem,
+                let snippet = channel.snippet,
                 let statistics = channel.statistics,
                 let contentsDetail = channel.contentDetails else { return nil }
             id = channel.id
@@ -73,8 +75,9 @@ enum SearchItemCellModel {
     class Playlist: SearchItem {
         let id: String
         
-        init?(playlist: Playlists.Item, channel: Channels.Item) {
-            guard let snippet = playlist.snippet,
+        init?(playlistItem: Playlists.Item?, channelItem: Channels.Item?) {
+            guard let playlist = playlistItem,
+                let snippet = playlist.snippet,
                 let contentsDetail = playlist.contentDetails else { return nil }
             id = playlist.id
             super.init(snippet: snippet)
