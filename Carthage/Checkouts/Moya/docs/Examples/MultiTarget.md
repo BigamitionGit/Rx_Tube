@@ -1,5 +1,4 @@
-Advanced usage - use `MultiTarget` for multiple targets using the same `Provider`.
-===========
+# Advanced usage - use `MultiTarget` for multiple targets using the same `Provider`.
 
 When you have many endpoints you may end up with really long provider and
 multiple switches on hundreds of cases. You could split the logic into multiple
@@ -31,11 +30,8 @@ provider.request(MultiTarget(GitHub.zen)) { result in
 and that's it! Really simple to introduce it in your app and if you have many
 endpoints that you want to split - this is the perfect solution for you. If you
 want to see this API in action, check out our
-[Demo](https://github.com/Moya/Moya/tree/master/Demo) project, which has 2
-targets: one of them is `Demo`, which uses the basic form of Moya, and the
-second one is `DemoMultiTarget`, which uses the modified version with usage of
-`MultiTarget`.
-
+[Multi-Target sample projects](https://github.com/Moya/Moya#sample-project), 
+which uses the modified version with usage of `MultiTarget`.
 
 ## Multiple targets when using `associatedtype`
 
@@ -50,7 +46,7 @@ protocol DecodableTargetType: Moya.TargetType {
     associatedType ResultType: SomeJSONDecodableProtocolConformance
 }
 
-enum UserApi : DecodableTargetType {
+enum UserApi: DecodableTargetType {
     case get(id: Int)
     case update(id: Int, name: String)
     ...
@@ -74,23 +70,20 @@ instead of `MoyaResponse` as
 
 ```swift
 extension MultiMoyaProvider {
-  func requestDecoded<T: DecodableTargetType>(_ target: T, completion: @escaping (_ result: Result<[T.ResultType], Moya.Error>) -> ()) -> Cancellable {
-
-      return request(target) { result in
-          switch result {
-          case .success(let response):
-              if let parsed = T.ResultType.parse(try! response.mapJSON()) {
-                  completion(.success(parsed))
-              }
-              else {
-                  completion(.failure(.jsonMapping(response)))
-              }
-
-          case .failure(let error):
-              completion(.failure(error))
-          }
-      }
-  }
+    func requestDecoded<T: DecodableTargetType>(_ target: T, completion: @escaping (_ result: Result<[T.ResultType], Moya.Error>) -> ()) -> Cancellable {
+        return request(target) { result in
+            switch result {
+            case .success(let response):
+                if let parsed = T.ResultType.parse(try! response.mapJSON()) {
+                    completion(.success(parsed))
+                } else {
+                    completion(.failure(.jsonMapping(response)))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
 ```
 
@@ -98,6 +91,7 @@ The beauty of this is that the type of input in the callback is implicitly
 determined from the target passed.
 
 You can pass any `DecodableTargetType` to start a request
+
 ```swift
 let provider = MultiMoyaProvider()
 provider.requestDecoded(UserApi.get(id: 1)) { result in
@@ -115,7 +109,7 @@ with different types. For example, lets say we have another target `SessionApi`
 
 ```swift
 struct SessionApi: DecodableTargetType {
-  typealias ResultType = SessionModel
+    typealias ResultType = SessionModel
 }
 ```
 
@@ -124,9 +118,9 @@ instance
 
 ```swift
 provider.requestDecoded(SessionApi.get) { result in
-  switch result {
-  case .success(let session):
-    // type of `user` is implicitly `SessionModel` here
-  }
+    switch result {
+    case .success(let session):
+        // type of `session` is implicitly `SessionModel` here
+    }
 }
 ```

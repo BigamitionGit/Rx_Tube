@@ -7,17 +7,24 @@
 //
 
 import UIKit
-#if !RX_NO_MODULE
 import RxSwift
 import RxCocoa
-#endif
 
 class SimpleTableViewExampleSectionedViewController
     : ViewController
     , UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
 
-    let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, Double>>()
+    let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, Double>>(
+        configureCell: { (_, tv, indexPath, element) in
+            let cell = tv.dequeueReusableCell(withIdentifier: "Cell")!
+            cell.textLabel?.text = "\(element) @ row \(indexPath.row)"
+            return cell
+        },
+        titleForHeaderInSection: { dataSource, sectionIndex in
+            return dataSource[sectionIndex].model
+        }
+    )
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,15 +49,6 @@ class SimpleTableViewExampleSectionedViewController
                 ])
             ])
 
-        dataSource.configureCell = { (_, tv, indexPath, element) in
-            let cell = tv.dequeueReusableCell(withIdentifier: "Cell")!
-            cell.textLabel?.text = "\(element) @ row \(indexPath.row)"
-            return cell
-        }
-        
-        dataSource.titleForHeaderInSection = { dataSource, sectionIndex in
-            return dataSource[sectionIndex].model
-        }
 
         items
             .bind(to: tableView.rx.items(dataSource: dataSource))

@@ -10,7 +10,7 @@ import Foundation
 import Moya
 import RxMoya
 
-let YoutubeProvider = RxMoyaProvider<YoutubeAPI>()
+let YoutubeProvider = MoyaProvider<YoutubeAPI>()
 
 private extension String {
     var URLEscapedString: String? {
@@ -376,10 +376,6 @@ enum YoutubeAPI {
 
 extension YoutubeAPI:TargetType {
     
-    var parameterEncoding: ParameterEncoding { return URLEncoding.default }
-    
-    var task: Task { return .request }
-    
     var baseURL: URL { return URL(string: "https://www.googleapis.com")! }
     
     var path: String {
@@ -399,7 +395,7 @@ extension YoutubeAPI:TargetType {
         }
     }
     
-    var parameters: [String: Any]? {
+    var task: Task {
         switch self {
         case .search(let require, let filter, let options):
             var params = options.reduce(into: [String:Any]()) { $0[$1.parameter] = $1.property }
@@ -412,35 +408,49 @@ extension YoutubeAPI:TargetType {
                 let type = OptionParameter.Search.type(type: .video)
                 params[type.parameter] = type.property
             }
-            return params
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
         case .subscriptionsList(let require, let filter):
-            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
-                    filter.parameter: filter.property,
-                    YoutubeAPI.keyParameter: YoutubeAPI.keyProperty]
+            return .requestParameters(
+                parameters: [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
+                             filter.parameter: filter.property,
+                             YoutubeAPI.keyParameter: YoutubeAPI.keyProperty],
+                encoding: URLEncoding.default)
         case .subscriptionsInsert(let require, let filter):
-            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
-                    filter.parameter: filter.property,
-                    YoutubeAPI.keyParameter: YoutubeAPI.keyProperty]
+            return .requestParameters(
+                parameters: [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
+                             filter.parameter: filter.property,
+                             YoutubeAPI.keyParameter: YoutubeAPI.keyProperty],
+                encoding: URLEncoding.default)
         case .subscriptionsDelete(let require, let filter):
-            return [require.parameter: require.property,
-                    filter.parameter: filter.property,
-                    YoutubeAPI.keyParameter: YoutubeAPI.keyProperty]
+            return .requestParameters(
+                parameters: [require.parameter: require.property,
+                             filter.parameter: filter.property,
+                             YoutubeAPI.keyParameter: YoutubeAPI.keyProperty],
+                encoding: URLEncoding.default)
         case .channels(let require, let filter):
-            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
-                    filter.parameter: filter.property,
-                    YoutubeAPI.keyParameter: YoutubeAPI.keyProperty]
+            return .requestParameters(
+                parameters: [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
+                             filter.parameter: filter.property,
+                             YoutubeAPI.keyParameter: YoutubeAPI.keyProperty],
+                encoding: URLEncoding.default)
         case .videos(let require, let filter):
-            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
-                    filter.parameter: filter.property,
-                    YoutubeAPI.keyParameter: YoutubeAPI.keyProperty]
+            return .requestParameters(
+                parameters: [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
+                             filter.parameter: filter.property,
+                             YoutubeAPI.keyParameter: YoutubeAPI.keyProperty],
+                encoding: URLEncoding.default)
         case .videoCategories(let require, let filter):
-            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
-                    filter.parameter: filter.rawValue,
-                    YoutubeAPI.keyParameter: YoutubeAPI.keyProperty]
+            return .requestParameters(
+                parameters: [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
+                             filter.parameter: filter.rawValue,
+                             YoutubeAPI.keyParameter: YoutubeAPI.keyProperty],
+                encoding: URLEncoding.default)
         case .playlists(let require, let filter):
-            return [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
-                    filter.parameter: filter.property,
-                    YoutubeAPI.keyParameter: YoutubeAPI.keyProperty]
+            return .requestParameters(
+                parameters: [require.parameter: require.properties.map { $0.rawValue }.joined(separator: ","),
+                             filter.parameter: filter.property,
+                             YoutubeAPI.keyParameter: YoutubeAPI.keyProperty],
+                encoding: URLEncoding.default)
         }
     }
     
@@ -467,6 +477,10 @@ extension YoutubeAPI:TargetType {
         default:
             return .get
         }
+    }
+    
+    var headers: [String: String]? {
+        return nil
     }
     
     // MARK: - Provider support

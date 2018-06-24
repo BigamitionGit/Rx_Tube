@@ -7,11 +7,9 @@
 //
 
 #if os(iOS) || os(tvOS)
-import UIKit
 
-#if !RX_NO_MODULE
+import UIKit
 import RxSwift
-#endif
 
 /**
  iOS only
@@ -75,8 +73,8 @@ extension Reactive where Base: UITabBar {
     /// Reactive wrapper for `delegate`.
     ///
     /// For more information take a look at `DelegateProxyType` protocol documentation.
-    public var delegate: DelegateProxy {
-        return RxTabBarDelegateProxy.proxyForObject(base)
+    public var delegate: DelegateProxy<UITabBar, UITabBarDelegate> {
+        return RxTabBarDelegateProxy.proxy(for: base)
     }
 
     /// Reactive wrapper for `delegate` message `tabBar(_:didSelect:)`.

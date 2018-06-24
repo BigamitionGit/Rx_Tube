@@ -12,16 +12,8 @@
  import RxMoya
  import Moya
  
- fileprivate typealias SearchFilter = YoutubeAPI.FilterParameter.Search
  fileprivate typealias SearchOption = YoutubeAPI.OptionParameter.Search
- fileprivate typealias SearchRequire = YoutubeAPI.RequireParameter.Search
- fileprivate typealias ChannelsFilter = YoutubeAPI.FilterParameter.Channels
- fileprivate typealias ChannelsRequire = YoutubeAPI.RequireParameter.Channels
- fileprivate typealias VideosFilter = YoutubeAPI.FilterParameter.Videos
- fileprivate typealias VideosRequire = YoutubeAPI.RequireParameter.Videos
- fileprivate typealias PlaylistsFilter = YoutubeAPI.FilterParameter.Playlists
- fileprivate typealias PlaylistsRequire = YoutubeAPI.RequireParameter.Playlists
- 
+ fileprivate typealias SearchRequire = YoutubeAPI.RequireParameter.Search 
  
  // MARK: Types
  
@@ -41,7 +33,7 @@
         return SearchRequire(properties: [SearchRequire.Property.id, SearchRequire.Property.snippet])
     }
     
-    fileprivate var filterParameters:Set<SearchOption> {
+    fileprivate var optionParameters:Set<SearchOption> {
         switch self {
         case .short:
             return [SearchOption.videoDuration(duration: SearchOption.Duration.short)]
@@ -73,127 +65,78 @@
     
     // Input
     var viewDidLoad: PublishSubject<Void> { get }
-    var searchText: Variable<String> { get }
+    var searchText: BehaviorRelay<String> { get }
     var searchKeyDidTap: PublishSubject<Void> { get }
-    var videoCategory: Variable<String> { get }
+    var videoCategory: BehaviorRelay<String> { get }
     var selectedTab: PublishSubject<Void> { get }
     var refresh: PublishSubject<Void> { get }
     var horizontalSwipe: PublishSubject<Void> { get }
-    var selectedItem: PublishSubject<Int> { get }
+    var selectedIndexPath: PublishSubject<IndexPath> { get }
     
     // Output
-    var showPlayer: Driver<Videos.Item> { get }
-    var showPlaylist: Driver<Playlists.Item> { get }
+    var showPlayer: Driver<(Videos.Item, Channels.Item)> { get }
+    var showPlaylist: Driver<(Playlists.Item, Channels.Item)> { get }
     var pushChannelDetail: Driver<Channels.Item> { get }
-    var itemDataSource: Driver<[SearchItemCellModel]> { get }
+    var itemDataSource: Driver<SearchItemCellModel> { get }
  }
  
  final class ItemListViewModel: ItemListViewModelType {
     
     // MARK: Input
     var viewDidLoad = PublishSubject<Void>()
-    var searchText = Variable("")
+    var searchText = BehaviorRelay(value: "")
     var searchKeyDidTap = PublishSubject<Void>()
-    var videoCategory = Variable("")
+    var videoCategory = BehaviorRelay(value: "")
     var selectedTab = PublishSubject<Void> ()
     var refresh = PublishSubject<Void>()
     var horizontalSwipe = PublishSubject<Void>()
-    var selectedItem = PublishSubject<Int>()
+    var selectedIndexPath = PublishSubject<IndexPath>()
     
     // MARK: Output
-    let showPlayer: Driver<Videos.Item>
-    let showPlaylist: Driver<Playlists.Item>
+    let showPlayer: Driver<(Videos.Item, Channels.Item)>
+    let showPlaylist: Driver<(Playlists.Item, Channels.Item)>
     let pushChannelDetail: Driver<Channels.Item>
-    let itemDataSource: Driver<[SearchItemCellModel]>
+    let itemDataSource: Driver<SearchItemCellModel>
     
     private let disposeBag = DisposeBag()
     
     // MARK: Initializing
     
-    init(service: YoutubeServiceType, type: ItemListViewType) {
+    init(repository: YoutubeSearchRepository, type: ItemListViewType) {
         
-        let searchItems: Observable<SearchItems> = Observable
+        let searchItemDetails: Observable<SearchItemDetails> = Observable
             .of(viewDidLoad, searchKeyDidTap, selectedTab, refresh, horizontalSwipe)
             .merge()
-            .withLatestFrom(searchText.asObservable())
-            .withLatestFrom(videoCategory.asObservable()) { ($0, $1) }
-            .flatMapLatest { text, category -> Observable<SearchItems> in
-                var parameters = type.filterParameters
-                if !text.isEmpty { parameters.insert(SearchOption.q(keyword: text)) }
-                if !category.isEmpty { parameters.insert(SearchOption.videoCategoryId(id: category)) }
-                return service.fetchSearchItems(type.requireParameters, nil, parameters)}
+            .withLatestFrom(searchText)
+            .withLatestFrom(videoCategory) { ($0, $1) }
+            .flatMapLatest { text, category -> Single<SearchItems> in
+                var options = type.optionParameters
+                if !text.isEmpty { options.insert(SearchOption.q(keyword: text)) }
+                if !category.isEmpty { options.insert(SearchOption.videoCategoryId(id: category)) }
+                return repository.fetchSearchItems(options) }
+            .map { model->[(itemId: SearchItemId, channelId: String)] in ( model.items.map { ($0.id, $0.snippet.channelId) } ) }
+            .flatMap(repository.fetchSearchItemDetails)
+            .share(replay: 1)
         
         
-        
-        let models: Observable<(videos: Videos, channels: Channels, playlists: Playlists)> = searchItems
-            .flatMapLatest { (searchItems)->Observable<(videos: Videos, channels: Channels, playlists: Playlists)> in
-                let videoIds = searchItems.items.filter { .video == $0.id }.flatMap { $0.id.videoId }
-                let channelIds = searchItems.items.map { $0.snippet.channelId }
-                let playlistIds = searchItems.items.flatMap { $0.id.playlistId }
-                
-                let videos = service.fetchVideos(
-                    VideosRequire(properties: [ .snippet, .statistics, .player]),
-                    VideosFilter.id(ids: videoIds))
-                
-                let channels = service.fetchChannels(
-                    ChannelsRequire(properties: [.snippet, .contentDetails, .statistics]),
-                    ChannelsFilter.id(ids: channelIds))
-                
-                let playlists = service.fetchPlaylists(
-                    PlaylistsRequire(properties: [.snippet, .contentDetails, .player]), PlaylistsFilter.id(ids: playlistIds))
-                
-                return Observable
-                    .combineLatest(videos, channels, playlists) { (videos: $0, channels: $1, playlists: $2)}
-        }.shareReplay(1)
-        
-        let cellModels: Observable<[SearchItemCellModel]> = models
-            .withLatestFrom(searchItems) { model, items in
-                // video
-                let vCellModels = model.videos.items
-                    .flatMap { video in model.channels.items
-                        .first(where: { video.snippet?.channelId == $0.id })
-                        .flatMap { channel in (video, channel) }
-                    }
-                    .flatMap { SearchItemCellModel.Video(video: $0.0, channel: $0.1)
-                        .flatMap {SearchItemCellModel.video($0)}}
-                // channel
-                let searchChannelIds = items.items.flatMap { $0.id.channelId }
-                let cCellModel = model.channels.items
-                    .filter { searchChannelIds.contains($0.id) }
-                    .flatMap { SearchItemCellModel.Channel(channel: $0).flatMap { SearchItemCellModel.channel($0)}}
-                // playlist
-                let pCellModel = model.playlists.items
-                    .flatMap { playlist in model.channels.items
-                        .first(where: { playlist.snippet?.channelId == $0.id })
-                        .flatMap { channel in (playlist, channel)} }
-                    .flatMap { SearchItemCellModel.Playlist(playlist: $0.0, channel: $0.1)
-                        .flatMap { SearchItemCellModel.playlist($0)}}
-                
-                return vCellModels + cCellModel + pCellModel
-                
-            }
-            .shareReplay(1)
-        
-        
-        itemDataSource = cellModels.asDriver(onErrorDriveWith: Driver.empty())
-        
-        let selectedCellModel = selectedItem
-            .withLatestFrom(cellModels) { index, models in models[index] }
-        
-        showPlayer = selectedCellModel
-            .withLatestFrom(models) { cellModel, models->Videos.Item? in
-                return models.videos.items.first(where: { item in cellModel.itemId == item.id })}
-            .flatMap { item in item.flatMap { Observable.just($0)} ?? Observable.empty() }
+        itemDataSource = searchItemDetails
+            .map(SearchItemCellModel.init)
             .asDriver(onErrorDriveWith: Driver.empty())
         
-        showPlaylist = selectedCellModel.withLatestFrom(models) { cellModel, models->Playlists.Item? in
-            return models.playlists.items.first(where: { item in cellModel.itemId == item.id })}
-            .flatMap { item in item.flatMap { Observable.just($0)} ?? Observable.empty() }
+        let selectedItem = selectedIndexPath
+            .withLatestFrom(searchItemDetails) { indexPath, model in model.items[indexPath.row] }
+            .share(replay: 1)
+        
+        showPlayer = selectedItem
+            .flatMap { item in item.video.map { Observable.just($0) } ?? Observable.empty() }
             .asDriver(onErrorDriveWith: Driver.empty())
         
-        pushChannelDetail = selectedCellModel.withLatestFrom(models) { cellModel, models->Channels.Item? in
-            return models.channels.items.first(where: { item in cellModel.itemId == item.id })}
-            .flatMap { item in item.flatMap { Observable.just($0)} ?? Observable.empty() }
+        showPlaylist = selectedItem
+            .flatMap { item in item.playlist.map { Observable.just($0) } ?? Observable.empty() }
+            .asDriver(onErrorDriveWith: Driver.empty())
+        
+        pushChannelDetail = selectedItem
+            .flatMap { item in item.channel.map { Observable.just($0) } ?? Observable.empty() }
             .asDriver(onErrorDriveWith: Driver.empty())
         
     }

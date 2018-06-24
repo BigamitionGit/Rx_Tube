@@ -8,12 +8,12 @@
 
 import UIKit
 import RxSwift
-import RxMoya
+import Moya
 
 final class ItemListCoordinator: BaseCoordinator<Void> {
     
     private let window: UIWindow
-    private let provider: RxMoyaProvider<YoutubeAPI>
+    private let provider: MoyaProvider<YoutubeAPI>
     
     init(window: UIWindow) {
         self.window = window
@@ -21,17 +21,14 @@ final class ItemListCoordinator: BaseCoordinator<Void> {
     }
     
     override func start() -> Observable<Void> {
-        let service = YoutubeService(provider: provider)
-        let viewModel = ItemListViewModel(service: service, type: .HD)
+        let repository = YoutubeSearchRepository(provider: provider)
+        let viewModel = ItemListViewModel(repository: repository, type: .HD)
         let viewController = ItemListViewController(viewModel: viewModel)
         
         let navigationController = NavigationController(rootViewController: viewController)
         
         
         
-        viewModel.pushChannelDetail.flatMap { [weak self] channelId in
-            
-        }
         
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
