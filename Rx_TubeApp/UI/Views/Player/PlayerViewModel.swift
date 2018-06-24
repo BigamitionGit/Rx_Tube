@@ -46,10 +46,11 @@ final class PlayerViewModel: PlayerViewModelType {
     var overview: Driver<VideoOverviewViewModelType>
     var relatedVideoCellModels: Driver<[RelatedVideoCellModel]>
     
-    init(service: YoutubeServiceType) {
+    init(searchRepository: YoutubeSearchRepository,
+         videoRepository: YoutubeVideosRepository) {
         
         let relatedItems: Observable<SearchItems> = videoDidTap
-            .flatMap { (video, _) in service.fetchSearchItems(
+            .flatMap { (video, _) in searchRepository.fetchSearchItems(Set<YoutubeAPI.OptionParameter.Search>()).fetchSearchItems(
                 YoutubeAPI.RequireParameter.Search(properties: [.snippet, .id]),
                 YoutubeAPI.FilterParameter.Search.relatedToVideoId(id: video.id),
                 Set<YoutubeAPI.OptionParameter.Search>()) }

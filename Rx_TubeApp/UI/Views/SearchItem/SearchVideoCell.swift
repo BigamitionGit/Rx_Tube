@@ -1,17 +1,17 @@
 //
-//  SearchItemCell.swift
+//  SearchVideoCell.swift
 //  Rx_TubeApp
 //
-//  Created by 細田　大志 on 2017/07/22.
-//  Copyright © 2017 HIroshi Hosoda. All rights reserved.
+//  Created by 細田大志 on 2018/06/22.
+//  Copyright © 2018年 HIroshi Hosoda. All rights reserved.
 //
 
 import UIKit
 import SnapKit
 import Kingfisher
 
-final class VideoItemCell: BaseTableViewCell {
-    static let identifier = String(describing: VideoItemCell.self)
+final class SearchVideoCell: BaseTableViewCell {
+    static let identifier = String(describing: SearchVideoCell.self)
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -49,7 +49,7 @@ final class VideoItemCell: BaseTableViewCell {
             make.height.equalTo(thumbnail.snp.width).multipliedBy(16 / 9)
             make.left.equalTo(self.contentView)
             make.right.equalTo(self.contentView)
-            make.top.equalTo(self.contentView) 
+            make.top.equalTo(self.contentView)
         }
         footerView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(thumbnail.snp.bottom)
@@ -73,28 +73,12 @@ final class VideoItemCell: BaseTableViewCell {
     
     // MARK: Configuring
     
-    func config(item: SearchItemCellModel.Video) {
-        titleLabel.text = item.title
-        publishedAtLabel.text = item.publishedAt
-        channelTitleLabel.text = item.channelTitle
-        thumbnail.kf.setImage(with: URL(string: item.thumbnailUrl))
+    func config(model: SearchVideoCellModel) {
+        titleLabel.text = model.title
+        publishedAtLabel.text = model.publishedAt
+        channelTitleLabel.text = model.channelTitle
+        thumbnail.kf.setImage(with: URL(string: model.thumbnailUrl))
         
         setConstraint()
-    }
-}
-
-final class ChannelItemCell: BaseTableViewCell {
-    static let identifier = String(describing: ChannelItemCell.self)
-    
-    func config(item: SearchItemCellModel.Channel) {
-        
-    }
-}
-
-final class PlaylistItemCell: BaseTableViewCell {
-    static let identifier = String(describing: PlaylistItemCell.self)
-    
-    func config(item: SearchItemCellModel.Playlist) {
-        
     }
 }

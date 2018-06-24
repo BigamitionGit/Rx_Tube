@@ -18,9 +18,9 @@ final class ItemListViewController: UIViewController {
         let tableView = UITableView()
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.register(VideoItemCell.self, forCellReuseIdentifier: VideoItemCell.identifier)
-        tableView.register(ChannelItemCell.self, forCellReuseIdentifier: ChannelItemCell.identifier)
-        tableView.register(PlaylistItemCell.self, forCellReuseIdentifier: PlaylistItemCell.identifier)
+        tableView.register(SearchVideoCell.self, forCellReuseIdentifier: SearchVideoCell.identifier)
+        tableView.register(SearchChannelCell.self, forCellReuseIdentifier: SearchChannelCell.identifier)
+        tableView.register(SearchPlaylistCell.self, forCellReuseIdentifier: SearchPlaylistCell.identifier)
         return tableView
     }()
     
@@ -31,7 +31,7 @@ final class ItemListViewController: UIViewController {
     
     init(viewModel: ItemListViewModelType) {
         super.init(nibName: nil, bundle: nil)
-        self.configure(viewModel)
+        configure(viewModel)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -51,7 +51,7 @@ final class ItemListViewController: UIViewController {
     // MARK: Setup Constraint
     
     private func setupConstraint() {
-        self.videoListView.snp.makeConstraints { make in
+        videoListView.snp.makeConstraints { make in
             make.edges.equalTo(0)
         }
     }
@@ -70,20 +70,20 @@ final class ItemListViewController: UIViewController {
         videoListView.delegate = dataSource
         
         dataSource.selectedIndexPath
-            .bind(to: viewModel.selectedItem)
+            .bind(to: viewModel.selectedIndexPath)
             .disposed(by: disposeBag)
     }
     
     class DataSource: NSObject, RxTableViewDataSourceType, UITableViewDataSource, UITableViewDelegate {
         
-        typealias Element = [SearchItemCellModel]
-        var items: Element = []
+        typealias Element = SearchItemCellModel
+        var items: [SearchItemCellModel.ItemType] = []
         
-        fileprivate let selectedIndexPath = PublishRelay<Int>()
+        fileprivate let selectedIndexPath = PublishRelay<IndexPath>()
         
-        func tableView(_ tableView: UITableView, observedEvent: Event<[SearchItemCellModel]>) {
-            if case .next(let items) = observedEvent {
-                self.items = items
+        func tableView(_ tableView: UITableView, observedEvent: Event<SearchItemCellModel>) {
+            if case .next(let model) = observedEvent {
+                self.items = model.items
                 tableView.reloadData()
             }
         }
@@ -98,16 +98,16 @@ final class ItemListViewController: UIViewController {
             let item = items[indexPath.row]
             switch item {
             case .video(let video):
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: VideoItemCell.identifier, for: indexPath) as? VideoItemCell else { fatalError("Could not create Cell") }
-                cell.config(item: video)
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchVideoCell.identifier, for: indexPath) as? SearchVideoCell else { fatalError("Could not create Cell") }
+                cell.config(model: video)
                 return cell
             case .playlist(let playlist):
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: PlaylistItemCell.identifier, for: indexPath) as? PlaylistItemCell else { fatalError("Could not create Cell") }
-                cell.config(item: playlist)
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchPlaylistCell.identifier, for: indexPath) as? SearchPlaylistCell else { fatalError("Could not create Cell") }
+                cell.config(model: playlist)
                 return cell
             case .channel(let channel):
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChannelItemCell.identifier, for: indexPath) as? ChannelItemCell else { fatalError("Could not create Cell") }
-                cell.config(item: channel)
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchChannelCell.identifier, for: indexPath) as? SearchChannelCell else { fatalError("Could not create Cell") }
+                cell.config(model: channel)
                 return cell
             }
         }
@@ -115,7 +115,7 @@ final class ItemListViewController: UIViewController {
         // MARK: UITableViewDelegate
         
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            selectedIndexPath.accept(indexPath.row)
+            selectedIndexPath.accept(indexPath)
         }
         
     }

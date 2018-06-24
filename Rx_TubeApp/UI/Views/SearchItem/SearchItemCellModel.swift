@@ -8,80 +8,28 @@
 
 import Foundation
 
-enum SearchItemCellModel {
-    case video(Video)
-    case channel(Channel)
-    case playlist(Playlist)
+struct SearchItemCellModel {
     
-    var itemId: String {
-        switch self {
-        case .video(let video):
-            return video.id
-        case .channel(let channel):
-            return channel.id
-        case .playlist(let playlist):
-            return playlist.id
-        }
-    }
-        
-    class SearchItem {
-        let publishedAt: String
-        let title: String
-        let thumbnailUrl: String
-        
-        init(snippet: ContentsSnippetType) {
-            publishedAt = snippet.publishedAt
-            title = snippet.title
-            thumbnailUrl = snippet.thumbnails.default.url
-        }
+    enum ItemType {
+        case video(SearchVideoCellModel)
+        case channel(SearchChannelCellModel)
+        case playlist(SearchPlaylistCellModel)
     }
     
-    class Video: SearchItem {
-        let id: String
-        let duration: String
-        let channelTitle: String
-        let definition: String
+    let items: [ItemType]
+    
+    init(model: SearchItemDetails) {
         
-        
-        init?(videoItem: Videos.Item?, channel: Channels.Item?) {
-            guard let video = videoItem,
-                let snippet = video.snippet,
-                let statistics = video.statistics,
-                let contentsDetail = video.contentDetails else { return nil }
-            
-            id = video.id
-            duration = contentsDetail.duration
-            channelTitle = snippet.channelTitle
-            definition = contentsDetail.definition
-            
-            
-            super.init(snippet: snippet)
+        items = model.items
+            .map { item in
+                switch (item) {
+                case .video(let video, let channel):
+                    return ItemType.video(SearchVideoCellModel(video: video, channel: channel))
+                case .channel(let channel):
+                    return ItemType.channel(SearchChannelCellModel(channel: channel))
+                case .playlist(let playlist, let channel):
+                    return ItemType.playlist(SearchPlaylistCellModel(playlist: playlist, channel: channel))
+                }
         }
     }
-    
-    class Channel: SearchItem {
-        let id: String
-        
-        init?(channelItem: Channels.Item?) {
-            guard let channel = channelItem,
-                let snippet = channel.snippet,
-                let statistics = channel.statistics,
-                let contentsDetail = channel.contentDetails else { return nil }
-            id = channel.id
-            super.init(snippet: snippet)
-        }
-    }
-    
-    class Playlist: SearchItem {
-        let id: String
-        
-        init?(playlistItem: Playlists.Item?, channelItem: Channels.Item?) {
-            guard let playlist = playlistItem,
-                let snippet = playlist.snippet,
-                let contentsDetail = playlist.contentDetails else { return nil }
-            id = playlist.id
-            super.init(snippet: snippet)
-        }
-    }
-    
 }
