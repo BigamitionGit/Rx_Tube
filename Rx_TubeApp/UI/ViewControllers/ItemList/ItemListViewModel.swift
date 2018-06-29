@@ -74,9 +74,9 @@
     var selectedIndexPath: PublishSubject<IndexPath> { get }
     
     // Output
-    var showPlayer: Driver<(Videos.Item, Channels.Item)> { get }
-    var showPlaylist: Driver<(Playlists.Item, Channels.Item)> { get }
-    var pushChannelDetail: Driver<Channels.Item> { get }
+    var showPlayer: Driver<SearchItemDetails.Video> { get }
+    var showPlaylist: Driver<SearchItemDetails.Playlist> { get }
+    var pushChannelDetail: Driver<SearchItemDetails.Channel> { get }
     var itemDataSource: Driver<SearchItemCellModel> { get }
  }
  
@@ -93,9 +93,9 @@
     var selectedIndexPath = PublishSubject<IndexPath>()
     
     // MARK: Output
-    let showPlayer: Driver<(Videos.Item, Channels.Item)>
-    let showPlaylist: Driver<(Playlists.Item, Channels.Item)>
-    let pushChannelDetail: Driver<Channels.Item>
+    let showPlayer: Driver<SearchItemDetails.Video>
+    let showPlaylist: Driver<SearchItemDetails.Playlist>
+    let pushChannelDetail: Driver<SearchItemDetails.Channel>
     let itemDataSource: Driver<SearchItemCellModel>
     
     private let disposeBag = DisposeBag()

@@ -17,16 +17,13 @@ struct SearchChannelCellModel {
     let thumbnailUrl: String
     
     
-    init(channel: Channels.Item) {
-        
-        let snippet = channel.snippet!
-        let statistics = channel.statistics!
+    init(channel: SearchItemDetails.Channel) {
         
         id = channel.id
-        subscriberCount = statistics.subscriberCount
-        videoCount = statistics.videoCount
-        publishedAt = snippet.publishedAt
-        title = snippet.title
-        thumbnailUrl = snippet.thumbnails.default.url
+        subscriberCount = channel.statistics.subscriberCount
+        videoCount = channel.statistics.videoCount
+        publishedAt = channel.snippet.publishedAt
+        title = channel.snippet.title
+        thumbnailUrl = channel.snippet.thumbnails.default.url
     }
 }

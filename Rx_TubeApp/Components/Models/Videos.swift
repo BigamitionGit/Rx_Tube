@@ -57,7 +57,7 @@ struct Videos: Codable {
         
         struct TopicDetails: Codable {
             let relevantTopicIds: [String]
-            let topicCAtegories: [String]
+            let topicCategories: [String]
         }
         
         struct RecordingDetails: Codable {

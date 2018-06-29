@@ -15,4 +15,8 @@ protocol VideoOverviewViewModelType {
 
 final class VideoOverviewViewModel: VideoOverviewViewModelType {
     
+    init(video: SearchItemDetails.Video) {
+        
+    }
+    
 }

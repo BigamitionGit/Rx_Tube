@@ -57,26 +57,31 @@ final class YoutubeSearchRepository: YoutubeSearchRepositoryType {
         
         return Single
             .zip(
-            fetchVideos,
-            fetchChannels,
-            fetchPlaylists) { videos, channels, playlists->SearchItemDetails in
-                
-                let toDetails: (SearchItemId, String)-> SearchItemDetails.ItemType? = { itemId, channelId in
-                    switch itemId.kind {
-                    case .video:
-                        guard let video = videos.items.first(where: { $0.id == itemId.searchItemId }), let channel = channels.items.first(where: { $0.id == channelId }) else { return nil }
-                        return SearchItemDetails.ItemType.video(video: video, channel: channel)
-                    case .channel:
-                        guard let channel = channels.items.first(where: { $0.id == itemId.searchItemId }) else { return nil }
-                        return SearchItemDetails.ItemType.channel(channel: channel)
-                    case .playlist:
-                        guard let playlist = playlists.items.first(where: { $0.id == itemId.searchItemId }), let channel = channels.items.first(where: { $0.id == channelId }) else { return nil }
-                        return SearchItemDetails.ItemType.playlist(playlist: playlist, channel: channel)
+                fetchVideos,
+                fetchChannels,
+                fetchPlaylists) { videos, channels, playlists->SearchItemDetails in
+                    
+                    let toDetails: (SearchItemId, String)-> SearchItemDetails.ItemType? = { itemId, channelId in
+                        switch itemId.kind {
+                        case .video:
+                            guard let v = videos.items.first(where: { $0.id == itemId.searchItemId }),
+                                let c = channels.items.first(where: { $0.id == channelId }),
+                                let video = SearchItemDetails.Video(video: v, channel: c) else { return nil }
+                            return SearchItemDetails.ItemType.video(video)
+                        case .channel:
+                            guard let channel = channels.items.first(where: { $0.id == itemId.searchItemId })
+                                .flatMap(SearchItemDetails.Channel.init)  else { return nil }
+                            return SearchItemDetails.ItemType.channel(channel)
+                        case .playlist:
+                            guard let p = playlists.items.first(where: { $0.id == itemId.searchItemId }),
+                                let c = channels.items.first(where: { $0.id == channelId }),
+                                let playlist = SearchItemDetails.Playlist(playlist: p, channel: c) else { return nil }
+                            return SearchItemDetails.ItemType.playlist(playlist)
+                        }
                     }
-                }
-            
-                return SearchItemDetails(items: ids.compactMap(toDetails))
-                
+                    
+                    return SearchItemDetails(items: ids.compactMap(toDetails))
+                    
         }
     }
     

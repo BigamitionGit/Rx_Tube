@@ -17,16 +17,13 @@ struct SearchPlaylistCellModel {
     let thumbnailUrl: String
     
     
-    init(playlist: Playlists.Item, channel: Channels.Item) {
-        
-        let snippet = playlist.snippet!
-        let contentDetails = playlist.contentDetails!
+    init(playlist: SearchItemDetails.Playlist) {
         
         id = playlist.id
-        channelTitle = snippet.channelTitle
-        itemCount = contentDetails.itemCount
-        publishedAt = snippet.publishedAt
-        title = snippet.title
-        thumbnailUrl = snippet.thumbnails.default.url
+        channelTitle = playlist.snippet.channelTitle
+        itemCount = playlist.contentDetails.itemCount
+        publishedAt = playlist.snippet.publishedAt
+        title = playlist.snippet.title
+        thumbnailUrl = playlist.snippet.thumbnails.default.url
     }
 }

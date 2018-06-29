@@ -23,7 +23,7 @@ class NavigationController: UINavigationController {
     override init(rootViewController: UIViewController) {
         let service = YoutubeService(provider: YoutubeProvider)
         searchViewModel = SearchViewModel(service: service)
-        playerViewModel = PlayerViewModel(service: service)
+        playerViewModel = PlayerViewModel(videoRepository: YoutubeVideosRepository(provider: YoutubeProvider))
         super.init(rootViewController: rootViewController)
     }
     

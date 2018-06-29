@@ -13,10 +13,10 @@ final class RelatedVideoCellModel {
     let thumbnailUrl: String
     let channelTitle: String
     
-    init(item: SearchItems.Item.Snippet) {
-        publishedAt = item.publishedAt
-        title = item.title
-        thumbnailUrl = item.thumbnails.default.url
-        channelTitle = item.channelTitle
+    init(video: SearchItemDetails.Video) {
+        publishedAt = video.snippet.publishedAt
+        title = video.snippet.title
+        thumbnailUrl = video.snippet.thumbnails.default.url
+        channelTitle = video.snippet.channelTitle
     }
 }

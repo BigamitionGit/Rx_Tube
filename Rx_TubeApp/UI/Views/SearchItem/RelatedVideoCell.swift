@@ -10,7 +10,7 @@ import UIKit
 
 class RelatedVideoCell: BaseTableViewCell {
 
-    static let identifier = String(describing: VideoItemCell.self)
+    static let identifier = String(describing: RelatedVideoCell.self)
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()

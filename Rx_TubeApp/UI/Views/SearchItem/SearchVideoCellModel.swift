@@ -20,20 +20,16 @@ struct SearchVideoCellModel {
     let thumbnailUrl: String
     
     
-    init(video: Videos.Item, channel: Channels.Item) {
-    
-        let snippet = video.snippet!
-        let statistics = video.statistics!
-        let contentsDetail = video.contentDetails!
+    init(video: SearchItemDetails.Video) {
         
         id = video.id
-        duration = contentsDetail.duration
-        channelTitle = snippet.channelTitle
-        likeCount = statistics.likeCount
-        viewCount = statistics.viewCount
-        definition = contentsDetail.definition
-        publishedAt = snippet.publishedAt
-        title = snippet.title
-        thumbnailUrl = snippet.thumbnails.default.url
+        duration = video.contentDetails.duration
+        channelTitle = video.snippet.channelTitle
+        likeCount = video.statistics.likeCount
+        viewCount = video.statistics.viewCount
+        definition = video.contentDetails.definition
+        publishedAt = video.snippet.publishedAt
+        title = video.snippet.title
+        thumbnailUrl = video.snippet.thumbnails.default.url
     }
 }

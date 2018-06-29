@@ -23,12 +23,12 @@ struct SearchItemCellModel {
         items = model.items
             .map { item in
                 switch (item) {
-                case .video(let video, let channel):
-                    return ItemType.video(SearchVideoCellModel(video: video, channel: channel))
+                case .video(let video):
+                    return ItemType.video(SearchVideoCellModel(video: video))
                 case .channel(let channel):
                     return ItemType.channel(SearchChannelCellModel(channel: channel))
-                case .playlist(let playlist, let channel):
-                    return ItemType.playlist(SearchPlaylistCellModel(playlist: playlist, channel: channel))
+                case .playlist(let playlist):
+                    return ItemType.playlist(SearchPlaylistCellModel(playlist: playlist))
                 }
         }
     }
