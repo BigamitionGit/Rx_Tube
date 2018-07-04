@@ -16,7 +16,7 @@ struct Channels: Codable {
         let statistics: Statistics?
         let topicDetails: TopicDetails?
         
-        struct Snippet: Codable, ContentsSnippetType {
+        struct Snippet: Codable {
             let title: String
             let description: String
             let publishedAt: String

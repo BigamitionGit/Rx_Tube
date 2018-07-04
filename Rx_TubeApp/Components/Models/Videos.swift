@@ -19,7 +19,7 @@ struct Videos: Codable {
         let topicDetails: TopicDetails?
         let recordingDetails: RecordingDetails?
         
-        struct Snippet: Codable, ContentsSnippetType {
+        struct Snippet: Codable {
             let publishedAt: String
             let channelId: String
             let title: String

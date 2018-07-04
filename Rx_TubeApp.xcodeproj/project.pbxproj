@@ -53,7 +53,6 @@
 		A38DC8B220D9594100577FC2 /* YoutubeChannelsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38DC8B120D9594100577FC2 /* YoutubeChannelsRepository.swift */; };
 		A38DC8B420D95A3B00577FC2 /* YoutubePlaylistsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38DC8B320D95A3B00577FC2 /* YoutubePlaylistsRepository.swift */; };
 		A3A3036220DAA709008ABD83 /* SearchItemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A3036120DAA709008ABD83 /* SearchItemDetails.swift */; };
-		A3AABAB51F72C185001E425F /* ContentsSnippetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AABAB41F72C185001E425F /* ContentsSnippetType.swift */; };
 		A3AABAB71F72C200001E425F /* Thumbnails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AABAB61F72C200001E425F /* Thumbnails.swift */; };
 		A3AAF6021F2E0E17003B2A71 /* videoCategories.json in Resources */ = {isa = PBXBuildFile; fileRef = A3AAF6011F2E0E0B003B2A71 /* videoCategories.json */; };
 		A3B599DF20AB2F970047338E /* YoutubeSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B599DE20AB2F970047338E /* YoutubeSearchRepository.swift */; };
@@ -167,7 +166,6 @@
 		A38DC8B320D95A3B00577FC2 /* YoutubePlaylistsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YoutubePlaylistsRepository.swift; path = Components/Repository/YoutubePlaylistsRepository.swift; sourceTree = "<group>"; };
 		A391FE701F3219DA008A2F9C /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 		A3A3036120DAA709008ABD83 /* SearchItemDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchItemDetails.swift; path = Components/Models/SearchItemDetails.swift; sourceTree = "<group>"; };
-		A3AABAB41F72C185001E425F /* ContentsSnippetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentsSnippetType.swift; path = Components/Models/ContentsSnippetType.swift; sourceTree = "<group>"; };
 		A3AABAB61F72C200001E425F /* Thumbnails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Thumbnails.swift; path = Components/Models/Thumbnails.swift; sourceTree = "<group>"; };
 		A3AAF6011F2E0E0B003B2A71 /* videoCategories.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = videoCategories.json; path = Application/Resource/StubbedResponses/videoCategories.json; sourceTree = "<group>"; };
 		A3AD33DD1F1FA00E006A1D2E /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
@@ -356,7 +354,6 @@
 				A33F4BE71F5BA91B00ADC19C /* Videos.swift */,
 				A33F4BE91F5BA93200ADC19C /* Channels.swift */,
 				A33F4BEB1F5BB03E00ADC19C /* Playlists.swift */,
-				A3AABAB41F72C185001E425F /* ContentsSnippetType.swift */,
 				A3AABAB61F72C200001E425F /* Thumbnails.swift */,
 			);
 			name = Models;
@@ -697,7 +694,6 @@
 				A3F30F6A1F8D8CD700684487 /* PlaylistView.swift in Sources */,
 				A30912AF20DBF702001AA5D9 /* SearchPlaylistCell.swift in Sources */,
 				A33A1ABF1F5704EE0077C2B5 /* BaseTableViewCell.swift in Sources */,
-				A3AABAB51F72C185001E425F /* ContentsSnippetType.swift in Sources */,
 				A33F4BEA1F5BA93200ADC19C /* Channels.swift in Sources */,
 				A36E8D691FB485AF007FD0C9 /* SearchVideoCategoryCellModel.swift in Sources */,
 				A30912AD20DBF6D8001AA5D9 /* SearchChannelCell.swift in Sources */,

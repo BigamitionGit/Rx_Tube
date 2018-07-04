@@ -15,7 +15,7 @@ struct SearchItems: Codable {
         let id: SearchItemId
         let snippet: Snippet
             
-        struct Snippet: Codable, ContentsSnippetType {
+        struct Snippet: Codable {
             let publishedAt: String
             let channelId: String
             let title: String

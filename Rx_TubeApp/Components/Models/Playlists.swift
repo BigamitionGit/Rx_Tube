@@ -16,7 +16,7 @@ struct Playlists: Codable {
         let contentDetails: ContentDetails?
         let player: Player?
         
-        struct Snippet: Codable, ContentsSnippetType {
+        struct Snippet: Codable {
             let title: String
             let description: String
             let publishedAt: String
