@@ -480,7 +480,9 @@ extension YoutubeAPI:TargetType {
     }
     
     var headers: [String: String]? {
-        return nil
+        let accessToken = ""
+        let authValue = String(format: "Bearer %@", accessToken)
+        return ["Authorization": authValue]
     }
     
     // MARK: - Provider support

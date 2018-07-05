@@ -3,15 +3,15 @@
   "iOS" : [
     {
       "name" : "ReactiveMoya",
-      "hash" : "63e5f549b1c1f9a06affbece24531674c5d4abda82691c4434f6a8d88beeb453"
+      "hash" : "8fb40a843a78f03a190acae48a63ecabcb6ba1944fb7048ee44e5ec1410e1cab"
     },
     {
       "name" : "RxMoya",
-      "hash" : "4b92ddffd5b1583bfa43d372f3dfe8c8b08416031e1bfe068eb4b255c6ef5408"
+      "hash" : "80ca20b09806a3f0bc7d82e4e88e565da1aa9901ced491f407ba28cc14c89b80"
     },
     {
       "name" : "Moya",
-      "hash" : "188e636ed3ae079041420486835418aa89e155001f860145389a741221ab66e9"
+      "hash" : "51d2ce49cd29bae53c28edf059011b95adfe7dcb0832febdad75f7eff91ffee1"
     }
   ]
 }
