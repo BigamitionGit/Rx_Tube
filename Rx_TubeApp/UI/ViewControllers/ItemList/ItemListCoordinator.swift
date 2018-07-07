@@ -25,12 +25,7 @@ final class ItemListCoordinator: BaseCoordinator<Void> {
         let viewModel = ItemListViewModel(repository: repository, type: .HD)
         let viewController = ItemListViewController(viewModel: viewModel)
         
-        let navigationController = NavigationController(rootViewController: viewController)
-        
-        
-        
-        
-        window.rootViewController = navigationController
+        window.rootViewController = NavigationController(rootViewController: viewController)
         window.makeKeyAndVisible()
         
         return Observable.never()

@@ -15,21 +15,8 @@ class NavigationController: UINavigationController {
     let showPlayer = PublishSubject<String>()
     let showSearchView = PublishSubject<Void>()
     
-    fileprivate let searchViewModel: SearchViewModelType
-    fileprivate let playerViewModel: PlayerViewModelType
-    
-    // MARK: Initializing
-    
-    override init(rootViewController: UIViewController) {
-        let service = YoutubeService(provider: YoutubeProvider)
-        searchViewModel = SearchViewModel(service: service)
-        playerViewModel = PlayerViewModel(videoRepository: YoutubeVideosRepository(provider: YoutubeProvider))
-        super.init(rootViewController: rootViewController)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    fileprivate let searchViewModel = SearchViewModel(repository: YoutubeSearchRepository(provider: YoutubeProvider))
+    fileprivate let playerViewModel = PlayerViewModel(videoRepository: YoutubeVideosRepository(provider: YoutubeProvider))
     
     // MARK: Life Cycle
 

@@ -48,7 +48,7 @@ final class SearchViewModel: SearchViewModelType {
     let cancel: Driver<Void>
     let search: Driver<[Option]>
     
-    init(service: YoutubeServiceType) {
+    init(repository: YoutubeSearchRepositoryType) {
         dataSource = Driver.empty()
         cancel = Driver.empty()
         search = Driver.empty()
