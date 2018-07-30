@@ -10,8 +10,6 @@ import Foundation
 import Moya
 import RxMoya
 
-let YoutubeProvider = MoyaProvider<YoutubeAPI>()
-
 private extension String {
     var URLEscapedString: String? {
         return self.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
@@ -42,6 +40,8 @@ enum YoutubeAPI {
     
     static let keyParameter = "key"
     static let keyProperty = "AIzaSyCFCOuvjqfco2AqdsD5WrG21ZcYAoyWyBw"
+    
+    static let provider = MoyaProvider<YoutubeAPI>()
     
     // MARK: RequireParameter
     

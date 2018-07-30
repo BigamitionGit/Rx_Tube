@@ -17,7 +17,7 @@ final class ItemListCoordinator: BaseCoordinator<Void> {
     
     init(window: UIWindow) {
         self.window = window
-        self.provider = YoutubeProvider
+        self.provider = YoutubeAPI.provider
     }
     
     override func start() -> Observable<Void> {
