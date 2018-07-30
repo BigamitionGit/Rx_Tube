@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import SnapKit
-import Kingfisher
 
 final class SearchVideoCell: BaseTableViewCell {
     static let identifier = String(describing: SearchVideoCell.self)
@@ -45,30 +43,6 @@ final class SearchVideoCell: BaseTableViewCell {
     // MARK: Constraining
     
     private func setConstraint() {
-        thumbnail.snp.makeConstraints { (make) -> Void in
-            make.height.equalTo(thumbnail.snp.width).multipliedBy(16 / 9)
-            make.left.equalTo(self.contentView)
-            make.right.equalTo(self.contentView)
-            make.top.equalTo(self.contentView)
-        }
-        footerView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(thumbnail.snp.bottom)
-            make.left.equalTo(self.contentView)
-            make.right.equalTo(self.contentView)
-            make.bottom.equalTo(self.contentView)
-        }
-        titleLabel.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(footerView)
-            make.left.equalTo(footerView)
-            make.right.equalTo(publishedAtLabel.snp.left).offset(8)
-            make.bottom.equalTo(footerView)
-        }
-        publishedAtLabel.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(footerView)
-            make.right.equalTo(footerView)
-            make.width.equalTo(80) // TODO: 文字列から幅を計算
-            make.bottom.equalTo(titleLabel.snp.bottom)
-        }
     }
     
     // MARK: Configuring
@@ -77,7 +51,6 @@ final class SearchVideoCell: BaseTableViewCell {
         titleLabel.text = model.title
         publishedAtLabel.text = model.publishedAt
         channelTitleLabel.text = model.channelTitle
-        thumbnail.kf.setImage(with: URL(string: model.thumbnailUrl))
         
         setConstraint()
     }

@@ -28,14 +28,10 @@
 		A350AE2D1F3A020B00D387A8 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A37245ED1F39FA0D00CADACB /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A350AE2E1F3A020B00D387A8 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A391FE701F3219DA008A2F9C /* RxCocoa.framework */; };
 		A350AE2F1F3A020B00D387A8 /* RxCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A391FE701F3219DA008A2F9C /* RxCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A350AE301F3A020B00D387A8 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3AD33DD1F1FA00E006A1D2E /* Kingfisher.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		A350AE311F3A020B00D387A8 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A3AD33DD1F1FA00E006A1D2E /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A350AE321F3A020B00D387A8 /* RxMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */; };
 		A350AE331F3A020B00D387A8 /* RxMoya.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A350AE341F3A020B00D387A8 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00B1F05CBC300E053D1 /* Moya.framework */; };
 		A350AE351F3A020B00D387A8 /* Moya.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00B1F05CBC300E053D1 /* Moya.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A350AE361F3A020B00D387A8 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF645A1EA581D90072C43F /* SnapKit.framework */; };
-		A350AE371F3A020B00D387A8 /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF645A1EA581D90072C43F /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A350AE381F3A020B00D387A8 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF64581EA581CF0072C43F /* RxSwift.framework */; };
 		A350AE391F3A020B00D387A8 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF64581EA581CF0072C43F /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A350AE3E1F3A09C700D387A8 /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = A350AE3D1F3A09C700D387A8 /* UIViewController+Rx.swift */; };
@@ -45,6 +41,9 @@
 		A35C769320F0C6A900C2BB08 /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A35C768E20F0C6A900C2BB08 /* FirebaseDatabase.framework */; };
 		A35C769420F0C6A900C2BB08 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A35C768F20F0C6A900C2BB08 /* GoogleMobileAds.framework */; };
 		A36E8D691FB485AF007FD0C9 /* SearchVideoCategoryCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36E8D681FB485AF007FD0C9 /* SearchVideoCategoryCellModel.swift */; };
+		A3715FE2210F5F1000CE3589 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3715FDF210F5F1000CE3589 /* RealmSwift.framework */; };
+		A3715FE3210F5F1000CE3589 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3715FE0210F5F1000CE3589 /* Realm.framework */; };
+		A3715FE4210F5F1000CE3589 /* Nuke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3715FE1210F5F1000CE3589 /* Nuke.framework */; };
 		A3718ACF1F0DAFDE0048FECC /* channel.json in Resources */ = {isa = PBXBuildFile; fileRef = A3718AC91F0DAFDE0048FECC /* channel.json */; };
 		A3718AD01F0DAFDE0048FECC /* searchlist.json in Resources */ = {isa = PBXBuildFile; fileRef = A3718ACA1F0DAFDE0048FECC /* searchlist.json */; };
 		A3718AD11F0DAFDE0048FECC /* subscriptionsdelete.json in Resources */ = {isa = PBXBuildFile; fileRef = A3718ACB1F0DAFDE0048FECC /* subscriptionsdelete.json */; };
@@ -115,8 +114,6 @@
 				A350AE351F3A020B00D387A8 /* Moya.framework in Embed Frameworks */,
 				A350AE391F3A020B00D387A8 /* RxSwift.framework in Embed Frameworks */,
 				A350AE2F1F3A020B00D387A8 /* RxCocoa.framework in Embed Frameworks */,
-				A350AE371F3A020B00D387A8 /* SnapKit.framework in Embed Frameworks */,
-				A350AE311F3A020B00D387A8 /* Kingfisher.framework in Embed Frameworks */,
 				A350AE2D1F3A020B00D387A8 /* Result.framework in Embed Frameworks */,
 				A3E50A271F46C608001FEC7C /* Alamofire.framework in Embed Frameworks */,
 			);
@@ -137,7 +134,6 @@
 		1C0DAD0F1E966B9D00B3D2C4 /* Rx_TubeAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rx_TubeAppUITests.swift; sourceTree = "<group>"; };
 		1C0DAD111E966B9D00B3D2C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1CEF64581EA581CF0072C43F /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
-		1CEF645A1EA581D90072C43F /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		1CEF645F1EA587000072C43F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "Application/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		A3071DCC1F8CF9C500CD833E /* ChannelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChannelViewModel.swift; path = UI/ViewControllers/Channel/ChannelViewModel.swift; sourceTree = "<group>"; };
 		A3071DCD1F8CF9C500CD833E /* ChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChannelViewController.swift; path = UI/ViewControllers/Channel/ChannelViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +159,9 @@
 		A35C768E20F0C6A900C2BB08 /* FirebaseDatabase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseDatabase.framework; path = Carthage/Build/iOS/FirebaseDatabase.framework; sourceTree = "<group>"; };
 		A35C768F20F0C6A900C2BB08 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Carthage/Build/iOS/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		A36E8D681FB485AF007FD0C9 /* SearchVideoCategoryCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchVideoCategoryCellModel.swift; path = UI/Views/Search/SearchVideoCategoryCellModel.swift; sourceTree = "<group>"; };
+		A3715FDF210F5F1000CE3589 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		A3715FE0210F5F1000CE3589 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		A3715FE1210F5F1000CE3589 /* Nuke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nuke.framework; path = Carthage/Build/iOS/Nuke.framework; sourceTree = "<group>"; };
 		A3718AC91F0DAFDE0048FECC /* channel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = channel.json; path = Application/Resource/StubbedResponses/channel.json; sourceTree = "<group>"; };
 		A3718ACA1F0DAFDE0048FECC /* searchlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = searchlist.json; path = Application/Resource/StubbedResponses/searchlist.json; sourceTree = "<group>"; };
 		A3718ACB1F0DAFDE0048FECC /* subscriptionsdelete.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = subscriptionsdelete.json; path = Application/Resource/StubbedResponses/subscriptionsdelete.json; sourceTree = "<group>"; };
@@ -181,7 +180,6 @@
 		A3A4631120EE80860040DC36 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Application/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A3AABAB61F72C200001E425F /* Thumbnails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Thumbnails.swift; path = Components/Models/Thumbnails.swift; sourceTree = "<group>"; };
 		A3AAF6011F2E0E0B003B2A71 /* videoCategories.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = videoCategories.json; path = Application/Resource/StubbedResponses/videoCategories.json; sourceTree = "<group>"; };
-		A3AD33DD1F1FA00E006A1D2E /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		A3B0B00B1F05CBC300E053D1 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
 		A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxMoya.framework; path = Carthage/Build/iOS/RxMoya.framework; sourceTree = "<group>"; };
 		A3B599DE20AB2F970047338E /* YoutubeSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YoutubeSearchRepository.swift; path = Components/Repository/YoutubeSearchRepository.swift; sourceTree = "<group>"; };
@@ -213,6 +211,9 @@
 			files = (
 				A35C768A20F0C3D800C2BB08 /* libc++.tbd in Frameworks */,
 				A35C769020F0C6A900C2BB08 /* FirebaseAuth.framework in Frameworks */,
+				A3715FE2210F5F1000CE3589 /* RealmSwift.framework in Frameworks */,
+				A3715FE3210F5F1000CE3589 /* Realm.framework in Frameworks */,
+				A3715FE4210F5F1000CE3589 /* Nuke.framework in Frameworks */,
 				A35C769120F0C6A900C2BB08 /* FirebaseCore.framework in Frameworks */,
 				A35C769320F0C6A900C2BB08 /* FirebaseDatabase.framework in Frameworks */,
 				A35C769420F0C6A900C2BB08 /* GoogleMobileAds.framework in Frameworks */,
@@ -221,8 +222,6 @@
 				A350AE341F3A020B00D387A8 /* Moya.framework in Frameworks */,
 				A350AE381F3A020B00D387A8 /* RxSwift.framework in Frameworks */,
 				A350AE2E1F3A020B00D387A8 /* RxCocoa.framework in Frameworks */,
-				A350AE361F3A020B00D387A8 /* SnapKit.framework in Frameworks */,
-				A350AE301F3A020B00D387A8 /* Kingfisher.framework in Frameworks */,
 				A350AE2C1F3A020B00D387A8 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,6 +295,9 @@
 		1CEF64551EA581BC0072C43F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A3715FE1210F5F1000CE3589 /* Nuke.framework */,
+				A3715FE0210F5F1000CE3589 /* Realm.framework */,
+				A3715FDF210F5F1000CE3589 /* RealmSwift.framework */,
 				A35C768920F0C3D800C2BB08 /* libc++.tbd */,
 				A35C768D20F0C6A800C2BB08 /* Firebase.framework */,
 				A35C768B20F0C6A800C2BB08 /* FirebaseAuth.framework */,
@@ -305,10 +307,8 @@
 				A3E50A241F46C600001FEC7C /* Alamofire.framework */,
 				A37245ED1F39FA0D00CADACB /* Result.framework */,
 				A391FE701F3219DA008A2F9C /* RxCocoa.framework */,
-				A3AD33DD1F1FA00E006A1D2E /* Kingfisher.framework */,
 				A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */,
 				A3B0B00B1F05CBC300E053D1 /* Moya.framework */,
-				1CEF645A1EA581D90072C43F /* SnapKit.framework */,
 				1CEF64581EA581CF0072C43F /* RxSwift.framework */,
 			);
 			name = Frameworks;
@@ -660,13 +660,14 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Nuke.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Moya.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxMoya.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 			);
 			outputPaths = (
 			);

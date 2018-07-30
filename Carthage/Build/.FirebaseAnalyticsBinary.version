@@ -11,24 +11,24 @@
   "commitish" : "5.4.0",
   "iOS" : [
     {
-      "name" : "FirebaseCore",
-      "hash" : "5ba393dd98b0675f142f8ade33e8a3e726e16c962d133d1cfa75df008517cb27"
-    },
-    {
-      "name" : "GoogleToolboxForMac",
-      "hash" : "2a61e2cb69fbf500ece78031a93fca63cb25d196f7b95b853bb725b8d19ffec9"
+      "name" : "Firebase",
+      "hash" : "a8669248da9519e9955e00448e518e1ca6becb32689eedddde237e19ad1136ae"
     },
     {
       "name" : "FirebaseNanoPB",
       "hash" : "92c562ec6bcb05fa43308e8362fe8d9171c7d9383dac867e5fe1da72983cc444"
     },
     {
-      "name" : "Firebase",
-      "hash" : "a8669248da9519e9955e00448e518e1ca6becb32689eedddde237e19ad1136ae"
-    },
-    {
       "name" : "nanopb",
       "hash" : "58e0935d63cf149dfc059a03caf175e1826bbb519bf35dbab414f8bba40f5b6a"
+    },
+    {
+      "name" : "GoogleToolboxForMac",
+      "hash" : "2a61e2cb69fbf500ece78031a93fca63cb25d196f7b95b853bb725b8d19ffec9"
+    },
+    {
+      "name" : "FirebaseCore",
+      "hash" : "5ba393dd98b0675f142f8ade33e8a3e726e16c962d133d1cfa75df008517cb27"
     },
     {
       "name" : "FirebaseCoreDiagnostics",

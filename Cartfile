@@ -1,8 +1,9 @@
-github "SnapKit/SnapKit"
-github "ReactiveX/RxSwift"
-github "Moya/Moya"
-github "onevcat/Kingfisher"
-github "Alamofire/Alamofire"
+github "ReactiveX/RxSwift" ~> 4.2
+github "Moya/Moya" ~> 11.0
+github "Alamofire/Alamofire" ~> 4.7
+github "https://github.com/fabio914/GoogleSignIn-iOS" ~> 4.1
+github "kean/Nuke" ~> 7.0
+github "realm/realm-cocoa" ~> 3.7
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json"
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseABTestingBinary.json"
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAdMobBinary.json"

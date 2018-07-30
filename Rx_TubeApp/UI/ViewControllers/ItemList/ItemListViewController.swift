@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 import RxSwift
 import RxCocoa
 
@@ -51,9 +50,6 @@ final class ItemListViewController: UIViewController {
     // MARK: Setup Constraint
     
     private func setupConstraint() {
-        videoListView.snp.makeConstraints { make in
-            make.edges.equalTo(0)
-        }
     }
     
     // MARK: Configuring
