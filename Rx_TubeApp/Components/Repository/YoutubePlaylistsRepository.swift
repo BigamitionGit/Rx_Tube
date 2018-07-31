@@ -11,22 +11,19 @@ import RxMoya
 import Moya
 
 protocol YoutubePlaylistsRepositoryType {
-    var fetchPlaylists:(YoutubeAPI.RequireParameter.Playlists, YoutubeAPI.FilterParameter.Playlists)->Single<Playlists> { get }
+    func fetchPlaylists(require: YoutubeAPI.RequireParameter.Playlists, filter: YoutubeAPI.FilterParameter.Playlists)->Single<Playlists>
 }
 
 final class YoutubePlaylistsRepository: YoutubePlaylistsRepositoryType {
     
-    let fetchPlaylists: (YoutubeAPI.RequireParameter.Playlists, YoutubeAPI.FilterParameter.Playlists) -> Single<Playlists>
-    
+    private let provider: MoyaProvider<YoutubeAPI>
     
     init(provider: MoyaProvider<YoutubeAPI>) {
-        
-        fetchPlaylists = { require, filter in
-            return provider.rx.request(YoutubeAPI.playlists(require: require, filter: filter))
-                .retry(3)
-                .map(Playlists.self)
-        }
+        self.provider = provider
     }
     
+    func fetchPlaylists(require: YoutubeAPI.RequireParameter.Playlists, filter: YoutubeAPI.FilterParameter.Playlists) -> PrimitiveSequence<SingleTrait, Playlists> {
+        return provider.rx.request(YoutubeAPI.playlists(require: require, filter: filter))
+            .map(Playlists.self)
+    }
 }
-

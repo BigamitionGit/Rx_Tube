@@ -11,34 +11,28 @@ import RxMoya
 import Moya
 
 protocol YoutubeChannelsRepositoryType {
-    var fetchChannels:(YoutubeAPI.RequireParameter.Channels, YoutubeAPI.FilterParameter.Channels)->Single<Channels> { get }
+    func fetchChannels(require: YoutubeAPI.RequireParameter.Channels, filter: YoutubeAPI.FilterParameter.Channels)->Single<Channels>
     
-    var fetchChannel:(YoutubeAPI.RequireParameter.Channels,_ channelId: String)->Single<Channels.Item> { get }
+    func fetchChannel(require: YoutubeAPI.RequireParameter.Channels, channelId: String)->Single<Channels.Item>
 }
 
 final class YoutubeChannelsRepository: YoutubeChannelsRepositoryType {
     
-    let fetchChannels: (YoutubeAPI.RequireParameter.Channels, YoutubeAPI.FilterParameter.Channels) -> Single<Channels>
-    let fetchChannel: (YoutubeAPI.RequireParameter.Channels, _ channelId: String) -> Single<Channels.Item>
-    
+    private let provider: MoyaProvider<YoutubeAPI>
     
     init(provider: MoyaProvider<YoutubeAPI>) {
-        
-        fetchChannels = { require, filter in
-            return provider.rx.request(YoutubeAPI.channels(require: require, filter: filter))
-                .retry(3)
-                .map(Channels.self)
-        }
-        
-        // TODO: Because crash in case [], return default value in case []
-        fetchChannel = { require, channelId in
-            return provider.rx.request(YoutubeAPI.channels(require: require, filter: .id(ids: [channelId])))
-                .retry(3)
-                .map(Channels.self)
-                .map { (channels: Channels)->Channels.Item in channels.items.first! }
-        }
+        self.provider = provider
     }
     
+    func fetchChannels(require: YoutubeAPI.RequireParameter.Channels, filter: YoutubeAPI.FilterParameter.Channels) -> PrimitiveSequence<SingleTrait, Channels> {
+        return provider.rx.request(YoutubeAPI.channels(require: require, filter: filter))
+            .map(Channels.self)
+    }
+    
+    // TODO: Because crash in case [], return default value in case []
+    func fetchChannel(require: YoutubeAPI.RequireParameter.Channels, channelId: String) -> PrimitiveSequence<SingleTrait, Channels.Item> {
+        return provider.rx.request(YoutubeAPI.channels(require: require, filter: .id(ids: [channelId])))
+            .map(Channels.self)
+            .map { (channels: Channels)->Channels.Item in channels.items.first! }
+    }
 }
-
-
