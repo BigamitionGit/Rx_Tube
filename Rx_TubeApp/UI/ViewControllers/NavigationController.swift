@@ -16,7 +16,7 @@ class NavigationController: UINavigationController {
     let showSearchView = PublishSubject<Void>()
     
     fileprivate let searchViewModel = SearchViewModel(repository: YoutubeSearchRepository(provider: YoutubeAPI.provider))
-    fileprivate let playerViewModel = PlayerViewModel(videoRepository: YoutubeVideosRepository(provider: YoutubeAPI.provider))
+    fileprivate let playerViewModel = PlayerViewModel(relatedVideoRepository: YoutubeRelatedVideosRepository(provider: YoutubeAPI.provider))
     
     // MARK: Life Cycle
 

@@ -13,16 +13,15 @@ import Moya
 final class ItemListCoordinator: BaseCoordinator<Void> {
     
     private let window: UIWindow
-    private let provider: MoyaProvider<YoutubeAPI>
     
     init(window: UIWindow) {
         self.window = window
-        self.provider = YoutubeAPI.provider
     }
     
     override func start() -> Observable<Void> {
-        let repository = YoutubeSearchRepository(provider: provider)
-        let viewModel = ItemListViewModel(repository: repository, type: .HD)
+        let searchRepository = YoutubeSearchRepository(provider: YoutubeAPI.provider)
+        let searchDetailRepository = YoutubeSearchDetailsRepository(provider: YoutubeAPI.provider)
+        let viewModel = ItemListViewModel(searchRepository: searchRepository, searchDetailRepository: searchDetailRepository, type: .HD)
         let viewController = ItemListViewController(viewModel: viewModel)
         
         window.rootViewController = NavigationController(rootViewController: viewController)

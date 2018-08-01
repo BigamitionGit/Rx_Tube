@@ -12,7 +12,7 @@ import Moya
 
 protocol YoutubeRelatedVideosRepositoryType {
     
-    func fetchRelatedVideos(videoId: String)->Single<[SearchItemDetails.Video]>
+    func fetch(videoId: String)->Single<[SearchItemDetails.Video]>
 }
 
 final class YoutubeRelatedVideosRepository: YoutubeRelatedVideosRepositoryType {
@@ -23,7 +23,7 @@ final class YoutubeRelatedVideosRepository: YoutubeRelatedVideosRepositoryType {
         self.provider = provider
     }
     
-    func fetchRelatedVideos(videoId: String) -> Single<[SearchItemDetails.Video]> {
+    func fetch(videoId: String) -> Single<[SearchItemDetails.Video]> {
         let require = YoutubeAPI.RequireParameter.Search(properties: [.id, .snippet])
         let filter = YoutubeAPI.FilterParameter.Search.relatedToVideoId(id: videoId)
         let options = Set<YoutubeAPI.OptionParameter.Search>()

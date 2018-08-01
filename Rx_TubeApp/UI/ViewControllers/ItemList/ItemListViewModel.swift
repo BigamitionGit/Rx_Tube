@@ -102,7 +102,9 @@
     
     // MARK: Initializing
     
-    init(repository: YoutubeSearchRepository, type: ItemListViewType) {
+    init(searchRepository: YoutubeSearchRepositoryType,
+         searchDetailRepository: YoutubeSearchDetailsRepositoryType,
+         type: ItemListViewType) {
         
         let searchItemDetails: Observable<SearchItemDetails> = Observable
             .of(viewDidLoad, searchKeyDidTap, selectedTab, refresh, horizontalSwipe)
@@ -113,9 +115,9 @@
                 var options = type.optionParameters
                 if !text.isEmpty { options.insert(SearchOption.q(keyword: text)) }
                 if !category.isEmpty { options.insert(SearchOption.videoCategoryId(id: category)) }
-                return repository.fetchSearchItems(options) }
+                return searchRepository.fetch(options) }
             .map { model->[(itemId: SearchItemId, channelId: String)] in ( model.items.map { ($0.id, $0.snippet.channelId) } ) }
-            .flatMap(repository.fetchSearchItemDetails)
+            .flatMap(searchDetailRepository.fetch)
             .share(replay: 1)
         
         

@@ -18,18 +18,17 @@ enum ChannelCoordinationResult {
 final class ChannelCoordinator: BaseCoordinator<ChannelCoordinationResult> {
 
     private let channelId: String
-    private let service: YoutubeServiceType
     private let rootViewController: UIViewController
     
-    init(channelId: String, service: YoutubeServiceType, rootViewController: UIViewController) {
+    init(channelId: String, rootViewController: UIViewController) {
     
         self.channelId = channelId
-        self.service = service
         self.rootViewController = rootViewController
     }
     
     override func start() -> Observable<CoordinationResult> {
-        let viewModel = ChannelViewModel(channelId: channelId, service: service)
+        let repository = YoutubeChannelsRepository(provider: YoutubeAPI.provider)
+        let viewModel = ChannelViewModel(channelId: channelId, repository: repository)
         let viewController = ChannelViewController(viewModel: viewModel)
         
         rootViewController.navigationController?.pushViewController(viewController, animated: true)

@@ -29,7 +29,7 @@ final class ChannelViewModel: ChannelViewModelType {
     
     let showPlayer: Driver<String>
     
-    init(channelId: String, service: YoutubeServiceType) {
+    init(channelId: String, repository: YoutubeChannelsRepositoryType) {
         showPlayer = Driver.empty()
     }
     

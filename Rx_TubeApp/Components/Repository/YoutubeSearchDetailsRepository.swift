@@ -12,7 +12,7 @@ import Moya
 
 protocol YoutubeSearchDetailsRepositoryType {
     
-    func fetchSearchItemDetails(_ ids: [(itemId: SearchItemId, channelId: String)])->Single<SearchItemDetails>
+    func fetch(_ ids: [(itemId: SearchItemId, channelId: String)])->Single<SearchItemDetails>
 }
 
 final class YoutubeSearchDetailsRepository: YoutubeSearchDetailsRepositoryType {
@@ -23,7 +23,7 @@ final class YoutubeSearchDetailsRepository: YoutubeSearchDetailsRepositoryType {
         self.provider = provider
     }
     
-    func fetchSearchItemDetails(_ ids: [(itemId: SearchItemId, channelId: String)]) -> Single<SearchItemDetails> {
+    func fetch(_ ids: [(itemId: SearchItemId, channelId: String)]) -> Single<SearchItemDetails> {
         let videoIds = ids.filter { $0.itemId.kind == .video }.map { $0.itemId.searchItemId }
         let channelIds = ids.map { $0.channelId }
         let playlistIds = ids.filter { $0.itemId.kind == .playlist }.map { $0.itemId.searchItemId }

@@ -48,7 +48,7 @@ final class PlayerViewModel: PlayerViewModelType {
     
     private let disposeBag = DisposeBag()
     
-    init(videoRepository: YoutubeVideosRepository) {
+    init(relatedVideoRepository: YoutubeRelatedVideosRepositoryType) {
         
         let relatedVideoDidTap = PublishSubject<SearchItemDetails.Video>()
         let playVideo: Observable<SearchItemDetails.Video> = Observable
@@ -65,7 +65,7 @@ final class PlayerViewModel: PlayerViewModelType {
             .asDriver(onErrorDriveWith: Driver.empty())
         
         let relatedVideos: Observable<[SearchItemDetails.Video]> = playVideo
-            .flatMap { video in videoRepository.fetchRelatedVideos(videoId: video.id) }
+            .flatMap { video in relatedVideoRepository.fetch(videoId: video.id) }
         
         relatedVideoCellModels = relatedVideos
             .map { videos in videos.map(RelatedVideoCellModel.init) }
