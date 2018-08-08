@@ -14,7 +14,7 @@ protocol PlayerViewModelType {
     /// Input
     
     /// video in Other than Player
-    var videoDidTap: PublishSubject<SearchItemDetails.Video> { get }
+    var videoDidTap: PublishRelay<SearchItemDetails.Video> { get }
     /// related video in player
     var relatedVideoDidTapIndexPath: PublishSubject<IndexPath> { get }
     var channelDidTap: PublishSubject<Void> { get }
@@ -33,7 +33,7 @@ protocol PlayerViewModelType {
 
 final class PlayerViewModel: PlayerViewModelType {
     
-    let videoDidTap = PublishSubject<SearchItemDetails.Video>()
+    let videoDidTap = PublishRelay<SearchItemDetails.Video>()
     let relatedVideoDidTapIndexPath = PublishSubject<IndexPath>()
     let channelDidTap = PublishSubject<Void>()
     let likeDidTap = PublishSubject<Void>()
@@ -50,7 +50,7 @@ final class PlayerViewModel: PlayerViewModelType {
     
     init(relatedVideoRepository: YoutubeRelatedVideosRepositoryType) {
         
-        let relatedVideoDidTap = PublishSubject<SearchItemDetails.Video>()
+        let relatedVideoDidTap = PublishRelay<SearchItemDetails.Video>()
         let playVideo: Observable<SearchItemDetails.Video> = Observable
             .of(videoDidTap, relatedVideoDidTap)
             .merge().share(replay: 1)

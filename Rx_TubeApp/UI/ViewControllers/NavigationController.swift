@@ -12,12 +12,8 @@ import RxCocoa
 
 class NavigationController: UINavigationController {
     
-    let showPlayer = PublishSubject<String>()
-    let showSearchView = PublishSubject<Void>()
-    
-    fileprivate let searchViewModel = SearchViewModel(repository: YoutubeSearchRepository(provider: YoutubeAPI.provider))
-    fileprivate let playerViewModel = PlayerViewModel(relatedVideoRepository: YoutubeRelatedVideosRepository(provider: YoutubeAPI.provider))
-    
+    let videoDidTap = PublishRelay<PlayerViewModelType>()
+        
     // MARK: Life Cycle
 
     override func viewDidLoad() {
@@ -27,28 +23,7 @@ class NavigationController: UINavigationController {
     }
     
     private func setupView() {
-        // SearchView
-        let searchView = SearchView(viewModel: searchViewModel)
-        self.view.addSubview(searchView)
-        
-        // PlayerView
-        let playerView = PlayerView(viewModel: playerViewModel)
-        self.view.addSubview(playerView)
-        
-        // NavigationBar buttons
-        
-        let searchButton = UIButton()
-        self.navigationBar.addSubview(searchButton)
-    }
-}
-
-extension Reactive where Base: NavigationController {
-
-    var performSearch: Driver<[SearchViewModel.Option]> {
-        return base.searchViewModel.search
     }
     
-    var showChannelDetail: Driver<String> {
-        return base.playerViewModel.showChannelDetail
-    }
+    
 }
