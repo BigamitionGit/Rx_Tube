@@ -15,7 +15,7 @@ protocol NavigationViewModelType {
     var videoDidTap: PublishRelay<Void> { get }
     
     // Output
-
+    
 }
 
 final class NavigationViewModel: NavigationViewModelType {
@@ -28,4 +28,3 @@ final class NavigationViewModel: NavigationViewModelType {
     }
     
 }
-

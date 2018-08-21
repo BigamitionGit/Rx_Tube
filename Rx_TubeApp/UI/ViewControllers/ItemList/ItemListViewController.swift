@@ -24,8 +24,8 @@ final class ItemListViewController: UIViewController {
     }()
     
     private let dataSource = DataSource()
-    let disposeBag = DisposeBag()
-
+    private let disposeBag = DisposeBag()
+    
     // MARK: Initializing
     
     init(viewModel: ItemListViewModelType) {
@@ -58,7 +58,7 @@ final class ItemListViewController: UIViewController {
         self.rx.viewDidLoad
             .bind(to: viewModel.viewDidLoad)
             .disposed(by: disposeBag)
-                
+        
         viewModel.itemDataSource
             .drive(videoListView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
@@ -115,5 +115,5 @@ final class ItemListViewController: UIViewController {
         }
         
     }
-
+    
 }

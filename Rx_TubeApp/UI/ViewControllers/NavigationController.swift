@@ -12,18 +12,30 @@ import RxCocoa
 
 class NavigationController: UINavigationController {
     
-    let videoDidTap = PublishRelay<PlayerViewModelType>()
-        
+    var playerView: PlayerView?
+    
+    let disposeBag = DisposeBag()
+    
     // MARK: Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupView()
+        setup()
     }
     
-    private func setupView() {
+    private func setup() {
+        
+        playerView?.viewModel.showChannelDetail
+            .subscribe(onNext: { [weak self] _ in self?.dismissPlayer() })
+            .disposed(by: disposeBag)
     }
     
+    func showPlayer() {
+        
+    }
     
+    func dismissPlayer() {
+        
+    }
 }

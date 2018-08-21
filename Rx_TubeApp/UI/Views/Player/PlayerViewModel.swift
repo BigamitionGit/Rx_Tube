@@ -18,7 +18,7 @@ protocol PlayerViewModelType {
     /// related video in player
     var relatedVideoDidTapIndexPath: PublishSubject<IndexPath> { get }
     var channelDidTap: PublishSubject<Void> { get }
-    var likeDidTap: PublishSubject<Void> { get } 
+    var likeDidTap: PublishSubject<Void> { get }
     var dislikeDidTap: PublishSubject<Void> { get }
     var nextDidTap: PublishSubject<Void> { get }
     var previousDidTap: PublishSubject<Void> { get }
@@ -26,7 +26,7 @@ protocol PlayerViewModelType {
     /// Output
     
     var play: Driver<String> { get }
-    var showChannelDetail: Driver<String> { get }
+    var showChannelDetail: Observable<SearchItemDetails.Channel> { get }
     var overview: Driver<VideoOverviewViewModelType> { get }
     var relatedVideoCellModels: Driver<[RelatedVideoCellModel]> { get }
 }
@@ -42,7 +42,7 @@ final class PlayerViewModel: PlayerViewModelType {
     let previousDidTap = PublishSubject<Void>()
     
     let play: Driver<String>
-    let showChannelDetail: Driver<String>
+    let showChannelDetail: Observable<SearchItemDetails.Channel>
     var overview: Driver<VideoOverviewViewModelType>
     var relatedVideoCellModels: Driver<[RelatedVideoCellModel]>
     
@@ -53,7 +53,8 @@ final class PlayerViewModel: PlayerViewModelType {
         let relatedVideoDidTap = PublishRelay<SearchItemDetails.Video>()
         let playVideo: Observable<SearchItemDetails.Video> = Observable
             .of(videoDidTap, relatedVideoDidTap)
-            .merge().share(replay: 1)
+            .merge()
+            .share(replay: 1)
         
         play = playVideo.map { $0.player.embedHtml }
             .asDriver(onErrorDriveWith: Driver.empty())
@@ -61,8 +62,10 @@ final class PlayerViewModel: PlayerViewModelType {
         overview = playVideo.map(VideoOverviewViewModel.init)
             .asDriver(onErrorDriveWith: Driver.empty())
         
-        showChannelDetail = playVideo.map { $0.channelId }
-            .asDriver(onErrorDriveWith: Driver.empty())
+        showChannelDetail = channelDidTap
+            .withLatestFrom(playVideo)
+            .map { $0.toChannel() }
+            .observeOn(MainScheduler.instance)
         
         let relatedVideos: Observable<[SearchItemDetails.Video]> = playVideo
             .flatMap { video in relatedVideoRepository.fetch(videoId: video.id) }

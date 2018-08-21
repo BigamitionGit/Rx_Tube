@@ -24,8 +24,30 @@ final class ItemListCoordinator: BaseCoordinator<Void> {
         let viewModel = ItemListViewModel(searchRepository: searchRepository, searchDetailRepository: searchDetailRepository, type: .HD)
         let viewController = ItemListViewController(viewModel: viewModel)
         
-        window.rootViewController = NavigationController(rootViewController: viewController)
+        let navigationController = NavigationController(rootViewController: viewController)
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
+        
+        viewModel.showPlayer
+            .map { video in PlayerCoordinator(navigationController: navigationController, video: video) }
+            .flatMap { coordinator in coordinator.start() }
+            .subscribe(onNext: { playerResult in
+                switch playerResult {
+                case .channel(let channel):
+                    viewModel.pushChannelDetail.accept(channel)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.pushChannelDetail.map { channel in ChannelCoordinator(channel: channel, rootViewController: viewController) }
+            .flatMap { coordinator in coordinator.start() }
+            .subscribe(onNext: { channelDetailResult in
+                switch channelDetailResult {
+                case .player(let video):
+                    viewModel.showPlayer.accept(video)
+                }
+            })
+            .disposed(by: disposeBag)
         
         return Observable.never()
     }

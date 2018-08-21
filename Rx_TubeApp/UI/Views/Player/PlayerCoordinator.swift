@@ -9,7 +9,7 @@
 import RxSwift
 
 enum PlayerCoordinatorResult {
-    case channel(String)
+    case channel(SearchItemDetails.Channel)
 }
 
 final class PlayerCoordinator: BaseCoordinator<PlayerCoordinatorResult> {
@@ -23,12 +23,23 @@ final class PlayerCoordinator: BaseCoordinator<PlayerCoordinatorResult> {
     }
     
     override func start() -> Observable<PlayerCoordinatorResult> {
-        let playerViewModel = PlayerViewModel(relatedVideoRepository: YoutubeRelatedVideosRepository(provider: YoutubeAPI.provider))
+        
+        let getPlayerView: () -> PlayerView = { [weak self] in
+            if let playerView = self?.navigationController.playerView {
+                return playerView
+            } else {
+                let playerViewModel = PlayerViewModel(relatedVideoRepository: YoutubeRelatedVideosRepository(provider: YoutubeAPI.provider))
+                let playerview = PlayerView(viewModel: playerViewModel)
+                self?.navigationController.playerView = playerview
+                return playerview
+            }
+        }
+        
+        let playerViewModel = getPlayerView().viewModel
         playerViewModel.videoDidTap.accept(video)
-        navigationController.videoDidTap.accept(playerViewModel)
+        navigationController.showPlayer()
         
         return playerViewModel.showChannelDetail
             .map(PlayerCoordinatorResult.channel)
-            .asObservable()
     }
 }

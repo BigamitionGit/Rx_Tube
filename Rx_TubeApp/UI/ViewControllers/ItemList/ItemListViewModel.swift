@@ -13,7 +13,7 @@
  import Moya
  
  fileprivate typealias SearchOption = YoutubeAPI.OptionParameter.Search
- fileprivate typealias SearchRequire = YoutubeAPI.RequireParameter.Search 
+ fileprivate typealias SearchRequire = YoutubeAPI.RequireParameter.Search
  
  // MARK: Types
  
@@ -74,9 +74,9 @@
     var selectedIndexPath: PublishSubject<IndexPath> { get }
     
     // Output
-    var showPlayer: Driver<SearchItemDetails.Video> { get }
+    var showPlayer: PublishRelay<SearchItemDetails.Video> { get }
     var showPlaylist: Driver<SearchItemDetails.Playlist> { get }
-    var pushChannelDetail: Driver<SearchItemDetails.Channel> { get }
+    var pushChannelDetail: PublishRelay<SearchItemDetails.Channel> { get }
     var itemDataSource: Driver<SearchItemCellModel> { get }
  }
  
@@ -93,9 +93,9 @@
     var selectedIndexPath = PublishSubject<IndexPath>()
     
     // MARK: Output
-    let showPlayer: Driver<SearchItemDetails.Video>
+    let showPlayer = PublishRelay<SearchItemDetails.Video>()
     let showPlaylist: Driver<SearchItemDetails.Playlist>
-    let pushChannelDetail: Driver<SearchItemDetails.Channel>
+    let pushChannelDetail = PublishRelay<SearchItemDetails.Channel>()
     let itemDataSource: Driver<SearchItemCellModel>
     
     private let disposeBag = DisposeBag()
@@ -129,17 +129,22 @@
             .withLatestFrom(searchItemDetails) { indexPath, model in model.items[indexPath.row] }
             .share(replay: 1)
         
-        showPlayer = selectedItem
+        selectedItem
             .flatMap { item in item.video.map { Observable.just($0) } ?? Observable.empty() }
-            .asDriver(onErrorDriveWith: Driver.empty())
+            .observeOn(MainScheduler.instance)
+            .bind(to: showPlayer)
+            .disposed(by: disposeBag)
+        
         
         showPlaylist = selectedItem
             .flatMap { item in item.playlist.map { Observable.just($0) } ?? Observable.empty() }
             .asDriver(onErrorDriveWith: Driver.empty())
         
-        pushChannelDetail = selectedItem
+        selectedItem
             .flatMap { item in item.channel.map { Observable.just($0) } ?? Observable.empty() }
-            .asDriver(onErrorDriveWith: Driver.empty())
+            .observeOn(MainScheduler.instance)
+            .bind(to: pushChannelDetail)
+            .disposed(by: disposeBag)
         
     }
  }

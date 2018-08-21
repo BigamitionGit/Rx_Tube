@@ -17,7 +17,7 @@ protocol ChannelViewModelType {
     
     // Output
     
-    var showPlayer: Driver<String>  { get }
+    var showPlayer: Driver<String> { get }
 }
 
 final class ChannelViewModel: ChannelViewModelType {
@@ -29,7 +29,7 @@ final class ChannelViewModel: ChannelViewModelType {
     
     let showPlayer: Driver<String>
     
-    init(channelId: String, repository: YoutubeChannelsRepositoryType) {
+    init(channel: SearchItemDetails.Channel, repository: YoutubeChannelsRepositoryType) {
         showPlayer = Driver.empty()
     }
     

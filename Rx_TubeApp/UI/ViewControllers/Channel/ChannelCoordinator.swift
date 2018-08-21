@@ -11,24 +11,23 @@ import RxSwift
 import RxMoya
 
 enum ChannelCoordinationResult {
-    case search
-    case player(id: String)
+    case player(video: SearchItemDetails.Video)
 }
 
 final class ChannelCoordinator: BaseCoordinator<ChannelCoordinationResult> {
-
-    private let channelId: String
+    
+    private let channel: SearchItemDetails.Channel
     private let rootViewController: UIViewController
     
-    init(channelId: String, rootViewController: UIViewController) {
-    
-        self.channelId = channelId
+    init(channel: SearchItemDetails.Channel, rootViewController: UIViewController) {
+        
+        self.channel = channel
         self.rootViewController = rootViewController
     }
     
     override func start() -> Observable<CoordinationResult> {
         let repository = YoutubeChannelsRepository(provider: YoutubeAPI.provider)
-        let viewModel = ChannelViewModel(channelId: channelId, repository: repository)
+        let viewModel = ChannelViewModel(channel: channel, repository: repository)
         let viewController = ChannelViewController(viewModel: viewModel)
         
         rootViewController.navigationController?.pushViewController(viewController, animated: true)

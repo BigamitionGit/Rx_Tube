@@ -9,8 +9,12 @@
 import UIKit
 
 class PlayerView: UIView {
-
+    
+    let viewModel: PlayerViewModelType
+    
     init(viewModel: PlayerViewModelType) {
+        self.viewModel = viewModel
+        
         super.init(frame: CGRect.zero)
     }
     

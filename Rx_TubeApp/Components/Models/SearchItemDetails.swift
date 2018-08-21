@@ -72,6 +72,15 @@ struct SearchItemDetails {
             self.channelStatistics = channelStatistics
             self.channelTopicDetails = channelTopicDetails
         }
+        
+        func toChannel() -> Channel {
+            return Channel(
+                id: id,
+                snippet: channelSnippet,
+                contentDetails: channelContentDetails,
+                statistics: channelStatistics,
+                topicDetails: channelTopicDetails)
+        }
     }
     
     struct Channel {
@@ -88,6 +97,19 @@ struct SearchItemDetails {
                 let topicDetails = channel.topicDetails else { return nil }
             
             self.id = channel.id
+            self.snippet = snippet
+            self.contentDetails = contentDetails
+            self.statistics = statistics
+            self.topicDetails = topicDetails
+        }
+        
+        init(id: String,
+             snippet: Channels.Item.Snippet,
+             contentDetails: Channels.Item.ContentDetails,
+             statistics: Channels.Item.Statistics,
+             topicDetails: Channels.Item.TopicDetails) {
+            
+            self.id = id
             self.snippet = snippet
             self.contentDetails = contentDetails
             self.statistics = statistics
