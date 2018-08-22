@@ -1,0 +1,9 @@
+{
+  "commitish" : "0.3.3",
+  "iOS" : [
+    {
+      "name" : "DIKit",
+      "hash" : "e77c46e7e0008a87e3d6a3ef5256c54aceda802041505a0a28f9d1de31a2acbb"
+    }
+  ]
+}

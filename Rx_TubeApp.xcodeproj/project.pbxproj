@@ -26,16 +26,6 @@
 		A33F4BE81F5BA91B00ADC19C /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F4BE71F5BA91B00ADC19C /* Videos.swift */; };
 		A33F4BEA1F5BA93200ADC19C /* Channels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F4BE91F5BA93200ADC19C /* Channels.swift */; };
 		A33F4BEC1F5BB03E00ADC19C /* Playlists.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F4BEB1F5BB03E00ADC19C /* Playlists.swift */; };
-		A350AE2C1F3A020B00D387A8 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A37245ED1F39FA0D00CADACB /* Result.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		A350AE2D1F3A020B00D387A8 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A37245ED1F39FA0D00CADACB /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A350AE2E1F3A020B00D387A8 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A391FE701F3219DA008A2F9C /* RxCocoa.framework */; };
-		A350AE2F1F3A020B00D387A8 /* RxCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A391FE701F3219DA008A2F9C /* RxCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A350AE321F3A020B00D387A8 /* RxMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */; };
-		A350AE331F3A020B00D387A8 /* RxMoya.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A350AE341F3A020B00D387A8 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00B1F05CBC300E053D1 /* Moya.framework */; };
-		A350AE351F3A020B00D387A8 /* Moya.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00B1F05CBC300E053D1 /* Moya.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A350AE381F3A020B00D387A8 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF64581EA581CF0072C43F /* RxSwift.framework */; };
-		A350AE391F3A020B00D387A8 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF64581EA581CF0072C43F /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A350AE3E1F3A09C700D387A8 /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = A350AE3D1F3A09C700D387A8 /* UIViewController+Rx.swift */; };
 		A35C768A20F0C3D800C2BB08 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A35C768920F0C3D800C2BB08 /* libc++.tbd */; };
 		A35C769020F0C6A900C2BB08 /* FirebaseAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A35C768B20F0C6A800C2BB08 /* FirebaseAuth.framework */; };
@@ -65,6 +55,13 @@
 		A3AABAB71F72C200001E425F /* Thumbnails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AABAB61F72C200001E425F /* Thumbnails.swift */; };
 		A3AAF6021F2E0E17003B2A71 /* videoCategories.json in Resources */ = {isa = PBXBuildFile; fileRef = A3AAF6011F2E0E0B003B2A71 /* videoCategories.json */; };
 		A3B599DF20AB2F970047338E /* YoutubeSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B599DE20AB2F970047338E /* YoutubeSearchRepository.swift */; };
+		A3C0C50C212DB670004216FE /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A391FE701F3219DA008A2F9C /* RxCocoa.framework */; };
+		A3C0C50D212DB6A5004216FE /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CEF64581EA581CF0072C43F /* RxSwift.framework */; };
+		A3C0C50E212DB6B4004216FE /* RxMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */; };
+		A3C0C50F212DB6BB004216FE /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B0B00B1F05CBC300E053D1 /* Moya.framework */; };
+		A3C0C510212DB6C0004216FE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3E50A241F46C600001FEC7C /* Alamofire.framework */; };
+		A3C0C511212DB6C8004216FE /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A37245ED1F39FA0D00CADACB /* Result.framework */; };
+		A3C0C513212DB6F3004216FE /* DIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C0C512212DB6F3004216FE /* DIKit.framework */; };
 		A3C7BC0D1F150BF0003AF320 /* SearchItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C7BC0C1F150BF0003AF320 /* SearchItems.swift */; };
 		A3D5CC7A1FC0289B00FEDFCA /* RelatedVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D5CC791FC0289B00FEDFCA /* RelatedVideoCell.swift */; };
 		A3D5CC7C1FC028BB00FEDFCA /* RelatedVideoCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D5CC7B1FC028BB00FEDFCA /* RelatedVideoCellModel.swift */; };
@@ -72,8 +69,6 @@
 		A3DECA691F92345D0077086E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DECA681F92345D0077086E /* AppCoordinator.swift */; };
 		A3DECA6B1F9234CB0077086E /* ItemListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DECA6A1F9234CB0077086E /* ItemListCoordinator.swift */; };
 		A3E3FB321F85A193009209D2 /* ObservableType+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E3FB311F85A193009209D2 /* ObservableType+Codable.swift */; };
-		A3E50A261F46C608001FEC7C /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3E50A241F46C600001FEC7C /* Alamofire.framework */; };
-		A3E50A271F46C608001FEC7C /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A3E50A241F46C600001FEC7C /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A3E671DB200E4B1C00617073 /* VideoOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E671DA200E4B1C00617073 /* VideoOverviewView.swift */; };
 		A3E671DD200E4B3D00617073 /* VideoOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E671DC200E4B3D00617073 /* VideoOverviewViewModel.swift */; };
 		A3F30F541F8D8B6700684487 /* ItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3071DCE1F8CF9D900CD833E /* ItemListViewController.swift */; };
@@ -106,25 +101,6 @@
 			remoteInfo = Rx_TubeApp;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		A3FD589E1F39FB97001EDBE0 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				A350AE331F3A020B00D387A8 /* RxMoya.framework in Embed Frameworks */,
-				A350AE351F3A020B00D387A8 /* Moya.framework in Embed Frameworks */,
-				A350AE391F3A020B00D387A8 /* RxSwift.framework in Embed Frameworks */,
-				A350AE2F1F3A020B00D387A8 /* RxCocoa.framework in Embed Frameworks */,
-				A350AE2D1F3A020B00D387A8 /* Result.framework in Embed Frameworks */,
-				A3E50A271F46C608001FEC7C /* Alamofire.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1C0DACEC1E966B9C00B3D2C4 /* Rx_TubeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rx_TubeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,6 +167,7 @@
 		A3B0B00B1F05CBC300E053D1 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
 		A3B0B00D1F05CBD900E053D1 /* RxMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxMoya.framework; path = Carthage/Build/iOS/RxMoya.framework; sourceTree = "<group>"; };
 		A3B599DE20AB2F970047338E /* YoutubeSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YoutubeSearchRepository.swift; path = Components/Repository/YoutubeSearchRepository.swift; sourceTree = "<group>"; };
+		A3C0C512212DB6F3004216FE /* DIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DIKit.framework; path = Carthage/Build/iOS/DIKit.framework; sourceTree = "<group>"; };
 		A3C7BC0C1F150BF0003AF320 /* SearchItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchItems.swift; path = Components/Models/SearchItems.swift; sourceTree = "<group>"; };
 		A3D5CC791FC0289B00FEDFCA /* RelatedVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RelatedVideoCell.swift; path = UI/Views/SearchItem/RelatedVideoCell.swift; sourceTree = "<group>"; };
 		A3D5CC7B1FC028BB00FEDFCA /* RelatedVideoCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RelatedVideoCellModel.swift; path = UI/Views/SearchItem/RelatedVideoCellModel.swift; sourceTree = "<group>"; };
@@ -218,6 +195,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A35C768A20F0C3D800C2BB08 /* libc++.tbd in Frameworks */,
+				A3C0C513212DB6F3004216FE /* DIKit.framework in Frameworks */,
+				A3C0C511212DB6C8004216FE /* Result.framework in Frameworks */,
+				A3C0C510212DB6C0004216FE /* Alamofire.framework in Frameworks */,
+				A3C0C50F212DB6BB004216FE /* Moya.framework in Frameworks */,
+				A3C0C50E212DB6B4004216FE /* RxMoya.framework in Frameworks */,
+				A3C0C50D212DB6A5004216FE /* RxSwift.framework in Frameworks */,
+				A3C0C50C212DB670004216FE /* RxCocoa.framework in Frameworks */,
 				A35C769020F0C6A900C2BB08 /* FirebaseAuth.framework in Frameworks */,
 				A3715FE2210F5F1000CE3589 /* RealmSwift.framework in Frameworks */,
 				A3715FE3210F5F1000CE3589 /* Realm.framework in Frameworks */,
@@ -225,13 +209,7 @@
 				A35C769120F0C6A900C2BB08 /* FirebaseCore.framework in Frameworks */,
 				A35C769320F0C6A900C2BB08 /* FirebaseDatabase.framework in Frameworks */,
 				A35C769420F0C6A900C2BB08 /* GoogleMobileAds.framework in Frameworks */,
-				A3E50A261F46C608001FEC7C /* Alamofire.framework in Frameworks */,
 				A304B57C21109E2300DEB348 /* GoogleSignIn.framework in Frameworks */,
-				A350AE321F3A020B00D387A8 /* RxMoya.framework in Frameworks */,
-				A350AE341F3A020B00D387A8 /* Moya.framework in Frameworks */,
-				A350AE381F3A020B00D387A8 /* RxSwift.framework in Frameworks */,
-				A350AE2E1F3A020B00D387A8 /* RxCocoa.framework in Frameworks */,
-				A350AE2C1F3A020B00D387A8 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +282,7 @@
 		1CEF64551EA581BC0072C43F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A3C0C512212DB6F3004216FE /* DIKit.framework */,
 				A304B57B21109E2300DEB348 /* GoogleSignIn.framework */,
 				A3715FE1210F5F1000CE3589 /* Nuke.framework */,
 				A3715FE0210F5F1000CE3589 /* Realm.framework */,
@@ -535,8 +514,7 @@
 				1C0DACE81E966B9C00B3D2C4 /* Sources */,
 				1C0DACE91E966B9C00B3D2C4 /* Frameworks */,
 				1C0DACEA1E966B9C00B3D2C4 /* Resources */,
-				A33637C11F3221AA004A1E57 /* ShellScript */,
-				A3FD589E1F39FB97001EDBE0 /* Embed Frameworks */,
+				A33637C11F3221AA004A1E57 /* copy-framework */,
 				A3715FE5210F628800CE3589 /* SwiftLint */,
 			);
 			buildRules = (
@@ -668,7 +646,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A33637C11F3221AA004A1E57 /* ShellScript */ = {
+		A33637C11F3221AA004A1E57 /* copy-framework */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -683,7 +661,9 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/GoogleSignIn.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/DIKit.framework",
 			);
+			name = "copy-framework";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -702,7 +682,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
