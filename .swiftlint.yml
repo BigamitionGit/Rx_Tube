@@ -1,0 +1,16 @@
+#
+# .swiftlint.yml
+#
+excluded:
+  - Carthage
+  - Pods
+disabled_rules:
+  - trailing_whitespace
+  - type_name
+  - force_cast
+  - nesting
+
+identifier_name:
+  min_length: 1
+
+line_length: 150
