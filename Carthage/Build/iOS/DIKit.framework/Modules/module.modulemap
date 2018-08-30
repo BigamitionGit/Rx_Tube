@@ -1,4 +1,0 @@
-framework module DIKit {
-    header "DIKit-Swift.h"
-    requires objc
-}
