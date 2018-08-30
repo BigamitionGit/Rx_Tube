@@ -187,6 +187,8 @@
 		A3F30F611F8D8C9800684487 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchViewModel.swift; path = UI/Views/Search/SearchViewModel.swift; sourceTree = "<group>"; };
 		A3F30F631F8D8CA500684487 /* SearchItemCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchItemCellModel.swift; path = UI/Views/SearchItem/SearchItemCellModel.swift; sourceTree = "<group>"; };
 		A3F4CB8E1FA20D6F00A41DAF /* ChannelCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChannelCoordinator.swift; path = UI/ViewControllers/Channel/ChannelCoordinator.swift; sourceTree = "<group>"; };
+		A3F6AEB521383B7200FCFE6F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		A3F6AEB721383B9400FCFE6F /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +284,8 @@
 		1CEF64551EA581BC0072C43F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A3F6AEB721383B9400FCFE6F /* libicucore.tbd */,
+				A3F6AEB521383B7200FCFE6F /* libsqlite3.tbd */,
 				A3C0C512212DB6F3004216FE /* DIKit.framework */,
 				A304B57B21109E2300DEB348 /* GoogleSignIn.framework */,
 				A3715FE1210F5F1000CE3589 /* Nuke.framework */,
