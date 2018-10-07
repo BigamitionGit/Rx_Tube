@@ -17,84 +17,31 @@
  
  // MARK: Types
  
- enum ItemListViewType {
-    case short
-    case long
-    case event
-    case latest
-    case viewCount
-    case rating
-    case region
-    case caption
-    case HD
-    
-    fileprivate var requireParameters: SearchRequire {
-        return SearchRequire(properties: [SearchRequire.Property.id, SearchRequire.Property.snippet])
-    }
-    
-    fileprivate var optionParameters:Set<SearchOption> {
-        switch self {
-        case .short:
-            return [SearchOption.videoDuration(duration: SearchOption.Duration.short)]
-        case .long:
-            return [SearchOption.videoDuration(duration: SearchOption.Duration.long)]
-        case .event:
-            return [SearchOption.eventType(event: SearchOption.Event.live)]
-        case .latest:
-            return [SearchOption.order(order: SearchOption.Order.date)]
-        case .viewCount:
-            return [SearchOption.order(order: SearchOption.Order.viewCount)]
-        case .rating:
-            return [SearchOption.order(order: SearchOption.Order.rating)]
-        case .period:
-            //TODO change date
-            return [SearchOption.publishedBefore(time: Date()), SearchOption.publishedAfter(time: Date())]
-        case .region:
-            // Default US
-            return [SearchOption.regionCode(code: YoutubeAPI.OptionParameter.RegionCode.US)]
-        case .caption:
-            return [SearchOption.videoCaption(caption: SearchOption.Caption.closedCaption)]
-        case .HD:
-            return [SearchOption.videoDefinition(definition: SearchOption.Definition.high)]
-        }
-    }
- }
- 
  protocol ItemListViewModelType: class {
     
     // Input
-    var viewDidLoad: PublishSubject<Void> { get }
-    var searchText: BehaviorRelay<String> { get }
-    var searchKeyDidTap: PublishSubject<Void> { get }
-    var videoCategory: BehaviorRelay<String> { get }
-    var selectedTab: PublishSubject<Void> { get }
-    var refresh: PublishSubject<Void> { get }
-    var horizontalSwipe: PublishSubject<Void> { get }
-    var selectedIndexPath: PublishSubject<IndexPath> { get }
+    var viewDidLoad: PublishRelay<Void> { get }
+    var refresh: PublishRelay<Void> { get }
+    var selectedIndexPath: PublishRelay<IndexPath> { get }
     
     // Output
-    var showPlayer: PublishRelay<SearchItemDetails.Video> { get }
-    var showPlaylist: Driver<SearchItemDetails.Playlist> { get }
-    var pushChannelDetail: PublishRelay<SearchItemDetails.Channel> { get }
+    var showPlayer: Signal<SearchItemDetails.Video> { get }
+    var showPlaylist: Signal<SearchItemDetails.Playlist> { get }
+    var pushChannelDetail: Signal<SearchItemDetails.Channel> { get }
     var itemDataSource: Driver<SearchItemCellModel> { get }
  }
  
  final class ItemListViewModel: ItemListViewModelType {
     
     // MARK: Input
-    var viewDidLoad = PublishSubject<Void>()
-    var searchText = BehaviorRelay(value: "")
-    var searchKeyDidTap = PublishSubject<Void>()
-    var videoCategory = BehaviorRelay(value: "")
-    var selectedTab = PublishSubject<Void> ()
-    var refresh = PublishSubject<Void>()
-    var horizontalSwipe = PublishSubject<Void>()
-    var selectedIndexPath = PublishSubject<IndexPath>()
+    let viewDidLoad = PublishRelay<Void>()
+    let refresh = PublishRelay<Void>()
+    let selectedIndexPath = PublishRelay<IndexPath>()
     
     // MARK: Output
-    let showPlayer = PublishRelay<SearchItemDetails.Video>()
-    let showPlaylist: Driver<SearchItemDetails.Playlist>
-    let pushChannelDetail = PublishRelay<SearchItemDetails.Channel>()
+    let showPlayer: Signal<SearchItemDetails.Video>
+    let showPlaylist: Signal<SearchItemDetails.Playlist>
+    let pushChannelDetail: Signal<SearchItemDetails.Channel>
     let itemDataSource: Driver<SearchItemCellModel>
     
     private let disposeBag = DisposeBag()
@@ -102,11 +49,10 @@
     // MARK: Initializing
     
     init(searchRepository: YoutubeSearchRepositoryType,
-         searchDetailRepository: YoutubeSearchDetailsRepositoryType,
-         type: ItemListViewType) {
+         searchDetailRepository: YoutubeSearchDetailsRepositoryType) {
         
         let searchItemDetails: Observable<SearchItemDetails> = Observable
-            .of(viewDidLoad, searchKeyDidTap, selectedTab, refresh, horizontalSwipe)
+            .of(viewDidLoad, refresh)
             .merge()
             .withLatestFrom(searchText)
             .withLatestFrom(videoCategory) { ($0, $1) }
@@ -119,14 +65,13 @@
             .flatMap(searchDetailRepository.fetch)
             .share(replay: 1)
         
-        
         itemDataSource = searchItemDetails
             .map(SearchItemCellModel.init)
             .asDriver(onErrorDriveWith: Driver.empty())
         
         let selectedItem = selectedIndexPath
             .withLatestFrom(searchItemDetails) { indexPath, model in model.items[indexPath.row] }
-            .share(replay: 1)
+            .share()
         
         selectedItem
             .flatMap { item in item.video.map { Observable.just($0) } ?? Observable.empty() }
@@ -134,10 +79,9 @@
             .bind(to: showPlayer)
             .disposed(by: disposeBag)
         
-        
         showPlaylist = selectedItem
             .flatMap { item in item.playlist.map { Observable.just($0) } ?? Observable.empty() }
-            .asDriver(onErrorDriveWith: Driver.empty())
+            .asSignal(onErrorSignalWith: Signal.empty())
         
         selectedItem
             .flatMap { item in item.channel.map { Observable.just($0) } ?? Observable.empty() }
