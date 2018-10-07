@@ -21,7 +21,7 @@ final class ItemListCoordinator: BaseCoordinator<Void> {
     override func start() -> Observable<Void> {
         let searchRepository = YoutubeSearchRepository(provider: YoutubeAPI.provider)
         let searchDetailRepository = YoutubeSearchDetailsRepository(provider: YoutubeAPI.provider)
-        let viewModel = ItemListViewModel(searchRepository: searchRepository, searchDetailRepository: searchDetailRepository, type: .HD)
+        let viewModel = ItemListViewModel(searchRepository: searchRepository, searchDetailRepository: searchDetailRepository)
         let viewController = ItemListViewController(viewModel: viewModel)
         
         let navigationController = NavigationController(rootViewController: viewController)

@@ -258,7 +258,7 @@ enum YoutubeAPI {
             case datetime(time:Date)
             case q(keyword:String)
             case regionCode(code:RegionCode)
-            case type(type:SearchType)
+            case type(types:Set<SearchType>)
             case videoCaption(caption:Caption)
             case videoCategoryId(id:String)
             case videoDefinition(definition:Definition)
@@ -275,7 +275,7 @@ enum YoutubeAPI {
                 case .datetime(let time): return time
                 case .q(let keyword): return keyword
                 case .regionCode(let code): return code.rawValue
-                case .type(let type): return type.rawValue
+                case .type(let types): return types.map { $0.rawValue }.joined(separator: ",")
                 case .videoCaption(let caption): return caption.rawValue
                 case .videoCategoryId(let id): return id
                 case .videoDefinition(let definition): return definition.rawValue
@@ -405,7 +405,7 @@ extension YoutubeAPI:TargetType {
             }
             params[YoutubeAPI.keyParameter] = YoutubeAPI.keyProperty
             if let f = filter, f.isNeedTypeVideo || options.contains(where: { $0.isNeedTypeVideo }) {
-                let type = OptionParameter.Search.type(type: .video)
+                let type = OptionParameter.Search.type(types: [.video])
                 params[type.parameter] = type.property
             }
             return .requestParameters(parameters: params, encoding: URLEncoding.default)

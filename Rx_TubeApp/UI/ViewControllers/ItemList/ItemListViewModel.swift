@@ -24,7 +24,6 @@
     case latest
     case viewCount
     case rating
-    case period
     case region
     case caption
     case HD
