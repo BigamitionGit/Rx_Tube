@@ -11,14 +11,14 @@ import RealmSwift
 
 protocol ConvertibleToRealmObject {
     
-    associatedtype T: Object
+    associatedtype O: Object
     
-    func toRealmObject() -> T
+    func toRealmObject() -> O
 }
 
 protocol ConvertibleToModel {
     
-    associatedtype T
+    associatedtype M
     
-    func toModel() -> T
+    func toModel() -> M
 }
