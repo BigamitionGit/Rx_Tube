@@ -8,28 +8,8 @@
 
 import Foundation
 
-struct SearchItemCellModel {
-    
-    enum ItemType {
-        case video(SearchVideoCellModel)
-        case channel(SearchChannelCellModel)
-        case playlist(SearchPlaylistCellModel)
-    }
-    
-    let items: [ItemType]
-    
-    init(model: SearchItemDetails) {
-        
-        items = model.items
-            .map { item in
-                switch (item) {
-                case .video(let video):
-                    return ItemType.video(SearchVideoCellModel(video: video))
-                case .channel(let channel):
-                    return ItemType.channel(SearchChannelCellModel(channel: channel))
-                case .playlist(let playlist):
-                    return ItemType.playlist(SearchPlaylistCellModel(playlist: playlist))
-                }
-        }
-    }
+enum SearchItemCellModel {
+    case video(SearchVideoCellModel)
+    case channel(SearchChannelCellModel)
+    case playlist(SearchPlaylistCellModel)
 }

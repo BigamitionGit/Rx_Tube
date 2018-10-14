@@ -55,9 +55,6 @@ final class ItemListViewController: UIViewController {
     // MARK: Configuring
     
     private func configure(_ viewModel: ItemListViewModelType) {
-        self.rx.viewDidLoad
-            .bind(to: viewModel.viewDidLoad)
-            .disposed(by: disposeBag)
         
         viewModel.itemDataSource
             .drive(videoListView.rx.items(dataSource: dataSource))
@@ -72,14 +69,13 @@ final class ItemListViewController: UIViewController {
     
     class DataSource: NSObject, RxTableViewDataSourceType, UITableViewDataSource, UITableViewDelegate {
         
-        typealias Element = SearchItemCellModel
-        var items: [SearchItemCellModel.ItemType] = []
+        var items: [SearchItemCellModel] = []
         
         fileprivate let selectedIndexPath = PublishRelay<IndexPath>()
         
-        func tableView(_ tableView: UITableView, observedEvent: Event<SearchItemCellModel>) {
+        func tableView(_ tableView: UITableView, observedEvent: Event<[SearchItemCellModel]>) {
             if case .next(let model) = observedEvent {
-                self.items = model.items
+                self.items = model
                 tableView.reloadData()
             }
         }
