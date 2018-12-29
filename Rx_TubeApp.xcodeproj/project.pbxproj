@@ -28,6 +28,11 @@
 		A35C769120F0C6A900C2BB08 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A35C768C20F0C6A800C2BB08 /* FirebaseCore.framework */; };
 		A35C769320F0C6A900C2BB08 /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A35C768E20F0C6A900C2BB08 /* FirebaseDatabase.framework */; };
 		A35C769420F0C6A900C2BB08 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A35C768F20F0C6A900C2BB08 /* GoogleMobileAds.framework */; };
+		A36886032189EA390059BCC1 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36886022189EA390059BCC1 /* TabBarController.swift */; };
+		A36886052189EC740059BCC1 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36886042189EC740059BCC1 /* TabBarViewModel.swift */; };
+		A36886082189F21F0059BCC1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36886072189F21F0059BCC1 /* HomeViewModel.swift */; };
+		A368860A2189F2340059BCC1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36886092189F2340059BCC1 /* HomeViewController.swift */; };
+		A368860C2189F3A30059BCC1 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A368860B2189F3A30059BCC1 /* TabBarCoordinator.swift */; };
 		A36E8D691FB485AF007FD0C9 /* SearchVideoCategoryCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36E8D681FB485AF007FD0C9 /* SearchVideoCategoryCellModel.swift */; };
 		A3715FE2210F5F1000CE3589 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3715FDF210F5F1000CE3589 /* RealmSwift.framework */; };
 		A3715FE3210F5F1000CE3589 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3715FE0210F5F1000CE3589 /* Realm.framework */; };
@@ -142,6 +147,11 @@
 		A35C768D20F0C6A800C2BB08 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = Carthage/Build/iOS/Firebase.framework; sourceTree = "<group>"; };
 		A35C768E20F0C6A900C2BB08 /* FirebaseDatabase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseDatabase.framework; path = Carthage/Build/iOS/FirebaseDatabase.framework; sourceTree = "<group>"; };
 		A35C768F20F0C6A900C2BB08 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Carthage/Build/iOS/GoogleMobileAds.framework; sourceTree = "<group>"; };
+		A36886022189EA390059BCC1 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = UI/ViewControllers/TabBarController.swift; sourceTree = "<group>"; };
+		A36886042189EC740059BCC1 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarViewModel.swift; path = UI/ViewControllers/TabBarViewModel.swift; sourceTree = "<group>"; };
+		A36886072189F21F0059BCC1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = UI/ViewControllers/Home/HomeViewModel.swift; sourceTree = "<group>"; };
+		A36886092189F2340059BCC1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = UI/ViewControllers/Home/HomeViewController.swift; sourceTree = "<group>"; };
+		A368860B2189F3A30059BCC1 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarCoordinator.swift; path = UI/ViewControllers/TabBarCoordinator.swift; sourceTree = "<group>"; };
 		A36E8D681FB485AF007FD0C9 /* SearchVideoCategoryCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchVideoCategoryCellModel.swift; path = UI/Views/Search/SearchVideoCategoryCellModel.swift; sourceTree = "<group>"; };
 		A3715FDF210F5F1000CE3589 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		A3715FE0210F5F1000CE3589 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
@@ -385,6 +395,15 @@
 			name = Rx;
 			sourceTree = "<group>";
 		};
+		A36886062189F1DE0059BCC1 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				A36886072189F21F0059BCC1 /* HomeViewModel.swift */,
+				A36886092189F2340059BCC1 /* HomeViewController.swift */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
 		A38A2FAB1F184091006715A0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -550,10 +569,14 @@
 		B9F26EB31EF2764400E8D009 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A36886062189F1DE0059BCC1 /* Home */,
 				A3071DCB1F8CF9AF00CD833E /* ItemList */,
 				A3071DCA1F8CF9A700CD833E /* Channel */,
 				A38038E81FA43EE800623A09 /* NavigationController.swift */,
 				A38E1171211B27850038C572 /* NavigationViewModel.swift */,
+				A36886022189EA390059BCC1 /* TabBarController.swift */,
+				A36886042189EC740059BCC1 /* TabBarViewModel.swift */,
+				A368860B2189F3A30059BCC1 /* TabBarCoordinator.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -750,6 +773,7 @@
 				A38DC8B220D9594100577FC2 /* YoutubeChannelsRepository.swift in Sources */,
 				A3F30F571F8D8B7100684487 /* ChannelViewModel.swift in Sources */,
 				A3D4D95D216973FA0090A97D /* Playlists.swift in Sources */,
+				A368860C2189F3A30059BCC1 /* TabBarCoordinator.swift in Sources */,
 				A38DC8AE20D9538200577FC2 /* StateMachine.swift in Sources */,
 				A3D4D95F216974190090A97D /* Thumbnails.swift in Sources */,
 				A30912B320DBFDDD001AA5D9 /* SearchChannelCellModel.swift in Sources */,
@@ -758,11 +782,14 @@
 				A3D4D9692169A56F0090A97D /* YoutubeSearchConditionHistory.swift in Sources */,
 				A38DC8B020D9581400577FC2 /* YoutubeVideosRepository.swift in Sources */,
 				A30912B120DBF792001AA5D9 /* SearchVideoCellModel.swift in Sources */,
+				A36886032189EA390059BCC1 /* TabBarController.swift in Sources */,
 				A3D4D96321697C6A0090A97D /* Database.swift in Sources */,
 				A38E1170211B25E90038C572 /* PlayerCoordinator.swift in Sources */,
 				A30912B520DBFF4B001AA5D9 /* SearchPlaylistCellModel.swift in Sources */,
 				A3F30F6B1F8D8CDB00684487 /* PlaylistViewModel.swift in Sources */,
 				A3D4D957216973850090A97D /* VideoCategory.swift in Sources */,
+				A368860A2189F2340059BCC1 /* HomeViewController.swift in Sources */,
+				A36886082189F21F0059BCC1 /* HomeViewModel.swift in Sources */,
 				A3D5CC7A1FC0289B00FEDFCA /* RelatedVideoCell.swift in Sources */,
 				A304B5802110A36A00DEB348 /* YoutubeSearchDetailsRepository.swift in Sources */,
 				A3D4D950216972E80090A97D /* APIService.swift in Sources */,
@@ -784,6 +811,7 @@
 				A3F30F691F8D8CD200684487 /* SearchViewModel.swift in Sources */,
 				1C0DACF01E966B9C00B3D2C4 /* AppDelegate.swift in Sources */,
 				A3F30F671F8D8CCA00684487 /* SearchItemCellModel.swift in Sources */,
+				A36886052189EC740059BCC1 /* TabBarViewModel.swift in Sources */,
 				A3F30F541F8D8B6700684487 /* ItemListViewController.swift in Sources */,
 				A38038E91FA43EE800623A09 /* NavigationController.swift in Sources */,
 				A3F30F6A1F8D8CD700684487 /* PlaylistView.swift in Sources */,

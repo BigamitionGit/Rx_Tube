@@ -26,9 +26,6 @@ class NavigationController: UINavigationController {
     
     private func setup() {
         
-        playerView?.viewModel.showChannelDetail
-            .subscribe(onNext: { [weak self] _ in self?.dismissPlayer() })
-            .disposed(by: disposeBag)
     }
     
     func showPlayer() {

@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 import RxMoya
 
 enum ChannelCoordinationResult {
@@ -16,22 +17,28 @@ enum ChannelCoordinationResult {
 
 final class ChannelCoordinator: BaseCoordinator<ChannelCoordinationResult> {
     
-    private let channel: SearchItemDetails.Channel
+    private let channel: Signal<SearchItemDetails.Channel>
     private let rootViewController: UIViewController
     
-    init(channel: SearchItemDetails.Channel, rootViewController: UIViewController) {
+    init(channel: Signal<SearchItemDetails.Channel>, rootViewController: UIViewController) {
         
         self.channel = channel
         self.rootViewController = rootViewController
     }
     
     override func start() -> Observable<CoordinationResult> {
-        let repository = YoutubeChannelsRepository(provider: YoutubeAPI.provider)
-        let viewModel = ChannelViewModel(channel: channel, repository: repository)
-        let viewController = ChannelViewController(viewModel: viewModel)
+        let youtubeChannelsRepository = YoutubeChannelsRepository(provider: YoutubeAPI.provider)
+        let channelViewModel = ChannelViewModel(repository: youtubeChannelsRepository)
+        let viewController = ChannelViewController(viewModel: channelViewModel)
+        
+        channel
+            .emit(to: channelViewModel.channelDidTap)
+            .disposed(by: disposeBag)
         
         rootViewController.navigationController?.pushViewController(viewController, animated: true)
         
-        return Observable.never()
+        return channelViewModel.playVideo
+            .map { ChannelCoordinationResult.player(video: $0) }
+            .asObservable()
     }
 }

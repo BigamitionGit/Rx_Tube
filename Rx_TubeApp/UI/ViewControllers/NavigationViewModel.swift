@@ -10,21 +10,10 @@ import RxCocoa
 import RxSwift
 
 protocol NavigationViewModelType {
-    // Input
-    
-    var videoDidTap: PublishRelay<Void> { get }
-    
-    // Output
-    
+        
 }
 
 final class NavigationViewModel: NavigationViewModelType {
     
-    // Input
-    
-    let videoDidTap = PublishRelay<Void>()
-    
-    init() {
-    }
     
 }

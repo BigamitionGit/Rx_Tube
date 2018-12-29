@@ -22,9 +22,10 @@
     var selectedIndexPath: PublishRelay<IndexPath> { get }
     
     // Output
-    var showPlayer: Signal<SearchItemDetails.Video> { get }
+    var showPlayer: Signal<Void> { get }
+    var playVideo: Signal<SearchItemDetails.Video> { get }
     var showPlaylist: Signal<SearchItemDetails.Playlist> { get }
-    var pushChannelDetail: Signal<SearchItemDetails.Channel> { get }
+    var showChannelDetail: Signal<SearchItemDetails.Channel> { get }
     var itemDataSource: Driver<[SearchItemCellModel]> { get }
  }
  
@@ -36,9 +37,10 @@
     let selectedIndexPath = PublishRelay<IndexPath>()
     
     // MARK: Output
-    let showPlayer: Signal<SearchItemDetails.Video>
+    let showPlayer: Signal<Void>
+    let playVideo: Signal<SearchItemDetails.Video>
     let showPlaylist: Signal<SearchItemDetails.Playlist>
-    let pushChannelDetail: Signal<SearchItemDetails.Channel>
+    let showChannelDetail: Signal<SearchItemDetails.Channel>
     let itemDataSource: Driver<[SearchItemCellModel]>
     
     private let disposeBag = DisposeBag()
@@ -64,15 +66,21 @@
             .withLatestFrom(searchItemDetails) { indexPath, model in model.items[indexPath.row] }
             .share()
         
-        showPlayer = selectedItem
+        let selectedVideo = selectedItem
             .flatMap { item in item.video.map { Observable.just($0) } ?? Observable.empty() }
+            .share()
+        
+        showPlayer = selectedVideo.map { _ in () }
+            .asSignal(onErrorSignalWith: Signal.empty())
+        
+        playVideo = selectedVideo
             .asSignal(onErrorSignalWith: Signal.empty())
         
         showPlaylist = selectedItem
             .flatMap { item in item.playlist.map { Observable.just($0) } ?? Observable.empty() }
             .asSignal(onErrorSignalWith: Signal.empty())
         
-        pushChannelDetail = selectedItem
+        showChannelDetail = selectedItem
             .flatMap { item in item.channel.map { Observable.just($0) } ?? Observable.empty() }
             .asSignal(onErrorSignalWith: Signal.empty())
         

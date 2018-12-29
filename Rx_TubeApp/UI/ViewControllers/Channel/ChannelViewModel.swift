@@ -12,25 +12,26 @@ import RxSwift
 protocol ChannelViewModelType {
     // Input
     
-    var viewDidLoad: PublishSubject<Void> { get }
-    var videoDidTap: PublishSubject<Int> { get }
+    var channelDidTap: PublishRelay<SearchItemDetails.Channel> { get }
     
     // Output
     
-    var showPlayer: Driver<String> { get }
+    var playVideo: Signal<SearchItemDetails.Video> { get }
+    
 }
 
 final class ChannelViewModel: ChannelViewModelType {
     
     // Input
     
-    let viewDidLoad = PublishSubject<Void>()
-    let videoDidTap = PublishSubject<Int>()
+    let channelDidTap = PublishRelay<SearchItemDetails.Channel>()
     
-    let showPlayer: Driver<String>
+    // Output
     
-    init(channel: SearchItemDetails.Channel, repository: YoutubeChannelsRepositoryType) {
-        showPlayer = Driver.empty()
+    let playVideo: Signal<SearchItemDetails.Video>
+    
+    init(repository: YoutubeChannelsRepositoryType) {
+        playVideo = Signal.empty()
     }
     
 }

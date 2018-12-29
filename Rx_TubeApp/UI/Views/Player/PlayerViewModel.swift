@@ -25,13 +25,15 @@ protocol PlayerViewModelType {
     
     /// Output
     
-    var play: Driver<String> { get }
-    var showChannelDetail: Observable<SearchItemDetails.Channel> { get }
+    var play: Signal<String> { get }
+    var showChannelDetail: Signal<SearchItemDetails.Channel> { get }
     var overview: Driver<VideoOverviewViewModelType> { get }
     var relatedVideoCellModels: Driver<[RelatedVideoCellModel]> { get }
 }
 
 final class PlayerViewModel: PlayerViewModelType {
+    
+    /// Input
     
     let videoDidTap = PublishRelay<SearchItemDetails.Video>()
     let relatedVideoDidTapIndexPath = PublishSubject<IndexPath>()
@@ -41,8 +43,10 @@ final class PlayerViewModel: PlayerViewModelType {
     let nextDidTap = PublishSubject<Void>()
     let previousDidTap = PublishSubject<Void>()
     
-    let play: Driver<String>
-    let showChannelDetail: Observable<SearchItemDetails.Channel>
+    /// Output
+    
+    let play: Signal<String>
+    let showChannelDetail: Signal<SearchItemDetails.Channel>
     var overview: Driver<VideoOverviewViewModelType>
     var relatedVideoCellModels: Driver<[RelatedVideoCellModel]>
     
@@ -56,8 +60,9 @@ final class PlayerViewModel: PlayerViewModelType {
             .merge()
             .share(replay: 1)
         
-        play = playVideo.map { $0.player.embedHtml }
-            .asDriver(onErrorDriveWith: Driver.empty())
+        play = playVideo
+            .map { $0.player.embedHtml }
+            .asSignal(onErrorSignalWith: Signal.empty())
         
         overview = playVideo.map(VideoOverviewViewModel.init)
             .asDriver(onErrorDriveWith: Driver.empty())
@@ -65,7 +70,7 @@ final class PlayerViewModel: PlayerViewModelType {
         showChannelDetail = channelDidTap
             .withLatestFrom(playVideo)
             .map { $0.toChannel() }
-            .observeOn(MainScheduler.instance)
+            .asSignal(onErrorSignalWith: Signal.empty())
         
         let relatedVideos: Observable<[SearchItemDetails.Video]> = playVideo
             .flatMap { video in relatedVideoRepository.fetch(videoId: video.id) }
